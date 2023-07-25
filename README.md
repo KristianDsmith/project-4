@@ -79,7 +79,8 @@ The target audience for the restaurant and table booking website includes both p
 **Social Media Integration**
 - The website can be linked to the restaurant's social media accounts, making it easy for customers to share their dining experiences and reviews.
 
-- Overall, the website will serve as an efficient and user-friendly platform, streamlining the table booking process for customers and providing restaurant staff with tools to manage reservations effectively. 
+**Overall**
+- The website will serve as an efficient and user-friendly platform, streamlining the table booking process for customers and providing restaurant staff with tools to manage reservations effectively. 
 - The goal is to create a positive and convenient dining experience that encourages repeat visits and word-of-mouth recommendations.
 
 ## Information Architecture

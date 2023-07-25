@@ -123,7 +123,7 @@ The target audience for the restaurant and table booking website includes both p
 
 - The decision to use this color palette was made to give it a natural warm restaurant feel.
 
-###Wireframes###
+### Wireframes ###
 
 **Home**
 

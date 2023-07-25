@@ -41,46 +41,46 @@ The target audience for the restaurant and table booking website includes both p
 ## Features
 
 **Interactive Menu**
--The website will showcase an interactive and visually appealing menu, displaying dishes with high-quality images and detailed descriptions. 
--Customers can easily browse through the menu to explore various food options.
+- The website will showcase an interactive and visually appealing menu, displaying dishes with high-quality images and detailed descriptions. 
+- Customers can easily browse through the menu to explore various food options.
 
 **Table Booking System**
--The core functionality of the website will be a user-friendly table booking system. 
--Customers can select their desired date and time, see available tables, and make reservations for a specific number of guests.
+- The core functionality of the website will be a user-friendly table booking system. 
+- Customers can select their desired date and time, see available tables, and make reservations for a specific number of guests.
 
 **Real-time Availability**
--The website will have real-time updates on table availability, ensuring that customers can view up-to-date information and make informed decisions while booking.
+- The website will have real-time updates on table availability, ensuring that customers can view up-to-date information and make informed decisions while booking.
 
 
 **Special Requests and Preferences**
--During the reservation process, customers can include any special requests or preferences, such as dietary restrictions or special occasions, so the restaurant can accommodate their needs accordingly.
+- During the reservation process, customers can include any special requests or preferences, such as dietary restrictions or special occasions, so the restaurant can accommodate their needs accordingly.
 
 **User Reviews and Ratings**
--The website will feature customer reviews and ratings, providing valuable feedback for potential diners and showcasing the restaurant's reputation.
+- The website will feature customer reviews and ratings, providing valuable feedback for potential diners and showcasing the restaurant's reputation.
 
 **Operating Hours and Location**
--Customers can easily find information about the restaurant's operating hours, address, and contact details on the website.
+- Customers can easily find information about the restaurant's operating hours, address, and contact details on the website.
 
 **Mobile Responsiveness**
--The website will be fully responsive to different devices, including smartphones and tablets, allowing customers to access it on the go.
+- The website will be fully responsive to different devices, including smartphones and tablets, allowing customers to access it on the go.
 
 **Reservation Confirmation and Reminders**
--After booking a table, customers will receive instant confirmation via email or SMS. Additionally, the website can send automated reminders closer to the reservation time.
+- After booking a table, customers will receive instant confirmation via email or SMS. Additionally, the website can send automated reminders closer to the reservation time.
 
 **Staff Management Interface**
--The website will provide a backend interface for restaurant staff to manage table reservations, check-in guests, and update table status (occupied or vacant).
+- The website will provide a backend interface for restaurant staff to manage table reservations, check-in guests, and update table status (occupied or vacant).
 
 **Customer Support**
--The website will offer customer support options, such as a contact form, allowing customers to get assistance with their inquiries or issues.
+- The website will offer customer support options, such as a contact form, allowing customers to get assistance with their inquiries or issues.
 
 **Security and Privacy**
--The website will prioritize data security and ensure that customer information is protected throughout the booking process.
+- The website will prioritize data security and ensure that customer information is protected throughout the booking process.
 
 **Social Media Integration**
--The website can be linked to the restaurant's social media accounts, making it easy for customers to share their dining experiences and reviews.
+- The website can be linked to the restaurant's social media accounts, making it easy for customers to share their dining experiences and reviews.
 
--Overall, the website will serve as an efficient and user-friendly platform, streamlining the table booking process for customers and providing restaurant staff with tools to manage reservations effectively. 
--The goal is to create a positive and convenient dining experience that encourages repeat visits and word-of-mouth recommendations.
+- Overall, the website will serve as an efficient and user-friendly platform, streamlining the table booking process for customers and providing restaurant staff with tools to manage reservations effectively. 
+- The goal is to create a positive and convenient dining experience that encourages repeat visits and word-of-mouth recommendations.
 
 ## Information Architecture
 

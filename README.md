@@ -112,6 +112,16 @@ The target audience for the restaurant and table booking website includes both p
 ![Staff member user model](static/images/staff-member-user-model.png)
 
 
+## Design
+
+
+### Color Scheme
+
+- The color scheme of the application is based on the dark black, greens and light green colors:
+
+![Color Scheme](static/images/color-palette.png)
+
+- The decision to use this color palette was made to give it a natural warm restaurant feel.
 
 ###Wireframes###
 

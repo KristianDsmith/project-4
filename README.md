@@ -1,4 +1,4 @@
-# Stret Gastro Restaraunt Booking App
+# Street Gastro Restaraunt Booking App
 
 ## About
 
@@ -110,3 +110,26 @@ The target audience for the restaurant and table booking website includes both p
 4. **Staff Member User Model**
 
 ![Staff member user model](static/images/staff-member-user-model.png)
+
+
+
+###Wireframes###
+
+**Home**
+
+![Home](static/images/wireframe-home.jpg)
+
+**Menu**
+
+![Menu](static/images/wireframe-menu.jpg)
+
+**Book**
+
+![Book](static/images/wireframe-book.jpg)
+
+**Contact**
+
+![Contact](static/images/wireframe-contact.jpg)
+
+
+

@@ -99,9 +99,14 @@ The target audience for the restaurant and table booking website includes both p
     - The user model was created using [Django-allauth](https://django-allauth.readthedocs.io/en/latest/).
     - The user model was then migrated to PostgreSQL.
 
+2. **Customer User Model**
 
 ![Customer user model](static/images/customer-user-model.png)
 
+3. **Manager User Model**
+   
 ![Manager user model](static/images/manager-user-model.png)
+
+4. **Staff Member User Model**
 
 ![Staff member user model](static/images/staff-member-user-model.png)

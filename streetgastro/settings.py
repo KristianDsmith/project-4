@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['8000-kristiandsmith-project-4-jxs5td264h.us2.codeanyapp.com',
-'street-gastro.herokuapp.com', 'localhost']
+'street-gastro-13c2e136005c.herokuapp.com', 'localhost']
 
 
 # Application definition

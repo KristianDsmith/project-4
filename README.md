@@ -94,3 +94,14 @@ The target audience for the restaurant and table booking website includes both p
 **Relationship diagram**
 
 ![Relationship diagram](static/images/relational-diagram%20.jpg)
+
+1. **Allauth User Model**
+    - The user model was created using [Django-allauth](https://django-allauth.readthedocs.io/en/latest/).
+    - The user model was then migrated to PostgreSQL.
+
+
+![Customer user model](static/images/customer-user-model.png)
+
+![Manager user model](static/images/manager-user-model.png)
+
+![Staff member user model](static/images/staff-member-user-model.png)

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MenuItem
+from .models import MenuItem, DietaryPreference
 import cloudinary
 
 
@@ -44,3 +44,23 @@ def book(request):
 
 def contact(request):
     return render(request, 'contact.html')
+
+
+def menu(request, dietary_preference_id=None):
+    dietary_preferences = DietaryPreference.objects.all()
+    selected_preference = None
+
+    if dietary_preference_id is not None:
+        selected_preference = DietaryPreference.objects.get(
+            pk=dietary_preference_id)
+        menu_items = MenuItem.objects.filter(
+            dietary_preferences=selected_preference)
+    else:
+        menu_items = MenuItem.objects.all()
+
+    context = {
+        'menu_items': menu_items,
+        'dietary_preferences': dietary_preferences,
+        'selected_preference': selected_preference,
+    }
+    return render(request, 'menu.html', context)

@@ -5,6 +5,23 @@
 {% block content %}
 <div class="container">
     <h1 class="menu-heading">Restaurant Menu</h1>
+
+    <!-- Form to select dietary preferences -->
+    <form class="filter-form" action="{% url 'menu' %}" method="get">
+        <label for="dietary_preference">Select Dietary Preference:</label>
+        <select name="dietary_preference_id" id="dietary_preference">
+            <option value="">All</option>
+            {% for preference in dietary_preferences %}
+            <option value="{{ preference.id }}" {% if selected_preference == preference.id %}selected{% endif %}>
+
+                {{ preference.name }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+
     <div class="row">
         {% for item in menu_items %}
         <div class="col-md-6">
@@ -22,5 +39,5 @@
         </div>
         {% endfor %}
     </div>
-</div>
-{% endblock %}
+    </div>
+    {% endblock %}

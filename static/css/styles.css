@@ -36,6 +36,9 @@ body {
     background-color: #8eb897;
 }
 
+/* hero section */
+
+
 .hero-section {
     /* Set the background image and other background properties */
     background-image: url('../images/restaraunt-imgae.jpg');
@@ -51,13 +54,14 @@ body {
     color: #fff;
     text-align: center;
     font-size: 32px;
+    margin-top: 20px;
 }
 
-.banner {
-    background-image: url('https://res.cloudinary.com/dqe39dixt/image/upload/v1690565132/restaraunt-imgae_z26vfs.jpg');
-    background-size: cover;
-    
+.hero-section h1 {
+    color: #fff;
+    font-size: 48px;
 }
+
 
 /* nav bar */
 
@@ -78,6 +82,16 @@ body {
 }
 
 /* Menu page */
+
+.container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/*.menu-heading {
+    padding: 20px 0;
+}
+*/
 
 .menu-list {
     display: grid;

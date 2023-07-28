@@ -1,6 +1,7 @@
 h1 {
     color: #040403;
     font-size: 24px;
+    font: Roboto, sans sarif;
 }
 
 h3 {
@@ -39,7 +40,25 @@ body {
 .banner {
     background-image: url('https://res.cloudinary.com/dqe39dixt/image/upload/v1690565132/restaraunt-imgae_z26vfs.jpg');
     background-size: cover;
-    /* Add other styles for the banner here */
+    
+}
+
+/* nav bar */
+
+.navbar-light .navbar-nav .nav-link {
+    color: #fff;
+    
+}
+
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #c3e8bd;
+    
+}
+
+.bg-custom {
+    background-color: #040403;
+    
 }
 
 /* Menu page */
@@ -74,4 +93,9 @@ body {
     /* Set your desired footer background color */
     text-align: center;
     line-height: 60px;
+}
+
+.footer-text {
+    color: #fff;
+    
 }

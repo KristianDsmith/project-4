@@ -15,6 +15,8 @@ import os
 import dj_database_url
 if os.path.isfile('env.py'):
     import env
+import cloudinary
+import cloudinary_storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['8000-kristiandsmith-project-4-jxs5td264h.us2.codeanyapp.com',
-'street-gastro-13c2e136005c.herokuapp.com', 'localhost']
+                 'street-gastro-13c2e136005c.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -44,9 +46,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'cloudinary_storage',
     'booking',
 ]
 
@@ -137,8 +139,23 @@ STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+cloudinary.config(
+    cloud_name='dqe39dixt',
+    api_key='772994592637585',
+    api_secret='82xPZBjITzkBZwnJvn037Lkq9Fs'
+)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dqe39dixt',
+    'API_KEY': '772994592637585',
+    'API_SECRET': '82xPZBjITzkBZwnJvn037Lkq9Fs'
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

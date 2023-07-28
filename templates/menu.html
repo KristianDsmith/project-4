@@ -1,28 +1,20 @@
-<!-- menu.html -->
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
+{% block title %}Restaurant's Menu{% endblock %}
 
-<head>
-    <title>Restaurant's Menu</title>
-    <!-- Add any CSS or JavaScript imports here if needed -->
-</head>
-
-<body>
-    <h1>Restaurant's Menu</h1>
-    <ul>
-        {% for item in menu_items %}
-        <li>
-            <h3>{{ item.name }}</h3>
-            <p>{{ item.description }}</p>
-            <p>Price: ${{ item.price }}</p>
-            <p>Dietary Tags: {{ item.dietary_tags }}</p>
-            {% if item.image_url %}
-            <img src="{{ item.image_url }}" alt="{{ item.name }}" width="200">
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-
-</html>
+{% block content %}
+<h1>Restaurant's Menu</h1>
+<ul>
+    {% for item in menu_items %}
+    <div class="card mb-3">
+        <h3>{{ item.name }}</h3>
+        <p>Price: {{ item.currency }}{{ item.price }}</p>
+        <p>Description: {{ item.description }}</p>
+        {% if item.image %}
+        <!-- Use the Cloudinary URL directly -->
+        <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" width="200">
+        {% endif %}
+    </div>
+    {% endfor %}
+</ul>
+{% endblock %}

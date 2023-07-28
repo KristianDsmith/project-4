@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Book a Table{% endblock %}
+
+{% block content %}
+<h2>Book a Table</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" name="name" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" required><br>
+
+    <label for="phone">Phone:</label>
+    <input type="text" name="phone" required><br>
+
+    <label for="date">Date:</label>
+    <input type="date" name="date" required><br>
+
+    <label for="time">Time:</label>
+    <input type="time" name="time" required><br>
+
+    <label for="number_of_guests">Number of Guests:</label>
+    <input type="number" name="number_of_guests" required><br>
+
+    <input type="submit" value="Book Now">
+</form>
+{% endblock %}

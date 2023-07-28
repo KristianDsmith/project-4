@@ -1,5 +1,5 @@
 h1 {
-    color: blue;
+    color: #040403;
     font-size: 24px;
 }
 
@@ -32,7 +32,36 @@ html {
 body {
     margin: 0;
     padding-bottom: 60px;
+    background-color: #8eb897;
     /* Adjust this value to match the height of your footer */
+}
+
+.banner {
+    background-image: url('https://res.cloudinary.com/dqe39dixt/image/upload/v1690565132/restaraunt-imgae_z26vfs.jpg');
+    background-size: cover;
+    /* Add other styles for the banner here */
+}
+
+/* Menu page */
+
+.menu-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.menu-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-price {
+    color: #777;
 }
 
 .footer {

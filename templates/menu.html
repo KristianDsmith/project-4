@@ -3,18 +3,23 @@
 {% block title %}Restaurant's Menu{% endblock %}
 
 {% block content %}
-<h1>Restaurant's Menu</h1>
-<ul>
-    {% for item in menu_items %}
-    <div class="card mb-3">
-        <h3>{{ item.name }}</h3>
-        <p>Price: {{ item.currency }}{{ item.price }}</p>
-        <p>Description: {{ item.description }}</p>
-        {% if item.image %}
-        <!-- Use the Cloudinary URL directly -->
-        <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" width="200">
-        {% endif %}
+<div class="container">
+    <h1>Restaurant's Menu</h1>
+    <div class="row">
+        {% for item in menu_items %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if item.image %}
+                <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title">{{ item.name }}</h3>
+                    <p class="card-text">Price: {{ item.currency }}{{ item.price }}</p>
+                    <p class="card-text">Description: {{ item.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</ul>
+</div>
 {% endblock %}

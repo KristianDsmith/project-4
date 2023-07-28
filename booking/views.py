@@ -11,7 +11,7 @@ def about(request):
     return render(request, 'about.html')
 
 
-def browse_menu(request):
+def menu_view(request):
     try:
         menu_items = MenuItem.objects.all()
     except Exception as e:

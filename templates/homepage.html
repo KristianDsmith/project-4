@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Welcome to StreetGastro</title>
-</head>
+{% block title %}Home{% endblock %}
 
-<body>
-    <h1>Welcome to StreetGastro</h1>
-    <p>Thank you for visiting our restaurant's website. Browse our menu and make a reservation to enjoy delicious meals!
-    </p>
-    <a href="{% url 'browse_menu' %}">Browse Menu</a>
-    <a href="{% url 'make_reservation' %}">Make a Reservation</a>
-</body>
+{% block custom_css %}
+{{ block.super }}
+{% endblock %}
 
-</html>
+{% block content %}
+<!-- Your homepage content goes here -->
+<!-- You can also include the hero section in the homepage content -->
+<div class="hero-section">
+    <!-- Add any content you want to display on top of the hero image -->
+    <h1>Welcome to Street Gastro</h1>
+</div>
+{% endblock %}

@@ -34,7 +34,23 @@ body {
     margin: 0;
     padding-bottom: 60px;
     background-color: #8eb897;
-    /* Adjust this value to match the height of your footer */
+}
+
+.hero-section {
+    /* Set the background image and other background properties */
+    background-image: url('../images/restaraunt-imgae.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Add any additional styles you want for the hero section */
+    /* For example: */
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    font-size: 32px;
 }
 
 .banner {

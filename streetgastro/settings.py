@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'allauth',
+    'allauth.account',
     'django.contrib.sessions',
     'django.contrib.messages',
     'cloudinary_storage',
@@ -63,7 +65,7 @@ ROOT_URLCONF = 'streetgastro.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

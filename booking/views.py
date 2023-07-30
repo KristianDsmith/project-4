@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import MenuItem, DietaryPreference
-import cloudinary
 
 
 def homepage(request):
@@ -9,16 +8,6 @@ def homepage(request):
 
 def about(request):
     return render(request, 'about.html')
-
-
-def menu_view(request):
-    try:
-        menu_items = MenuItem.objects.all()
-    except Exception as e:
-        print(f"Error fetching menu items: {e}")
-        menu_items = []
-
-    return render(request, 'menu.html', {'menu_items': menu_items})
 
 
 def book(request):
@@ -46,21 +35,26 @@ def contact(request):
     return render(request, 'contact.html')
 
 
-def menu(request, dietary_preference_id=None):
-    dietary_preferences = DietaryPreference.objects.all()
-    selected_preference = None
+def menu_view(request):
+    dietary_preference_id = request.GET.get('dietary_preference_id')
 
-    if dietary_preference_id is not None:
-        selected_preference = DietaryPreference.objects.get(
-            pk=dietary_preference_id)
-        menu_items = MenuItem.objects.filter(
-            dietary_preferences=selected_preference)
+    if dietary_preference_id:
+        try:
+            selected_preference = DietaryPreference.objects.get(
+                pk=dietary_preference_id)
+            menu_items = MenuItem.objects.filter(
+                dietary_preference=selected_preference)
+        except DietaryPreference.DoesNotExist:
+            menu_items = MenuItem.objects.all()
     else:
         menu_items = MenuItem.objects.all()
+
+    dietary_preferences = DietaryPreference.objects.all()
 
     context = {
         'menu_items': menu_items,
         'dietary_preferences': dietary_preferences,
-        'selected_preference': selected_preference,
+        'selected_preference': dietary_preference_id,
     }
+
     return render(request, 'menu.html', context)

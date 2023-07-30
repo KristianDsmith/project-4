@@ -24,6 +24,15 @@
     <label for="number_of_guests">Number of Guests:</label>
     <input type="number" name="number_of_guests" required><br>
 
+    <label for="table">Table:</label>
+    <select name="table" required>
+        {% for table in operating_hours %}
+        <option value="{{ table.table.id }}">
+            {{ table }}
+        </option>
+        {% endfor %}
+    </select><br>
+
     <input type="submit" value="Book Now">
 </form>
 
@@ -35,7 +44,7 @@
         <th>Opening Time</th>
         <th>Closing Time</th>
     </tr>
-    {% for hour in hours %}
+    {% for hour in operating_hours %}
     <tr>
         <td>{{ hour.get_day_display }}</td>
         <td>{{ hour.opening_time|time }}</td>
@@ -43,4 +52,27 @@
     </tr>
     {% endfor %}
 </table>
+
+<!-- Display Table Availability -->
+<h2>Table Availability</h2>
+{% for table in operating_hours %}
+<h3>Table {{ table.table_number }}</h3>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+    </tr>
+    {% for reservation in all_reservations %}
+    {% if reservation.table == table.table_number %}
+    <tr>
+        <td>{{ reservation.date }}</td>
+        <td>{{ reservation.time }}</td>
+        <td>{% if reservation.is_available %}Available{% else %}Not Available{% endif %}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+{% endfor %}
+
 {% endblock %}

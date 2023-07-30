@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MenuItem, DietaryPreference, OperatingHours
+from .models import MenuItem, DietaryPreference, OperatingHours, Table, Reservation
 
 
 def homepage(request):
@@ -22,17 +22,31 @@ def book(request):
 
         # You can now perform any necessary actions with the form data
         # For example, saving the booking details to a database
+        # Here, you can create a Reservation object
+
+        reservation = Reservation.objects.create(
+            table=Table.objects.get(pk=request.POST.get('table')),
+            date=date,
+            time=time,
+        )
 
         # After processing the data, you may want to redirect the user to a confirmation page
         # For example, you can create a 'confirmation.html' template and render it here
 
-        return render(request, 'confirmation.html', {'name': name, 'date': date, 'time': time})
+        return render(request, 'confirmation.html', {'reservation': reservation})
 
-    # Fetch restaurant operating hours and pass it to the template
-    hours = OperatingHours.objects.all()
-    return render(request, 'book.html', {'hours': hours})
+    # Retrieve the operating hours for displaying on the book.html template
+    operating_hours = OperatingHours.objects.all()
 
+    # Retrieve all reservations to check the availability of tables
+    all_reservations = Reservation.objects.all()
 
+    context = {
+        'operating_hours': operating_hours,
+        'all_reservations': all_reservations,
+    }
+
+    return render(request, 'book.html', context)
 def contact(request):
     return render(request, 'contact.html')
 

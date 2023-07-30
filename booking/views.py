@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MenuItem, DietaryPreference
+from .models import MenuItem, DietaryPreference, OperatingHours
 
 
 def homepage(request):
@@ -28,7 +28,9 @@ def book(request):
 
         return render(request, 'confirmation.html', {'name': name, 'date': date, 'time': time})
 
-    return render(request, 'book.html')
+    # Fetch restaurant operating hours and pass it to the template
+    hours = OperatingHours.objects.all()
+    return render(request, 'book.html', {'hours': hours})
 
 
 def contact(request):
@@ -58,3 +60,8 @@ def menu_view(request):
     }
 
     return render(request, 'menu.html', context)
+
+
+def restaurant_hours(request):
+    hours = OperatingHours.objects.all()
+    return render(request, 'book.html', {'hours': hours})

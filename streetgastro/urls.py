@@ -25,5 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('menu/', views.menu_view, name='menu'),
     path('restaurant_hours/', views.restaurant_hours, name='restaurant_hours'),
+    path('book/', views.book_table, name='book_table'),
 ]
-

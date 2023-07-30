@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MenuItem, DietaryPreference, OperatingHours, Table
+from .models import MenuItem, DietaryPreference, OperatingHours, Table, Reservation
 
 
 def homepage(request):
@@ -16,29 +16,39 @@ def restaurant_hours(request):
 
 
 def book(request):
+    operating_hours = OperatingHours.objects.all()
+
     if request.method == 'POST':
-        # Process the form data when the user submits the booking form
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
         date = request.POST.get('date')
         time = request.POST.get('time')
-        number_of_guests = request.POST.get('number_of_guests')
-        table_id = request.POST.get('table')
 
-        # You can now perform any necessary actions with the form data
-        # For example, saving the booking details to a database
+        # Get all tables
+        tables = Table.objects.all()
 
-        # After processing the data, you may want to redirect the user to a confirmation page
-        # For example, you can create a 'confirmation.html' template and render it here
+        # Filter tables that are not reserved on the selected date and time
+        available_tables = []
+        for table in tables:
+            if not Reservation.objects.filter(table=table, date=date, time=time).exists():
+                available_tables.append(table)
 
-        return render(request, 'confirmation.html', {'name': name, 'date': date, 'time': time})
+        return render(request, 'book.html', {'tables': available_tables, 'operating_hours': operating_hours})
 
-    # Get the operating hours and tables
-    operating_hours = OperatingHours.objects.all()
+    # If it's a GET request or the form is not submitted, render the empty form
+    return render(request, 'book.html', {'operating_hours': operating_hours})
+
+
+def book_table(request):
     tables = Table.objects.all()
+    operating_hours = OperatingHours.objects.all()
 
-    return render(request, 'book.html', {'operating_hours': operating_hours, 'tables': tables})
+    # Get all reserved tables for the selected date and time
+    reserved_tables = Reservation.objects.filter(date=request.POST.get(
+        'date'), time=request.POST.get('time')).values_list('table', flat=True)
+
+    available_tables = [
+        table for table in tables if table.id not in reserved_tables]
+
+    return render(request, 'book.html', {'tables': available_tables, 'operating_hours': operating_hours})
 
 
 def contact(request):

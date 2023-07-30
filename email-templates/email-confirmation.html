@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Reservation Confirmation</title>
+</head>
+
+<body>
+    <p>Dear {{ customer_name }},</p>
+    <p>Your reservation has been confirmed for the following details:</p>
+    <ul>
+        <li>Date: {{ reservation_date }}</li>
+        <li>Time: {{ reservation_time }}</li>
+        <li>Table Number: {{ table_number }}</li>
+    </ul>
+    <p>Thank you for choosing our restaurant. We look forward to serving you.</p>
+    <p>Best regards,</p>
+    <p>The Restaurant Team</p>
+</body>
+
+</html>

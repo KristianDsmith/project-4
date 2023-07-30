@@ -18,12 +18,13 @@ from django.urls import path
 from booking import views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', views.homepage, name='homepage'),
     path('about/', views.about, name='about'),
+    path('restaurant_hours/', views.restaurant_hours, name='restaurant_hours'),
     path('book/', views.book, name='book'),
     path('contact/', views.contact, name='contact'),
-    path('admin/', admin.site.urls),
     path('menu/', views.menu_view, name='menu'),
-    path('restaurant_hours/', views.restaurant_hours, name='restaurant_hours'),
-    path('book/', views.book_table, name='book_table'),
+    path('confirm_reservation/', views.confirm_reservation,
+         name='confirm_reservation'),
 ]

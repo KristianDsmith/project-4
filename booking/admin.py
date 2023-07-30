@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import DietaryPreference, MenuItem, OperatingHours, Reservation, Table
+from .models import Reservation
 
 
 
@@ -20,11 +21,11 @@ class TableAdmin(admin.ModelAdmin):
 
 
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ['table', 'date', 'time']
+    list_display = ['name', 'email', 'phone', 'table', 'date', 'time']
 
 
 admin.site.register(DietaryPreference, DietaryPreferenceAdmin)
 admin.site.register(MenuItem, MenuItemAdmin)
 admin.site.register(OperatingHours, OperatingHoursAdmin)
 admin.site.register(Table, TableAdmin)
-admin.site.register(Reservation, ReservationAdmin)
+admin.site.register(Reservation)

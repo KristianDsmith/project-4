@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Table, OperatingHours, Reservation
 from .forms import BookingForm
 from django.contrib import messages
+from .models import MenuItem
+from .models import DietaryPreference
+
 
 
 

@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Table, OperatingHours, Reservation
 from .forms import BookingForm
 from django.contrib import messages
-from django.core.mail import EmailMessage, send_mail
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from .models import MenuItem
 from .models import MenuItem, DietaryPreference
-
+from django.conf import settings
+import smtplib
+from django.core.mail import EmailMessage
 
 
 def homepage(request):
@@ -30,29 +31,40 @@ def book(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            phone = form.cleaned_data['phone']
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
             table_number = form.cleaned_data['table_number']
+            number_of_guests = form.cleaned_data['number_of_guests']
 
-            # Check if the table exists
             try:
                 table = Table.objects.get(table_number=table_number)
             except Table.DoesNotExist:
                 messages.error(
-                    request, 'Invalid table number. Please select a valid table.')
+                    request, "Invalid table number. Please select a valid table.")
                 return redirect('book')
 
             if table.is_available(date, time):
-                reservation = Reservation(name=form.cleaned_data['name'],
-                                          email=form.cleaned_data['email'],
-                                          phone=form.cleaned_data['phone'],
+                reservation = Reservation(name=name,
+                                          email=email,
+                                          phone=phone,
                                           table=table,
                                           date=date,
-                                          time=time)
+                                          time=time,
+                                          number_of_guests=number_of_guests)
                 reservation.save()
 
-                # Send confirmation email (same as before)
-                # ...
+                # Send confirmation email using django.core.mail.EmailMessage
+                from_email = 'krissdarangz@gmail.com'  # Your sender email address
+                to_email = reservation.email  # Recipient email address
+                subject = 'Table Booking Confirmation'
+                message = f'Dear {reservation.name},\n\nThank you for booking a table. Your reservation details are as follows:\n\nTable Number: {reservation.table.table_number}\nDate: {reservation.date}\nTime: {reservation.time}\nNumber of Guests: {reservation.number_of_guests}\n\nWe look forward to seeing you!\n\nBest regards,\nThe Street Gastro Team'
+
+                email = EmailMessage(
+                    subject=subject, body=message, from_email=from_email, to=[to_email])
+                email.send()
 
                 messages.success(request, 'Table booked successfully!')
                 return redirect('book')
@@ -95,7 +107,6 @@ def menu_view(request):
     }
 
     return render(request, 'menu.html', context)
-
 
 
 def confirm_reservation(request):

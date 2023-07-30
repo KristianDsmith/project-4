@@ -9,6 +9,7 @@ class BookingForm(forms.Form):
     date = forms.DateField()
     time = forms.TimeField()
     table_number = forms.IntegerField()
+    number_of_guests = forms.IntegerField()
 
     def clean_table_number(self):
         table_number = self.cleaned_data['table_number']

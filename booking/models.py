@@ -60,6 +60,7 @@ class Reservation(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
+    number_of_guests = models.PositiveIntegerField(default=1)
 
     class Meta:
         unique_together = ['table', 'date', 'time']

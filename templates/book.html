@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 
-
-
-
 {% block title %}Book a Table{% endblock %}
 
 {% block content %}
@@ -66,6 +63,12 @@
                 <div class="form-group">
                     <label for="table_number">Table Number:</label>
                     <input type="number" name="table_number" class="form-control" required>
+                </div>
+
+                <!-- New field for number of guests -->
+                <div class="form-group">
+                    <label for="number_of_guests">Number of Guests:</label>
+                    <input type="number" name="number_of_guests" class="form-control" required>
                 </div>
 
                 <div class="form-group">

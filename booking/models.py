@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class DietaryPreference(models.Model):
@@ -41,6 +42,12 @@ class OperatingHours(models.Model):
 
 class Table(models.Model):
     table_number = models.CharField(max_length=10, unique=True)
+
+    # New method to check table availability
+    def is_available(self, date, time):
+        reservations = Reservation.objects.filter(
+            table=self, date=date, time=time)
+        return not reservations.exists()
 
     def __str__(self):
         return f"Table {self.table_number}"

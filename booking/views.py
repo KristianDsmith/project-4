@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MenuItem, DietaryPreference, OperatingHours, Table, Reservation
+from .models import MenuItem, DietaryPreference, OperatingHours, Table
 
 
 def homepage(request):
@@ -8,6 +8,11 @@ def homepage(request):
 
 def about(request):
     return render(request, 'about.html')
+
+
+def restaurant_hours(request):
+    hours = OperatingHours.objects.all()
+    return render(request, 'restaurant_hours.html', {'hours': hours})
 
 
 def book(request):
@@ -19,34 +24,23 @@ def book(request):
         date = request.POST.get('date')
         time = request.POST.get('time')
         number_of_guests = request.POST.get('number_of_guests')
+        table_id = request.POST.get('table')
 
         # You can now perform any necessary actions with the form data
         # For example, saving the booking details to a database
-        # Here, you can create a Reservation object
-
-        reservation = Reservation.objects.create(
-            table=Table.objects.get(pk=request.POST.get('table')),
-            date=date,
-            time=time,
-        )
 
         # After processing the data, you may want to redirect the user to a confirmation page
         # For example, you can create a 'confirmation.html' template and render it here
 
-        return render(request, 'confirmation.html', {'reservation': reservation})
+        return render(request, 'confirmation.html', {'name': name, 'date': date, 'time': time})
 
-    # Retrieve the operating hours for displaying on the book.html template
+    # Get the operating hours and tables
     operating_hours = OperatingHours.objects.all()
+    tables = Table.objects.all()
 
-    # Retrieve all reservations to check the availability of tables
-    all_reservations = Reservation.objects.all()
+    return render(request, 'book.html', {'operating_hours': operating_hours, 'tables': tables})
 
-    context = {
-        'operating_hours': operating_hours,
-        'all_reservations': all_reservations,
-    }
 
-    return render(request, 'book.html', context)
 def contact(request):
     return render(request, 'contact.html')
 
@@ -74,8 +68,3 @@ def menu_view(request):
     }
 
     return render(request, 'menu.html', context)
-
-
-def restaurant_hours(request):
-    hours = OperatingHours.objects.all()
-    return render(request, 'book.html', {'hours': hours})

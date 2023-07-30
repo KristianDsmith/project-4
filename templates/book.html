@@ -3,76 +3,77 @@
 {% block title %}Book a Table{% endblock %}
 
 {% block content %}
-<h2>Book a Table</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="name">Name:</label>
-    <input type="text" name="name" required><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Book a Table</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
 
-    <label for="email">Email:</label>
-    <input type="email" name="email" required><br>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
 
-    <label for="phone">Phone:</label>
-    <input type="text" name="phone" required><br>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" name="phone" class="form-control" required>
+                </div>
 
-    <label for="date">Date:</label>
-    <input type="date" name="date" required><br>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" class="form-control" required>
+                </div>
 
-    <label for="time">Time:</label>
-    <input type="time" name="time" required><br>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" name="time" class="form-control" required>
+                </div>
 
-    <label for="number_of_guests">Number of Guests:</label>
-    <input type="number" name="number_of_guests" required><br>
+                <div class="form-group">
+                    <label for="number_of_guests">Number of Guests:</label>
+                    <input type="number" name="number_of_guests" class="form-control" required>
+                </div>
 
-    <label for="table">Table:</label>
-    <select name="table" required>
-        {% for table in operating_hours %}
-        <option value="{{ table.table.id }}">
-            {{ table }}
-        </option>
-        {% endfor %}
-    </select><br>
+                <div class="form-group">
+                    <label for="table">Table:</label>
+                    <select name="table" class="form-control" required>
+                        {% for table in tables %}
+                        <option value="{{ table.id }}">Table {{ table.table_number }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-    <input type="submit" value="Book Now">
-</form>
+                <input type="submit" class="btn btn-primary" value="Book Now">
+            </form>
+        </div>
 
-<!-- Display Restaurant Operating Hours -->
-<h2>Restaurant Operating Hours</h2>
-<table>
-    <tr>
-        <th>Day</th>
-        <th>Opening Time</th>
-        <th>Closing Time</th>
-    </tr>
-    {% for hour in operating_hours %}
-    <tr>
-        <td>{{ hour.get_day_display }}</td>
-        <td>{{ hour.opening_time|time }}</td>
-        <td>{{ hour.closing_time|time }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-<!-- Display Table Availability -->
-<h2>Table Availability</h2>
-{% for table in operating_hours %}
-<h3>Table {{ table.table_number }}</h3>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Status</th>
-    </tr>
-    {% for reservation in all_reservations %}
-    {% if reservation.table == table.table_number %}
-    <tr>
-        <td>{{ reservation.date }}</td>
-        <td>{{ reservation.time }}</td>
-        <td>{% if reservation.is_available %}Available{% else %}Not Available{% endif %}</td>
-    </tr>
-    {% endif %}
-    {% endfor %}
-</table>
-{% endfor %}
-
+        <div class="col-md-6">
+            <!-- Display Restaurant Operating Hours -->
+            <h2>Restaurant Operating Hours</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Opening Time</th>
+                        <th>Closing Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hour in operating_hours %}
+                    <tr>
+                        <td>{{ hour.get_day_display }}</td>
+                        <td>{{ hour.opening_time|time }}</td>
+                        <td>{{ hour.closing_time|time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

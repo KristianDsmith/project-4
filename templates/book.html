@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Check Availability{% endblock %}
+{% block title %}Book a Table{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <h2>Check Availability</h2>
+            <h2>Book a Table</h2>
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
@@ -20,16 +20,60 @@
                 </div>
 
                 <input type="submit" class="btn btn-primary" value="Check Availability">
+                <!-- Add Check Availability Text -->
             </form>
 
             <!-- Display Available Tables -->
             {% if tables %}
             <h2>Available Tables</h2>
             <ul class="list-group">
+                <!-- Apply Bootstrap List Group -->
                 {% for table in tables %}
-                <li class="list-group-item">Table {{ table.table_number }}</li>
+                <li class="list-group-item list-group-item-success">Table {{ table.table_number }}</li>
+                <!-- Apply Bootstrap List Group Item Styles -->
                 {% endfor %}
             </ul>
+
+            <!-- Booking Section -->
+            <h2>Make a Reservation</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" name="phone" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="table">Table:</label>
+                    <select name="table" class="form-control" required>
+                        {% for table in tables %}
+                        <option value="{{ table.table_number }}">Table {{ table.table_number }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" name="time" class="form-control" required>
+                </div>
+
+                <input type="submit" class="btn btn-primary" value="Book Table">
+            </form>
             {% else %}
             <p>No tables available for the selected date and time.</p>
             {% endif %}

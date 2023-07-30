@@ -1,5 +1,8 @@
-from django.shortcuts import render
-from .models import MenuItem, DietaryPreference, OperatingHours, Table, Reservation
+from django.shortcuts import render, redirect
+from .models import Table, OperatingHours, Reservation
+from .forms import BookingForm
+from django.contrib import messages
+
 
 
 def homepage(request):
@@ -17,24 +20,37 @@ def restaurant_hours(request):
 
 def book(request):
     operating_hours = OperatingHours.objects.all()
+    tables = Table.objects.all()
 
     if request.method == 'POST':
-        date = request.POST.get('date')
-        time = request.POST.get('time')
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            date = form.cleaned_data['date']
+            time = form.cleaned_data['time']
+            table_number = form.cleaned_data['table_number']
+            table = Table.objects.get(table_number=table_number)
 
-        # Get all tables
-        tables = Table.objects.all()
+            if table.is_available(date, time):
+                reservation = Reservation(name=form.cleaned_data['name'],
+                                          email=form.cleaned_data['email'],
+                                          phone=form.cleaned_data['phone'],
+                                          table=table,
+                                          date=date,
+                                          time=time)
+                reservation.save()
+                messages.success(request, 'Table booked successfully!')
+                return redirect('book')
+            else:
+                messages.error(
+                    request, 'Table is already booked for the selected date and time.')
+        else:
+            messages.error(
+                request, 'Invalid form submission. Please check the form data.')
 
-        # Filter tables that are not reserved on the selected date and time
-        available_tables = []
-        for table in tables:
-            if not Reservation.objects.filter(table=table, date=date, time=time).exists():
-                available_tables.append(table)
+    else:
+        form = BookingForm()
 
-        return render(request, 'book.html', {'tables': available_tables, 'operating_hours': operating_hours})
-
-    # If it's a GET request or the form is not submitted, render the empty form
-    return render(request, 'book.html', {'operating_hours': operating_hours})
+    return render(request, 'book.html', {'form': form, 'tables': tables, 'operating_hours': operating_hours})
 
 
 def book_table(request):

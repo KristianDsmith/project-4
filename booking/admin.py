@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import DietaryPreference, MenuItem, OperatingHours, Table, Reservation
+from .models import DietaryPreference, MenuItem, OperatingHours, Reservation, Table
+
 
 
 class DietaryPreferenceAdmin(admin.ModelAdmin):

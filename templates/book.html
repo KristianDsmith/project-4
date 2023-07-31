@@ -13,7 +13,77 @@
     {% endif %}
     <div class="row">
         <div class="col-md-6">
-            <h2>Book a Table</h2>
+            <h2>Find Available Tables</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" name="time" class="form-control" required>
+                </div>
+
+                <input type="submit" class="btn btn-primary" value="Check Availability">
+                <!-- Add Check Availability Text -->
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <!-- Display Restaurant Operating Hours -->
+            <h2>Restaurant Operating Hours</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Opening Time</th>
+                        <th>Closing Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hour in operating_hours %}
+                    <tr>
+                        <td>{{ hour.get_day_display }}</td>
+                        <td>{{ hour.opening_time|time }}</td>
+                        <td>{{ hour.closing_time|time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {% if tables %}
+            <h2>Available Tables</h2>
+            <div class="row">
+                {% for table in tables %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Table {{ table.table_number }}</h5>
+                            {% for reservation in table.reservation_set.all %}
+                            {% if reservation.status == 'PD' %}
+                            <a href="{% url 'update_reservation' pk=reservation.pk %}" class="btn btn-sm btn-primary">Update Reservation</a>
+                            <a href="{% url 'cancel_reservation' token=reservation.token %}" class="btn btn-sm btn-danger">Cancel Reservation</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No tables available for the selected date and time.</p>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6">
+            <!-- Make a Reservation Section -->
+            <h2>Make a Reservation</h2>
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
@@ -52,57 +122,11 @@
                     <input type="time" name="time" class="form-control" required>
                 </div>
 
-                <input type="submit" class="btn btn-primary" value="Check Availability">
-                <!-- Add Check Availability Text -->
+                <input type="submit" class="btn btn-primary" value="Book Table">
             </form>
-
-            <!-- Display Available Tables -->
-            {% if tables %}
-            <h2>Available Tables</h2>
-            <ul class="list-group">
-                <!-- Apply Bootstrap List Group -->
-                {% for table in tables %}
-                <li class="list-group-item list-group-item-success">Table {{ table.table_number }}</li>
-                <!-- Apply Bootstrap List Group Item Styles -->
-                {% for reservation in table.reservation_set.all %}
-                {% if reservation.status == 'PD' %}
-                <a href="{% url 'update_reservation' pk=reservation.pk %}" class="btn btn-sm btn-primary">Update Reservation</a>
-                <a href="{% url 'cancel_reservation' token=reservation.token %}" class="btn btn-sm btn-danger">Cancel Reservation</a>
-                {% endif %}
-                {% endfor %}
-                {% endfor %}
-            </ul>
-            {% else %}
-            <p>No tables available for the selected date and time.</p>
-            {% endif %}
-        </div>
-
-        <div class="col-md-6">
-            <!-- Display Restaurant Operating Hours -->
-            <h2>Restaurant Operating Hours</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Opening Time</th>
-                        <th>Closing Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for hour in operating_hours %}
-                    <tr>
-                        <td>{{ hour.get_day_display }}</td>
-                        <td>{{ hour.opening_time|time }}</td>
-                        <td>{{ hour.closing_time|time }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
 {% endblock %}
-
-
 
 

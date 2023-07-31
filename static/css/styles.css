@@ -1,10 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Gruppo&family=Permanent+Marker&family=Roboto:wght@100;300;400;500;700&display=swap');
-
 /* Global styles */
 body {
     margin: 0;
     padding-bottom: 60px;
-    background-color: #8eb897;
+    background-color: #fff;
     font-family: 'Gruppo', sans-serif;
 }
 
@@ -24,7 +22,7 @@ p {
 }
 
 .card {
-    border: 1px solid #ccc;
+    border: 2px solid #9ddbad;
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
@@ -33,12 +31,6 @@ p {
 
 .card-img-top {
     max-width: 100%;
-}
-
-/* Sticky Footer */
-html {
-    position: relative;
-    min-height: 100%;
 }
 
 /* Hero section */
@@ -103,7 +95,7 @@ nav ul.custom-nav-links li a::after {
     content: '';
     width: 0;
     height: 3px;
-    background: #59dd2d;
+    background: #9ddbad;
     position: absolute;
     left: 0;
     bottom: -6px;
@@ -163,7 +155,7 @@ nav ul.custom-nav-links li a:hover::after {
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    background-color: #59dd2d;
+    background-color: #9ddbad;
     color: #fff;
 }
 
@@ -182,9 +174,47 @@ nav ul.custom-nav-links li a:hover::after {
     /* Add space for the dropdown icon */
 }
 
+/* Book table section */
 
+.make-reservation-form .form-control {
+    border: 2px solid #9ddbad;
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: #000;
+}
 
+.available-tables-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin-top: 35px; /* Add margin to push the grid down */
+}
 
+.custom-card {
+    border: 2px solid #9ddbad;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.custom-card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-card-title {
+    margin-bottom: 10px;
+}
+
+.custom-card-body a {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.col-md-6 h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
 
 /* Footer */
 .footer {

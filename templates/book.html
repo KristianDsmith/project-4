@@ -12,9 +12,9 @@
     </div>
     {% endif %}
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 available-tables-section">
             <h2>Find Available Tables</h2>
-            <form method="post">
+            <form method="post" class="make-reservation-form">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="date">Date:</label>
@@ -31,7 +31,7 @@
             </form>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 restaurant-hours-section">
             <!-- Display Restaurant Operating Hours -->
             <h2>Restaurant Operating Hours</h2>
             <table class="table">
@@ -59,19 +59,17 @@
         <div class="col-md-6">
             {% if tables %}
             <h2>Available Tables</h2>
-            <div class="row">
+            <div class="available-tables-grid">
                 {% for table in tables %}
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Table {{ table.table_number }}</h5>
-                            {% for reservation in table.reservation_set.all %}
-                            {% if reservation.status == 'PD' %}
-                            <a href="{% url 'update_reservation' pk=reservation.pk %}" class="btn btn-sm btn-primary">Update Reservation</a>
-                            <a href="{% url 'cancel_reservation' token=reservation.token %}" class="btn btn-sm btn-danger">Cancel Reservation</a>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
+                <div class="custom-card mb-4">
+                    <div class="custom-card-body">
+                        <h5 class="custom-card-title">Table {{ table.table_number }}</h5>
+                        {% for reservation in table.reservation_set.all %}
+                        {% if reservation.status == 'PD' %}
+                        <a href="{% url 'update_reservation' pk=reservation.pk %}" class="btn btn-sm btn-primary">Update Reservation</a>
+                        <a href="{% url 'cancel_reservation' token=reservation.token %}" class="btn btn-sm btn-danger">Cancel Reservation</a>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
                 {% endfor %}
@@ -81,10 +79,10 @@
             {% endif %}
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 make-reservations-section">
             <!-- Make a Reservation Section -->
             <h2>Make a Reservation</h2>
-            <form method="post">
+            <form method="post" class="make-reservation-form">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -128,5 +126,3 @@
     </div>
 </div>
 {% endblock %}
-
-

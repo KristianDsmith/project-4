@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'cloudinary_storage',
+    'qcluster',
+    'django_q',
     'booking',
 ]
 
@@ -174,3 +176,21 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+
+Q_CLUSTER = {
+    'name': 'progect-4',
+    'workers': 4,
+    'recycle': 500,
+    'timeout': 60,
+    'retry': 180,
+    'compress': True,
+    'save_limit': 0,
+    'queue_limit': 50,
+    'cpu_affinity': 1,
+    'label': 'Django Q',
+    'orm': 'default',  # Use Django ORM + database for task queue
+}
+
+CELERY_BROKER_URL = 'django-db://'  # Use Django ORM + database as broker
+CELERY_RESULT_BACKEND = 'django-db'  # Use Django ORM + database for results

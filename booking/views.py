@@ -7,8 +7,9 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .models import MenuItem, DietaryPreference
 from django.conf import settings
-import smtplib
-from django.core.mail import EmailMessage
+from django_q.tasks import async_task
+# Import directly from tasks, not booking.tasks
+from .tasks import send_email_task
 
 
 def homepage(request):
@@ -47,24 +48,23 @@ def book(request):
                 return redirect('book')
 
             if table.is_available(date, time):
-                reservation = Reservation(name=name,
-                                          email=email,
-                                          phone=phone,
-                                          table=table,
-                                          date=date,
-                                          time=time,
-                                          number_of_guests=number_of_guests)
+                reservation = Reservation(
+                    name=form.cleaned_data['name'],
+                    email=form.cleaned_data['email'],
+                    phone=form.cleaned_data['phone'],
+                    table=table,
+                    date=date,
+                    time=time,
+                    number_of_guests=form.cleaned_data['number_of_guests'])
                 reservation.save()
 
-                # Send confirmation email using django.core.mail.EmailMessage
-                from_email = 'krissdarangz@gmail.com'  # Your sender email address
-                to_email = reservation.email  # Recipient email address
                 subject = 'Table Booking Confirmation'
                 message = f'Dear {reservation.name},\n\nThank you for booking a table. Your reservation details are as follows:\n\nTable Number: {reservation.table.table_number}\nDate: {reservation.date}\nTime: {reservation.time}\nNumber of Guests: {reservation.number_of_guests}\n\nWe look forward to seeing you!\n\nBest regards,\nThe Street Gastro Team'
+                from_email = settings.DEFAULT_FROM_EMAIL
+                to_email = reservation.email
 
-                email = EmailMessage(
-                    subject=subject, body=message, from_email=from_email, to=[to_email])
-                email.send()
+                async_task(send_email_task, subject,
+                           message, from_email, to_email)
 
                 messages.success(request, 'Table booked successfully!')
                 return redirect('book')

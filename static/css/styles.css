@@ -1,4 +1,5 @@
-/* Global styles */
+@import url('https://fonts.googleapis.com/css2?family=Gruppo&family=Permanent+Marker&family=Roboto:wght@100;300;400;500;700&display=swap');
+
 body {
     margin: 0;
     padding-bottom: 60px;
@@ -7,7 +8,7 @@ body {
 }
 
 h1 {
-    color: #040403;
+    color: #555;
     font-size: 24px;
 }
 
@@ -18,20 +19,31 @@ h3 {
 
 p {
     color: #333;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .card {
-    border: 2px solid #9ddbad;
+    border: 1px solid #9ddbad;
     padding: 10px;
     margin-bottom: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     max-width: 100%;
 }
 
 .card-img-top {
     max-width: 100%;
 }
+
+.btn-primary{
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #9ddbad;
+    color: #fff;
+}
+
+
 
 /* Hero section */
 .hero-section {
@@ -49,13 +61,13 @@ p {
 }
 
 .hero-section h1 {
-    font-size: 52px;
+    font-size: 68px;
     color: #fff;
     font-family: 'Gruppo', sans-serif;
 }
 
 .hero-subtitle p {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 300;
     color: #fff;
 }
@@ -74,7 +86,7 @@ p {
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-    color: #c3e8bd;
+    color: #9ddbad;
 }
 
 /* Custom styles for the nav bar */
@@ -87,7 +99,7 @@ nav ul.custom-nav-links li {
 nav ul.custom-nav-links li a {
     color: #fff;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 24px;
     position: relative;
 }
 
@@ -111,7 +123,7 @@ nav ul.custom-nav-links li a:hover::after {
 }
 
 .bg-custom {
-    background-color: #040403;
+    background-color: #20201e;
 }
 
 /* Menu page */
@@ -177,11 +189,13 @@ nav ul.custom-nav-links li a:hover::after {
 /* Book table section */
 
 .make-reservation-form .form-control {
-    border: 2px solid #9ddbad;
+    border: 1px solid #9ddbad;
     border-radius: 5px;
     padding: 8px 12px;
     color: #000;
 }
+
+
 
 .available-tables-grid {
     display: grid;
@@ -191,7 +205,7 @@ nav ul.custom-nav-links li a:hover::after {
 }
 
 .custom-card {
-    border: 2px solid #9ddbad;
+    border: 1px solid #9ddbad;
     padding: 10px;
     background-color: #fff;
     border-radius: 8px;
@@ -222,7 +236,7 @@ nav ul.custom-nav-links li a:hover::after {
     bottom: 0;
     width: 100%;
     height: 120px;
-    background-color: #040403;
+    background-color: #20201e;
     text-align: center;
     line-height: 60px;
 }

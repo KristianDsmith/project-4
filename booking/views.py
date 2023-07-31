@@ -1,16 +1,15 @@
+import uuid
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Table, OperatingHours, Reservation
-from .forms import BookingForm, ReservationUpdateForm, Reservation
+from django.http import HttpResponse
 from django.contrib import messages
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-from .models import MenuItem, DietaryPreference
+from django.urls import reverse_lazy, reverse
 from django.conf import settings
 from django_q.tasks import async_task
+from .models import Table, OperatingHours, Reservation, MenuItem, DietaryPreference
+from .forms import BookingForm, ReservationUpdateForm
 from .tasks import send_email_task
 from django.views.generic import UpdateView
-from django.urls import reverse_lazy
+
 
 
 def homepage(request):
@@ -50,25 +49,36 @@ def book(request):
 
             if table.is_available(date, time):
                 reservation = Reservation(
-                    name=form.cleaned_data['name'],
-                    email=form.cleaned_data['email'],
-                    phone=form.cleaned_data['phone'],
+                    name=name,
+                    email=email,
+                    phone=phone,
                     table=table,
                     date=date,
                     time=time,
-                    number_of_guests=form.cleaned_data['number_of_guests'])
+                    number_of_guests=number_of_guests)
                 reservation.save()
 
-                subject = 'Table Booking Confirmation'
-                message = f'Dear {reservation.name},\n\nThank you for booking a table. Your reservation details are as follows:\n\nTable Number: {reservation.table.table_number}\nDate: {reservation.date}\nTime: {reservation.time}\nNumber of Guests: {reservation.number_of_guests}\n\nWe look forward to seeing you!\n\nBest regards,\nThe Street Gastro Team'
-                from_email = settings.DEFAULT_FROM_EMAIL
-                to_email = reservation.email
+                # Generate the unique link
+                update_link = generate_booking_update_link(reservation.id)
+                if update_link:
+                    # Construct the URL for the update_reservation view
+                    update_url = request.build_absolute_uri(
+                        reverse('update_reservation', args=[update_link]))
 
-                async_task(send_email_task, subject,
-                           message, from_email, to_email)
+                    # Send the confirmation email with the update URL
+                    subject = 'Table Booking Confirmation'
+                    message = f'Dear {reservation.name},\n\nThank you for booking a table. Your reservation details are as follows:\n\nTable Number: {reservation.table.table_number}\nDate: {reservation.date}\nTime: {reservation.time}\nNumber of Guests: {reservation.number_of_guests}\n\nTo make any changes to your reservation, please click on the following link:\n{update_url}\n\nWe look forward to seeing you!\n\nBest regards,\nThe Street Gastro Team'
+                    from_email = settings.DEFAULT_FROM_EMAIL
+                    to_email = reservation.email
 
-                messages.success(request, 'Table booked successfully!')
-                return redirect('book')
+                    async_task(send_email_task, subject, message, from_email, to_email)
+
+                    messages.success(
+                        request, 'Table booked successfully! A confirmation email has been sent to your email address.')
+                    return redirect('book')
+                else:
+                    messages.error(
+                        request, 'Failed to generate update link.')
             else:
                 messages.error(
                     request, 'Table is already booked for the selected date and time.')
@@ -77,6 +87,18 @@ def book(request):
                 request, 'Invalid form submission. Please check the form data.')
     else:
         form = BookingForm()
+
+    # Handle Reservation Cancellation
+    if request.method == 'GET' and 'cancel_reservation' in request.GET:
+        token = request.GET['cancel_reservation']
+        reservation = get_object_or_404(Reservation, token=token)
+
+        if reservation.status == Reservation.PENDING:
+            reservation.delete()
+            messages.success(request, 'Reservation successfully cancelled.')
+        else:
+            messages.error(
+                request, 'Cannot cancel reservation. Reservation is already confirmed.')
 
     return render(request, 'book.html', {'form': form, 'tables': tables, 'operating_hours': operating_hours})
 
@@ -137,26 +159,33 @@ class ReservationUpdateView(UpdateView):
 
         async_task(send_email_task, subject, message, from_email, to_email)
 
+        messages.success(self.request, 'Reservation updated successfully!')
         return response
 
+def generate_booking_update_link(booking_id):
+    try:
+        booking = Reservation.objects.get(id=booking_id)
+        return booking.pk
+    except Reservation.DoesNotExist:
+        return None
 
-def update_reservation(request):
-    if request.method == "POST":
-        form = ReservationUpdateForm(request.POST)
-        if form.is_valid():
-            reservation = get_object_or_404(
-                Reservation, id=form.cleaned_data['reservation_id'])
-            # Perform the updates
-            reservation.name = form.cleaned_data['name']
-            reservation.email = form.cleaned_data['email']
-            reservation.phone = form.cleaned_data['phone']
-            reservation.table = form.cleaned_data['table']
-            reservation.date = form.cleaned_data['date']
-            reservation.time = form.cleaned_data['time']
-            reservation.number_of_guests = form.cleaned_data['number_of_guests']
-            reservation.save()
-            # TODO: Send a confirmation email
-    else:
-        form = ReservationUpdateForm()
 
-    return render(request, 'update_reservation.html', {'form': form})
+def cancel_reservation(request, token):
+    reservation = get_object_or_404(Reservation, token=token)
+
+    if request.method == 'POST':
+        reservation.status = Reservation.CANCELLED
+        reservation.save()  # Save the changes to the database
+
+        # Send cancellation confirmation email (optional)
+        subject = 'Table Reservation Cancelled'
+        message = f'Dear {reservation.name},\n\nYour reservation has been cancelled as per your request.\n\nBest regards,\nThe Street Gastro Team'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        to_email = reservation.email
+
+        async_task(send_email_task, subject, message, from_email, to_email)
+
+        messages.success(request, 'Reservation has been cancelled successfully!')
+        return redirect('book')
+
+    return render(request, 'cancel_reservation.html', {'reservation': reservation})

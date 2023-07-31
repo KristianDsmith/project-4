@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Cancel Reservation{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Cancel Reservation</h2>
+    <p>Are you sure you want to cancel your reservation?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Yes, Cancel">
+    </form>
+</div>
+{% endblock %}

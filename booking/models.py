@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import uuid
 
 
 class DietaryPreference(models.Model):
@@ -61,6 +62,7 @@ class Reservation(models.Model):
     date = models.DateField()
     time = models.TimeField()
     number_of_guests = models.PositiveIntegerField(default=1)
+    token = models.UUIDField(default=uuid.uuid4, editable=False, db_index=True, unique=True)
 
     PENDING = 'PD'
     CONFIRMED = 'CF'
@@ -75,6 +77,9 @@ class Reservation(models.Model):
         choices=STATUS_CHOICES,
         default=PENDING,
     )
+
+    def __str__(self):
+        return f'{self.name} - {self.date} {self.time}'
 
     class Meta:
         unique_together = ['table', 'date', 'time']

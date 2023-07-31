@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from booking import views
+from booking.views import update_reservation
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,7 +29,6 @@ urlpatterns = [
     path('menu/', views.menu_view, name='menu'),
     path('confirm_reservation/', views.confirm_reservation,
          name='confirm_reservation'),
-    path('update-reservation/<int:pk>/',
-         views.ReservationUpdateView.as_view(), name='update_reservation'),
+    path('update_reservation/', update_reservation, name='update_reservation'),
 
 ]

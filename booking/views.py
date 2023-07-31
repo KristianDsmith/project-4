@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Table, OperatingHours, Reservation
-from .forms import BookingForm, ReservationUpdateForm
+from .forms import BookingForm, ReservationUpdateForm, Reservation
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -138,3 +138,25 @@ class ReservationUpdateView(UpdateView):
         async_task(send_email_task, subject, message, from_email, to_email)
 
         return response
+
+
+def update_reservation(request):
+    if request.method == "POST":
+        form = ReservationUpdateForm(request.POST)
+        if form.is_valid():
+            reservation = get_object_or_404(
+                Reservation, id=form.cleaned_data['reservation_id'])
+            # Perform the updates
+            reservation.name = form.cleaned_data['name']
+            reservation.email = form.cleaned_data['email']
+            reservation.phone = form.cleaned_data['phone']
+            reservation.table = form.cleaned_data['table']
+            reservation.date = form.cleaned_data['date']
+            reservation.time = form.cleaned_data['time']
+            reservation.number_of_guests = form.cleaned_data['number_of_guests']
+            reservation.save()
+            # TODO: Send a confirmation email
+    else:
+        form = ReservationUpdateForm()
+
+    return render(request, 'update_reservation.html', {'form': form})

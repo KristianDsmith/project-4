@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Table, OperatingHours, Reservation
-from .forms import BookingForm
+from .forms import BookingForm, ReservationUpdateForm
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -8,8 +8,9 @@ from django.utils.html import strip_tags
 from .models import MenuItem, DietaryPreference
 from django.conf import settings
 from django_q.tasks import async_task
-# Import directly from tasks, not booking.tasks
 from .tasks import send_email_task
+from django.views.generic import UpdateView
+from django.urls import reverse_lazy
 
 
 def homepage(request):
@@ -112,3 +113,28 @@ def menu_view(request):
 def confirm_reservation(request):
     # Your code to confirm the reservation and send confirmation email
     return HttpResponse('Reservation confirmed. Confirmation email sent.')
+
+
+class ReservationUpdateView(UpdateView):
+    model = Reservation
+    form_class = ReservationUpdateForm
+    template_name = 'update_reservation.html'
+    success_url = reverse_lazy('book')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        reservation = self.object
+
+        if reservation.status == Reservation.CANCELLED:
+            subject = 'Table Reservation Cancelled'
+            message = f'Dear {reservation.name},\n\nYour reservation has been cancelled as per your request.\n\nBest regards,\nThe Street Gastro Team'
+        else:
+            subject = 'Table Reservation Modified'
+            message = f'Dear {reservation.name},\n\nYour reservation has been modified. Your new reservation details are as follows:\n\nTable Number: {reservation.table.table_number}\nDate: {reservation.date}\nTime: {reservation.time}\nNumber of Guests: {reservation.number_of_guests}\n\nWe look forward to seeing you!\n\nBest regards,\nThe Street Gastro Team'
+
+        from_email = settings.DEFAULT_FROM_EMAIL
+        to_email = reservation.email
+
+        async_task(send_email_task, subject, message, from_email, to_email)
+
+        return response

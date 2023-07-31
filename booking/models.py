@@ -62,11 +62,26 @@ class Reservation(models.Model):
     time = models.TimeField()
     number_of_guests = models.PositiveIntegerField(default=1)
 
+    PENDING = 'PD'
+    CONFIRMED = 'CF'
+    CANCELLED = 'CL'
+    STATUS_CHOICES = [
+        (PENDING, 'Pending'),
+        (CONFIRMED, 'Confirmed'),
+        (CANCELLED, 'Cancelled'),
+    ]
+    status = models.CharField(
+        max_length=2,
+        choices=STATUS_CHOICES,
+        default=PENDING,
+    )
+
     class Meta:
         unique_together = ['table', 'date', 'time']
 
     def __str__(self):
         return f"{self.name} - {self.table.table_number} - {self.date} - {self.time}"
+
 
 
 class Customer(models.Model):

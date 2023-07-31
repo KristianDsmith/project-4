@@ -21,7 +21,8 @@ class TableAdmin(admin.ModelAdmin):
 
 
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'phone', 'table', 'date', 'time']
+    list_display = ['name', 'email', 'phone',
+                    'table', 'date', 'time', 'number_of_guests']
 
 
 admin.site.register(DietaryPreference, DietaryPreferenceAdmin)

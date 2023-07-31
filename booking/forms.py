@@ -1,5 +1,6 @@
 from django import forms
 from .models import Table
+from .models import Reservation
 
 
 class BookingForm(forms.Form):
@@ -19,3 +20,14 @@ class BookingForm(forms.Form):
             raise forms.ValidationError(
                 "Invalid table number. Please select a valid table.")
         return table_number
+
+
+class ReservationUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ['name', 'email', 'phone', 'table',
+                  'date', 'time', 'number_of_guests']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+        }

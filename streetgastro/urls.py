@@ -28,6 +28,8 @@ urlpatterns = [
     path('confirm_reservation/', views.confirm_reservation, name='confirm_reservation'),
     path('update_reservation/<int:pk>/', views.ReservationUpdateView.as_view(), name='update_reservation'),
     path('cancel_reservation/<uuid:token>/', views.cancel_reservation, name='cancel_reservation'),
+    path('menu/', views.menu_view, name='browse_menu'),
+    path('book/', views.book, name='book_table'), 
 ]
 
 

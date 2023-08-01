@@ -3,7 +3,22 @@
 
 {% block content %}
 <div class="container">
-    <h1>Welcome to Our Restaurant</h1>
-    <p>Enjoy our delicious menu and make a reservation today!</p>
+    <!-- Image with h2 and p -->
+    <div class="row">
+        <!-- Left Column: Image -->
+        <div class="col-md-6">
+            <img src="{% static 'images/homepage-image.jpg' %}" alt="Restaurant Image" class="img-fluid" style="width: 70%;">
+        </div>
+        <!-- Right Column: h2 and p -->
+        <div class="col-md-6 d-flex align-items-center">
+            <div>
+                <h2>Welcome to Our Restaurant</h2>
+                <p>Enjoy our delicious menu and make a reservation today! Our restaurant offers a wide range of
+                    delicious and mouthwatering dishes prepared by our team with locally sourced ingredients. Come and experience the
+                    taste of our authentic recipes.</p>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
+

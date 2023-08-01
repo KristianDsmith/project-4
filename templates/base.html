@@ -46,12 +46,17 @@
 
     <!-- Hero Section -->
     <div class="hero-section">
-        <h1>Street Gastro</h1>
-        <div class="hero-subtitle">
-            <p>Street Food curated from locally sourced ingredients</p>
+        <div class="hero-content">
+            <h1>Street Gastro</h1>
+            <div class="hero-subtitle">
+                <p>Street Food curated from locally sourced ingredients</p>
+            </div>
+            <div class="hero-buttons">
+                <a href="{% url 'book_table' %}" class="btn btn-primary btn-lg">Book a Table</a>
+                <a href="{% url 'menu' %}" class="btn btn-secondary btn-lg">Browse Menu</a>
+            </div>
         </div>
     </div>
-
     <!-- Content block, which will be overridden in child templates -->
     <div class="container">
         {% block content %}

@@ -51,13 +51,17 @@ p {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 750px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #fff;
     text-align: center;
+}
+
+.hero-content {
+    text-align: left;
 }
 
 .hero-section h1 {
@@ -71,6 +75,45 @@ p {
     font-weight: 300;
     color: #fff;
 }
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+/* Custom styles for the buttons */
+
+.btn {
+    font-size: 16px;
+    height: auto;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #9ddbad;
+    background-color: transparent;
+    transition: background-color 0.3s; 
+    margin: 10px;
+}
+
+.btn-primary {
+    border-color: #9ddbad;
+    color: #fff;
+}
+
+#book-table-btn {
+    border-color: #040403;
+    color: #040403;
+}
+
+.btn:hover {
+    background-color: #9ddbad;
+    border-color: transparent;
+}
+
+
+
+
 
 /* Nav bar */
 .navbar-brand img {

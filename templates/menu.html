@@ -36,6 +36,16 @@
                     <h5 class="card-title">{{ item.name }}</h5>
                     <p class="card-text">{{ item.description }}</p>
                     <p class="card-price">{{ item.price }}</p>
+                    <!-- Display the average rating -->
+                    <div class="average-rating" data-menu-item-id="{{ item.id }}" data-average-rating="{% if item.average_rating %}{{ item.average_rating|floatformat:1 }}{% else %}0{% endif %}">
+                        Average Rating: {% if item.average_rating %}{{ item.average_rating|floatformat:1 }}{% else %}Not rated yet{% endif %}
+                    </div>
+                    <!-- Star rating for visual feedback -->
+                    <div class="star-rating" data-menu-item-id="{{ item.id }}">
+                        {% for i in "12345" %}
+                        <span class="star" data-menu-item-id="{{ item.id }}" data-rating="{{ i }}">&#9733;</span>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,4 +55,71 @@
         {% endif %}
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+
+        stars.forEach(star => {
+            star.addEventListener('mouseenter', function () {
+                const rating = this.dataset.rating;
+                const menuItemId = this.dataset.menuItemId;
+                const starRating = document.querySelector(`.average-rating[data-menu-item-id="${menuItemId}"]`);
+
+                for (let i = 1; i <= 5; i++) {
+                    const starElement = document.querySelector(`.star[data-menu-item-id="${menuItemId}"][data-rating="${i}"]`);
+                    if (i <= rating) {
+                        starElement.style.color = 'yellow';
+                    } else {
+                        starElement.style.color = 'black';
+                    }
+                }
+            });
+
+            star.addEventListener('mouseleave', function () {
+                const menuItemId = this.dataset.menuItemId;
+                const starRating = document.querySelector(`.average-rating[data-menu-item-id="${menuItemId}"]`);
+                starRating.innerHTML = `Average Rating: ${starRating.dataset.averageRating}`;
+            });
+
+            star.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const menuItemId = this.dataset.menuItemId;
+                const rating = this.dataset.rating;
+
+                // Make an AJAX POST request to submit the rating
+                fetch('{% url "submit_rating" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        menu_item_id: menuItemId,
+                        rating: rating,
+                    }),
+                })
+
+                .then(response => response.json())
+                .then(data => {
+                    // Update the average rating display
+                    const averageRatingElement = document.querySelector(`.average-rating[data-menu-item-id="${menuItemId}"]`);
+                    if (data.average_rating !== null) {
+                        averageRatingElement.innerHTML = `Average Rating: ${data.average_rating.toFixed(1)}`;
+                    } else {
+                        averageRatingElement.innerHTML = 'Not rated yet';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    });
+</script>
+
+
+
+
 {% endblock %}

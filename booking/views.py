@@ -5,12 +5,13 @@ from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.conf import settings
 from django_q.tasks import async_task
-from .models import Table, OperatingHours, Reservation, MenuItem, DietaryPreference
-from .forms import BookingForm, ReservationUpdateForm
+from .models import Table, OperatingHours, Reservation, MenuItem, DietaryPreference, Rating
+from .forms import BookingForm, ReservationUpdateForm, RatingForm
 from .tasks import send_email_task
 from django.views.generic import UpdateView
-
-
+from django.db.models import Avg
+from django.http import JsonResponse
+from .forms import RatingForm
 
 def homepage(request):
     return render(request, 'index.html')
@@ -112,10 +113,8 @@ def menu_view(request):
 
     if dietary_preference_id:
         try:
-            selected_preference = DietaryPreference.objects.get(
-                pk=dietary_preference_id)
-            menu_items = MenuItem.objects.filter(
-                dietary_preference=selected_preference)
+            selected_preference = DietaryPreference.objects.get(pk=dietary_preference_id)
+            menu_items = MenuItem.objects.filter(dietary_preference=selected_preference)
         except DietaryPreference.DoesNotExist:
             menu_items = MenuItem.objects.all()
     else:
@@ -162,6 +161,7 @@ class ReservationUpdateView(UpdateView):
         messages.success(self.request, 'Reservation updated successfully!')
         return response
 
+
 def generate_booking_update_link(booking_id):
     try:
         booking = Reservation.objects.get(id=booking_id)
@@ -189,3 +189,49 @@ def cancel_reservation(request, token):
         return redirect('book')
 
     return render(request, 'cancel_reservation.html', {'reservation': reservation})
+
+
+from django.http import JsonResponse
+from django.db.models import Avg
+
+def menu(request):
+    if request.method == 'POST' and request.is_ajax():
+        menu_item_id = request.POST.get('menu_item_id')
+        rating = int(request.POST.get('rating'))
+
+        # Save the rating to the database (you can use the Rating model)
+        # Replace the following lines with your actual code to save the rating
+        # rating_obj = Rating.objects.create(menu_item_id=menu_item_id, rating=rating)
+        # average_rating = rating_obj.menu_item.ratings.aggregate(models.Avg('rating'))['rating__avg']
+
+        # For demonstration purposes, return the average rating as a JSON response
+        # You should replace this with the actual average_rating value
+        average_rating = 4.2
+        response_data = {
+            'average_rating': average_rating
+        }
+
+        return JsonResponse(response_data)
+
+    # If the request is not a POST or not AJAX, return a 404 error
+    return JsonResponse({'error': 'Invalid request.'}, status=404)
+
+
+
+
+
+def menu_item_detail(request, menu_item_id):
+    menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
+    ratings = Rating.objects.filter(menu_item=menu_item)
+    average_rating = ratings.aggregate(Avg('rating'))['rating__avg']
+
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating = form.cleaned_data['rating']
+            Rating.objects.create(menu_item=menu_item, rating=rating)
+            return redirect('menu_item_detail', menu_item_id=menu_item_id)
+    else:
+        form = RatingForm()
+
+    return render(request, 'menu_item_detail.html', {'menu_item': menu_item, 'form': form, 'ratings': ratings, 'average_rating': average_rating})

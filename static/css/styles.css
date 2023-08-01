@@ -112,13 +112,17 @@ p {
 }
 
 
-/* Nav bar */
+/* Custom styles for the nav bar */
 .navbar-brand img {
     width: 65px;
 }
 
 .navbar-light .navbar-nav .nav-link {
     color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 10px;
 }
 
 .navbar-nav.custom-nav-links {
@@ -129,38 +133,40 @@ p {
     color: #9ddbad;
 }
 
-/* Custom styles for the nav bar */
+/* Adjust padding and margin for navigation links */
 nav ul.custom-nav-links li {
     display: inline-block;
     list-style: none;
-    margin: 10px 20px;
+    margin: 10px 10px;
 }
 
 nav ul.custom-nav-links li a {
     color: #fff;
     text-decoration: none;
-    font-size: 24px;
-    position: relative;
+    font-size: 18px;
 }
 
+/* Animated line transition */
 nav ul.custom-nav-links li a::after {
     content: '';
     width: 0;
     height: 3px;
     background: #9ddbad;
     position: absolute;
-    left: 0;
-    bottom: -6px;
-    transition: 0.5s;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease-out; /* Add the transition */
 }
 
 nav ul.custom-nav-links li a:hover::after {
-    width: 100%;
+    width: 100%; /* Increase the width to 100% on hover */
 }
 
-.navbar-collapse {
-    padding-top: 80px;
-}
+
+
+
+
 
 .bg-custom {
     background-color: #20201e;
@@ -324,6 +330,38 @@ body:not(.home-page) .carousel-control-next {
     /* Add space for the dropdown icon */
 }
 
+/* Rating form styles */
+.rating-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.rating-form label {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.rating-form select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.rating-form button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.rating-form button:hover {
+    background-color: #1c7430;
+}
+
 /* Book table section */
 
 .make-reservation-form .form-control {
@@ -423,10 +461,5 @@ footer p {
     width: 100%;
 }
 
-/* Adjust the size of the "Book a Table" button in the footer */
-.btn-book {
-    padding: 6px 15px;
-    font-size: 16px;
-}
 
 

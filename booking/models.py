@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 import uuid
 
-
 class DietaryPreference(models.Model):
     name = models.CharField(max_length=100)
 
@@ -88,7 +87,6 @@ class Reservation(models.Model):
         return f"{self.name} - {self.table.table_number} - {self.date} - {self.time}"
 
 
-
 class Customer(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -105,3 +103,21 @@ class OnlineTableReservation(models.Model):
 
     def __str__(self):
         return f"{self.customer} reserved {self.table} on {self.date.strftime('%Y-%m-%d')} at {self.time.strftime('%H:%M')}"
+
+
+class Rating(models.Model):
+    RATING_CHOICES = [
+        (1, '1 Star'),
+        (2, '2 Stars'),
+        (3, '3 Stars'),
+        (4, '4 Stars'),
+        (5, '5 Stars'),
+    ]
+
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    comment = models.TextField(blank=True, null=True)  # Add a comment field
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.menu_item.name} - {self.get_rating_display()}"

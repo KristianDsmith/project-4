@@ -1,6 +1,6 @@
 from django import forms
 from .models import Table
-from .models import Reservation
+from .models import Reservation, Rating
 
 
 class BookingForm(forms.Form):
@@ -30,4 +30,13 @@ class ReservationUpdateForm(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'time': forms.TimeInput(attrs={'type': 'time'}),
+        }
+
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ['rating']
+        widgets = {
+            'rating': forms.RadioSelect(attrs={'class': 'star'}),
         }

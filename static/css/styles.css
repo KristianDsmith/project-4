@@ -202,6 +202,49 @@ body:not(.home-page) .carousel-control-next {
 }
 
 
+/* Custom CSS for Testimonial Section */
+.container .testimonial {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .container .testimonial img {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+  }
+  
+  .container .testimonial h3 {
+    margin-top: 10px;
+  }
+  
+  .container .testimonial p {
+    margin-top: 10px;
+  }
+  
+  .container .testimonial .rating {
+    font-size: 24px;
+  }
+  
+  /* Additional styling for the stars */
+  .container .testimonial .rating .star {
+    color: gold;
+  }
+
+/* Custom CSS for Testimonial Section */
+.testimonial-section {
+    border-top: 1px solid #ccc; /* Add a border line on top to separate from gallery section */
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+/* Make the testimonial section full width */
+.testimonial-section .container {
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 100%;
+}
 /* Menu page */
 .container {
     padding-top: 20px;

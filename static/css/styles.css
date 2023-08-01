@@ -197,6 +197,11 @@ body:not(.home-page) .carousel-control-next {
     display: none;
 }
 
+.gallery-section {
+    padding: 30px;
+}
+
+
 /* Menu page */
 .container {
     padding-top: 20px;

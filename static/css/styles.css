@@ -368,17 +368,65 @@ body:not(.home-page) .carousel-control-next {
     margin-bottom: 10px;
 }
 
+
 /* Footer */
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 120px;
+footer {
     background-color: #20201e;
     text-align: center;
-    line-height: 60px;
-}
-
-.footer-text {
+    padding: 20px 0;
     color: #fff;
 }
+
+/* Change the text color for all paragraphs inside the footer */
+footer p {
+    color: #fff;
+}
+
+/* Custom styles for the social media icons */
+.social-icons .fab {
+    font-size: 30px; /* Adjust the size as per your preference */
+    color: #9ddbad; /* Set the default color for the icons */
+    margin-right: 20px; /* Add spacing between icons */
+}
+
+/* Customize the color of the icons using custom CSS classes */
+.footer-icon {
+    color: #9ddbad; /* Set the desired color for the icons */
+}
+
+/* Add padding below the "Follow Us" heading */
+.follow-us-heading {
+    padding-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+/* Custom styles for the navigation links */
+.footer-nav li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+}
+
+.footer-nav li a::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background: #9ddbad;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    transition: 0.5s;
+}
+
+.footer-nav li a:hover::after {
+    width: 100%;
+}
+
+/* Adjust the size of the "Book a Table" button in the footer */
+.btn-book {
+    padding: 6px 15px;
+    font-size: 16px;
+}
+
+

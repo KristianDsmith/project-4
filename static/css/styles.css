@@ -2,7 +2,7 @@
 
 body {
     margin: 0;
-    padding-bottom: 60px;
+    padding-bottom: 0;
     background-color: #fff;
     font-family: 'Gruppo', sans-serif;
 }
@@ -112,9 +112,6 @@ p {
 }
 
 
-
-
-
 /* Nav bar */
 .navbar-brand img {
     width: 65px;
@@ -167,6 +164,37 @@ nav ul.custom-nav-links li a:hover::after {
 
 .bg-custom {
     background-color: #20201e;
+}
+
+/* Homepage */
+
+/* Styles for the Next Hero Section */
+.hero-section-next {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.287), rgba(0, 0, 0, 0.269)), url('../images/ingredients-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 600px; /* Set a minimum height to ensure the content is visible */
+    width: 100vw; /* Set the width to 100vw to make it full width */
+    margin-left: calc(-50vw + 50%); /* Shift the hero section to the right by 50% of the viewport width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    padding: 0; /* Remove any padding */
+}
+
+/* Add custom styles for the carousel */
+.carousel-inner img {
+    max-height: 300px; /* Adjust the height as needed */
+}
+
+/* Hide carousel controls on non-index pages */
+body:not(.home-page) .carousel-control-prev,
+body:not(.home-page) .carousel-control-next {
+    display: none;
 }
 
 /* Menu page */

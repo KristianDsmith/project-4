@@ -20,5 +20,79 @@
         </div>
     </div>
 </div>
-{% endblock %}
+<div class="container text-center">
+    <h2>Sample Menu</h2>
+    <p>A delicious curated by Head Chef Kristian Smith</p>
+    <!-- Add your menu items here -->
+    <div class="menu-list">
+        <div class="menu-item">
+            <h3>Fish Tea</h3>
+            <img src="{% static 'images/fish-tea.jpg' %}" alt="Fish Tea" class="img-fluid">
+            <p>Fish broth infused with ginger, scotch bonnet pepper. Fermented spring onion and carrots. Served with festival fried dumplings.</p>
+        </div>
+        <div class="menu-item">
+            <h3>Southern Fried Chicken</h3>
+            <img src="{% static 'images/fried-chicken.jpg' %}" alt="Item 2" class="img-fluid">
+            <p>Southern fried chicken wings, marinated in a spice buttermilk, and served with a fermented homemade spicy bbq sauce.</p>
+        </div>
+        <!-- Add more menu items as needed -->
+    </div>
+</div>
+<!-- Next Section with Hero Banner -->
+<div class="hero-section-next">
+    <div class="hero-content">
+        <h2>Skip the Line</h2>
+        <div class="hero-subtitle">
+            <p>Book your table in advance and enjoy the Street Gastro experience.</p>
+        </div>
+        <div class="hero-buttons">
+            <a href="{% url 'book_table' %}" class="btn btn-primary btn-lg">Book a Table</a>
+        </div>
+    </div>
+</div>
 
+ <!-- New Section with Carousel Gallery -->
+ <div class="container-fluid gallery-section">
+    <h2 class="text-center">LOCAL FARMED</h2>
+    <p class="text-center">At Street Gastro, we take great pride in using locally farmed fresh ingredients in all our dishes. Our commitment to supporting local farmers and producers ensures that our culinary creations are of the highest quality and reflect the unique flavors of the region. By sourcing locally, we not only offer delicious and nutritious meals but also contribute to the sustainability of the local community and reduce our environmental impact. With each bite, you can taste the richness of our region's agriculture and the dedication of those who bring these exceptional ingredients to our kitchen.</p>
+    <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{% static 'images/lime.jpg' %}" alt="Image 1" class="img-fluid">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{% static 'images/chicken.jpg' %}" alt="Image 2" class="img-fluid">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{% static 'images/habanero.jpg' %}" alt="Image 3" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{% static 'images/red-snapper.jpg' %}" alt="Image 4" class="img-fluid">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{% static 'images/dish-1.jpg' %}" alt="Image 6" class="img-fluid">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{% static 'images/fried-chicken.jpg' %}" alt="Image 6" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+{% endblock %}

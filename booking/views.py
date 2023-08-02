@@ -7,7 +7,7 @@ from django.conf import settings
 from django_q.tasks import async_task
 from .models import Table, OperatingHours, Reservation, MenuItem, DietaryPreference, Rating
 from .forms import BookingForm, ReservationUpdateForm, RatingForm
-from .tasks import send_email_task
+from booking.tasks import send_email_task
 from django.views.generic import UpdateView
 from django.db.models import Avg
 from django.http import JsonResponse
@@ -42,23 +42,33 @@ def book(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            reservation = form.save()
+            name = form.cleaned_data.get('name')
+            email = form.cleaned_data.get('email')
+            phone = form.cleaned_data.get('phone')
+            date = form.cleaned_data.get('date')
+            time = form.cleaned_data.get('time')
+            table_number = form.cleaned_data.get('table_number')
+            number_of_guests = form.cleaned_data.get('number_of_guests')
+
+            table = Table.objects.get(table_number=table_number)
+            reservation = Reservation.objects.create(name=name, email=email, phone=phone, date=date, time=time, table=table, number_of_guests=number_of_guests)
 
             update_url = request.build_absolute_uri(
                 reverse('update_reservation', args=[reservation.id]))
 
             subject = 'Table Booking Confirmation'
-            message = f'Dear {reservation.name},\n\nThank you for booking a table. Your reservation details are as follows:\n\nTable Number: {reservation.table.table_number}\nDate: {reservation.date}\nTime: {reservation.time}\nNumber of Guests: {reservation.number_of_guests}\n\nTo make any changes to your reservation, please click on the following link:\n{update_url}\n\nWe look forward to seeing you!\n\nBest regards,\nThe Street Gastro Team'
+            message = f'Dear {name},\n\nThank you for booking a table. Your reservation details are as follows:\n\nTable Number: {table_number}\nDate: {date}\nTime: {time}\nNumber of Guests: {number_of_guests}\n\nTo make any changes to your reservation, please click on the following link:\n{update_url}\n\nWe look forward to seeing you!\n\nBest regards,\nThe Street Gastro Team'
             from_email = settings.DEFAULT_FROM_EMAIL
-            to_email = reservation.email
+            to_email = email
 
-            send_email(subject, message, from_email, to_email)
-            
+            async_task(send_email_task, subject, message, from_email, to_email)
+
             messages.success(request, 'Table booked successfully! A confirmation email has been sent to your email address.')
             return redirect('book')
         else:
             messages.error(request, 'Invalid form submission. Please check the form data.')
     return render(request, 'book.html', {'form': form, 'tables': tables, 'operating_hours': operating_hours})
+
 
 
 def contact(request):

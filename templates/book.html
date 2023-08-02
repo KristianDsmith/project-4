@@ -67,7 +67,7 @@
                         {% for reservation in table.reservation_set.all %}
                         {% if reservation.status == 'PD' %}
                         <a href="{% url 'update_reservation' pk=reservation.pk %}" class="btn btn-sm btn-primary">Update Reservation</a>
-                        <a href="{% url 'cancel_reservation' token=reservation.token %}" class="btn btn-sm btn-danger">Cancel Reservation</a>
+                        <a href="{% url 'cancel_reservation' pk=reservation.pk %}" class="btn btn-sm btn-danger">Cancel Reservation</a>
                         {% endif %}
                         {% endfor %}
                     </div>

@@ -26,7 +26,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('menu/', views.menu_view, name='menu'),
     path('update_reservation/<int:pk>/', views.ReservationUpdateView.as_view(), name='update_reservation'),
-    path('cancel_reservation/<uuid:token>/', views.cancel_reservation, name='cancel_reservation'),
+    path('cancel_reservation/<int:pk>/', views.cancel_reservation, name='cancel_reservation'),
     path('menu_item_detail/<int:menu_item_id>/', views.menu_item_detail, name='menu_item_detail'),
     path('submit_rating/', views.submit_rating, name='submit_rating'),
 ]

@@ -11,6 +11,11 @@ from booking.tasks import send_email_task
 from django.views.generic import UpdateView
 from django.db.models import Avg
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from .models import Table
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+from datetime import date, datetime
 
 
 # Helper function to send email
@@ -176,3 +181,68 @@ def menu_item_detail(request, menu_item_id):
         'menu_item': menu_item,
     }
     return render(request, 'menu_item_detail.html', context)
+
+
+def reservation_list(request):
+    # Fetch all reservations
+    reservations = Reservation.objects.all().order_by('-date', '-time')
+    return render(request, 'reservations/reservation_list.html', {'reservations': reservations})
+
+
+def reservation_detail(request, pk):
+    # Fetch a specific reservation using the primary key
+    reservation = Reservation.objects.get(pk=pk)
+    return render(request, 'reservations/reservation_detail.html', {'reservation': reservation})
+
+def table_status(request):
+    if request.method == 'POST':
+        table_id = request.POST.get('table_id')
+        if table_id is not None:
+            table = Table.objects.get(id=table_id)
+            table.toggle_occupied()
+
+    selected_date = request.GET.get('date')
+    if selected_date is not None:
+        selected_date = datetime.strptime(selected_date, "%Y-%m-%d").date()
+
+    tables = Table.objects.all()
+    for table in tables:
+        table.available = table.is_available(selected_date)
+    return render(request, 'table_status.html', {'tables': tables, 'selected_date': selected_date})
+
+# Create a new task when a reservation is created
+@login_required
+def create_task(request, reservation_id):
+    if request.method == 'POST':
+        reservation = Reservation.objects.get(id=reservation_id)
+        task = Task(reservation=reservation, assigned_to=request.user)
+        task.save()
+        messages.success(request, 'Task created successfully!')
+    return redirect('reservation_detail', pk=reservation_id)
+
+# List all tasks assigned to the logged-in user
+@login_required
+def list_tasks(request):
+    tasks = Task.objects.filter(assigned_to=request.user)
+    return render(request, 'tasks/list_tasks.html', {'tasks': tasks})
+
+# View details of a specific task
+@login_required
+def task_detail(request, task_id):
+    task = Task.objects.get(id=task_id)
+    return render(request, 'tasks/task_detail.html', {'task': task})
+
+# Update the status of a specific task
+@login_required
+def update_task(request, task_id):
+    if request.method == 'POST':
+        task = Task.objects.get(id=task_id)
+        status = request.POST.get('status')
+        if status in dict(Task.STATUS_CHOICES):
+            task.status = status
+            task.save()
+            messages.success(request, 'Task status updated successfully!')
+        else:
+            messages.error(request, 'Invalid task status.')
+    return redirect('task_detail', task_id=task_id)
+

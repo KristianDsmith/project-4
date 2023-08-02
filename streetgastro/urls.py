@@ -29,6 +29,11 @@ urlpatterns = [
     path('cancel_reservation/<int:pk>/', views.cancel_reservation, name='cancel_reservation'),
     path('menu_item_detail/<int:menu_item_id>/', views.menu_item_detail, name='menu_item_detail'),
     path('submit_rating/', views.submit_rating, name='submit_rating'),
+    path('table_status/', views.table_status, name='table_status'),
+    path('tasks/new/<int:reservation_id>', views.create_task, name='create_task'),
+    path('tasks/', views.list_tasks, name='list_tasks'),
+    path('tasks/<int:task_id>', views.task_detail, name='task_detail'),
+    path('tasks/<int:task_id>/update', views.update_task, name='update_task'),
 ]
 
 

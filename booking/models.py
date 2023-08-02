@@ -4,6 +4,8 @@ import uuid
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from django.conf import settings
+
 
 User = get_user_model()
 
@@ -50,15 +52,21 @@ class OperatingHours(models.Model):
 
 class Table(models.Model):
     table_number = models.CharField(max_length=10, unique=True)
+    is_occupied = models.BooleanField(default=False)
 
-    # New method to check table availability
-    def is_available(self, date, time):
+    def is_available(self, date):
         reservations = Reservation.objects.filter(
-            table=self, date=date, time=time)
+            table=self, date=date)
         return not reservations.exists()
+
+    def toggle_occupied(self):
+        self.is_occupied = not self.is_occupied
+        self.save()
 
     def __str__(self):
         return f"Table {self.table_number}"
+
+
 
 
 class Reservation(models.Model):
@@ -121,3 +129,19 @@ class Rating(models.Model):
     def __str__(self):
         return f"{self.menu_item.name} - {self.rating} stars"
 
+class Task(models.Model):
+    PENDING = 'PE'
+    IN_PROGRESS = 'IP'
+    COMPLETED = 'CO'
+
+    STATUS_CHOICES = [
+        (PENDING, 'Pending'),
+        (IN_PROGRESS, 'In Progress'),
+        (COMPLETED, 'Completed'),
+    ]
+
+    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
+    assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=PENDING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

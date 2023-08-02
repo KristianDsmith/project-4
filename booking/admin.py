@@ -38,6 +38,13 @@ class ReservationAdmin(admin.ModelAdmin):
 class RatingAdmin(admin.ModelAdmin):
     list_display = ['user', 'menu_item', 'rating'] 
 
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'table', 'date', 'time', 'number_of_guests', 'status')
+    list_filter = ('date', 'status',)
+    search_fields = ('name', 'email', 'phone', 'table__table_number',)
+    ordering = ('-date', '-time',)
+    readonly_fields = ('token',)
+
 
 admin.site.register(DietaryPreference, DietaryPreferenceAdmin)
 admin.site.register(MenuItem, MenuItemAdmin)

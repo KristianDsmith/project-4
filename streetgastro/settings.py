@@ -73,7 +73,8 @@ ROOT_URLCONF = 'streetgastro.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+        os.path.join(BASE_DIR, 'path_to_your_templates_directory'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

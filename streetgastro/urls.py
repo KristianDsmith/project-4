@@ -25,11 +25,10 @@ urlpatterns = [
     path('book/', views.book, name='book'),
     path('contact/', views.contact, name='contact'),
     path('menu/', views.menu_view, name='menu'),
-    path('confirm_reservation/', views.confirm_reservation, name='confirm_reservation'),
     path('update_reservation/<int:pk>/', views.ReservationUpdateView.as_view(), name='update_reservation'),
     path('cancel_reservation/<uuid:token>/', views.cancel_reservation, name='cancel_reservation'),
-    path('menu_item_detail/<uuid:menu_item_id>/', views.menu_item_detail, name='menu_item_detail'),
-    path('submit_rating/', views.menu, name='submit_rating'), 
+    path('menu_item_detail/<int:menu_item_id>/', views.menu_item_detail, name='menu_item_detail'),
+    path('submit_rating/', views.submit_rating, name='submit_rating'),
 ]
 
 

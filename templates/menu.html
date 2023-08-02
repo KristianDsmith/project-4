@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Restaurant's Menu{% endblock %}
 
 {% block content %}
 <div class="container">
+    <form id="csrf-form" style="display: none;">{% csrf_token %}</form>
     <h1 class="menu-heading">Restaurant Menu</h1>
 
     <!-- Form to select dietary preferences -->
@@ -23,7 +26,7 @@
             {% endif %}
             {% endfor %}
         </select>
-        <button type="submit">Filter</button>
+    <button type="submit">Filter</button>
     </form>
 
     <div class="row">
@@ -49,6 +52,7 @@
                 </div>
             </div>
         </div>
+        
         {% endfor %}
         {% else %}
         <p>No menu items available.</p>
@@ -58,13 +62,13 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const csrftoken = document.querySelector('#csrf-form [name=csrfmiddlewaretoken]').value;
         const stars = document.querySelectorAll('.star');
 
         stars.forEach(star => {
             star.addEventListener('mouseenter', function () {
                 const rating = this.dataset.rating;
                 const menuItemId = this.dataset.menuItemId;
-                const starRating = document.querySelector(`.average-rating[data-menu-item-id="${menuItemId}"]`);
 
                 for (let i = 1; i <= 5; i++) {
                     const starElement = document.querySelector(`.star[data-menu-item-id="${menuItemId}"][data-rating="${i}"]`);
@@ -83,7 +87,7 @@
             });
 
             star.addEventListener('click', function (event) {
-                event.preventDefault(); // Prevent the default form submission
+                event.preventDefault();
 
                 const menuItemId = this.dataset.menuItemId;
                 const rating = this.dataset.rating;
@@ -93,14 +97,13 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-CSRFToken': document.querySelector('#csrf-form input[name="csrfmiddlewaretoken"]').value,
                     },
                     body: JSON.stringify({
                         menu_item_id: menuItemId,
                         rating: rating,
                     }),
                 })
-
                 .then(response => response.json())
                 .then(data => {
                     // Update the average rating display
@@ -118,6 +121,7 @@
         });
     });
 </script>
+
 
 
 

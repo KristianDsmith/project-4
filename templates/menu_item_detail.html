@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Menu Item Detail{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ menu_item.name }}</h1>
+    <p>{{ menu_item.description }}</p>
+    <p>Price: {{ menu_item.price }}</p>
+
+    <!-- Display the average rating -->
+    <div class="average-rating">
+        Average Rating: {% if average_rating %}{{ average_rating|floatformat:1 }}{% else %}Not rated yet{% endif %}
+        <div class="star-rating">
+            <span class="star" data-menu-item-id="{{ menu_item.id }}" data-rating="1">&#9733;</span>
+            <span class="star" data-menu-item-id="{{ menu_item.id }}" data-rating="2">&#9733;</span>
+            <span class="star" data-menu-item-id="{{ menu_item.id }}" data-rating="3">&#9733;</span>
+            <span class="star" data-menu-item-id="{{ menu_item.id }}" data-rating="4">&#9733;</span>
+            <span class="star" data-menu-item-id="{{ menu_item.id }}" data-rating="5">&#9733;</span>
+        </div>
+    </div>
+
+    <!-- Form to submit a rating -->
+
+    <h2>Customer Ratings</h2>
+    {% if ratings %}
+    <ul>
+        {% for rating in ratings %}
+        <li>{{ rating.rating }} stars by {{ rating.customer.name }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No ratings yet.</p>
+    {% endif %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+
+        stars.forEach(star => {
+            star.addEventListener('mouseenter', function () {
+                const menuItemId = this.parentElement.dataset.menuItemId;
+                const rating = this.dataset.rating;
+                const starRating = document.querySelector(`.average-rating[data-menu-item-id="${menuItemId}"]`);
+
+                for (let i = 1; i <= 5; i++) {
+                    const starElement = document.querySelector(`.star[data-menu-item-id="${menuItemId}"][data-rating="${i}"]`);
+                    if (i <= rating) {
+                        starElement.style.color = 'yellow';
+                    } else {
+                        starElement.style.color = 'black';
+                    }
+                }
+            });
+
+            star.addEventListener('mouseleave', function () {
+                const menuItemId = this.dataset.menuItemId;
+                const starRating = document.querySelector(`.average-rating[data-menu-item-id="${menuItemId}"]`);
+                starRating.innerHTML = `Average Rating: ${starRating.dataset.averageRating}`;
+            });
+
+            star.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const menuItemId = this.dataset.menuItemId;
+                const rating = this.dataset.rating;
+
+                // Make an AJAX POST request to submit the rating
+                fetch('{% url "submit_rating" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        menu_item_id: menuItemId,
+                        rating: rating,
+                    }),
+                })
+
+                .then(response => response.json())
+                .then(data => {
+                    // Update the average rating display
+                    const averageRatingElement = document.querySelector(`.average-rating[data-menu-item-id="${menuItemId}"]`);
+                    if (data.average_rating !== null) {
+                        averageRatingElement.innerHTML = `Average Rating: ${data.average_rating.toFixed(1)}`;
+                    } else {
+                        averageRatingElement.innerHTML = 'Not rated yet';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

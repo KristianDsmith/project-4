@@ -1,4 +1,4 @@
-import uuid
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
@@ -11,7 +11,15 @@ from .tasks import send_email_task
 from django.views.generic import UpdateView
 from django.db.models import Avg
 from django.http import JsonResponse
-from .forms import RatingForm
+
+
+# Helper function to send email
+def send_email(subject, message, from_email, to_email):
+    try:
+        async_task(send_email_task, subject, message, from_email, to_email)
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
 
 def homepage(request):
     return render(request, 'index.html')
@@ -29,78 +37,27 @@ def restaurant_hours(request):
 def book(request):
     operating_hours = OperatingHours.objects.all()
     tables = Table.objects.all()
+    form = BookingForm()
 
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
-            date = form.cleaned_data['date']
-            time = form.cleaned_data['time']
-            table_number = form.cleaned_data['table_number']
-            number_of_guests = form.cleaned_data['number_of_guests']
+            reservation = form.save()
 
-            try:
-                table = Table.objects.get(table_number=table_number)
-            except Table.DoesNotExist:
-                messages.error(
-                    request, "Invalid table number. Please select a valid table.")
-                return redirect('book')
+            update_url = request.build_absolute_uri(
+                reverse('update_reservation', args=[reservation.id]))
 
-            if table.is_available(date, time):
-                reservation = Reservation(
-                    name=name,
-                    email=email,
-                    phone=phone,
-                    table=table,
-                    date=date,
-                    time=time,
-                    number_of_guests=number_of_guests)
-                reservation.save()
+            subject = 'Table Booking Confirmation'
+            message = f'Dear {reservation.name},\n\nThank you for booking a table. Your reservation details are as follows:\n\nTable Number: {reservation.table.table_number}\nDate: {reservation.date}\nTime: {reservation.time}\nNumber of Guests: {reservation.number_of_guests}\n\nTo make any changes to your reservation, please click on the following link:\n{update_url}\n\nWe look forward to seeing you!\n\nBest regards,\nThe Street Gastro Team'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to_email = reservation.email
 
-                # Generate the unique link
-                update_link = generate_booking_update_link(reservation.id)
-                if update_link:
-                    # Construct the URL for the update_reservation view
-                    update_url = request.build_absolute_uri(
-                        reverse('update_reservation', args=[update_link]))
-
-                    # Send the confirmation email with the update URL
-                    subject = 'Table Booking Confirmation'
-                    message = f'Dear {reservation.name},\n\nThank you for booking a table. Your reservation details are as follows:\n\nTable Number: {reservation.table.table_number}\nDate: {reservation.date}\nTime: {reservation.time}\nNumber of Guests: {reservation.number_of_guests}\n\nTo make any changes to your reservation, please click on the following link:\n{update_url}\n\nWe look forward to seeing you!\n\nBest regards,\nThe Street Gastro Team'
-                    from_email = settings.DEFAULT_FROM_EMAIL
-                    to_email = reservation.email
-
-                    async_task(send_email_task, subject, message, from_email, to_email)
-
-                    messages.success(
-                        request, 'Table booked successfully! A confirmation email has been sent to your email address.')
-                    return redirect('book')
-                else:
-                    messages.error(
-                        request, 'Failed to generate update link.')
-            else:
-                messages.error(
-                    request, 'Table is already booked for the selected date and time.')
+            send_email(subject, message, from_email, to_email)
+            
+            messages.success(request, 'Table booked successfully! A confirmation email has been sent to your email address.')
+            return redirect('book')
         else:
-            messages.error(
-                request, 'Invalid form submission. Please check the form data.')
-    else:
-        form = BookingForm()
-
-    # Handle Reservation Cancellation
-    if request.method == 'GET' and 'cancel_reservation' in request.GET:
-        token = request.GET['cancel_reservation']
-        reservation = get_object_or_404(Reservation, token=token)
-
-        if reservation.status == Reservation.PENDING:
-            reservation.delete()
-            messages.success(request, 'Reservation successfully cancelled.')
-        else:
-            messages.error(
-                request, 'Cannot cancel reservation. Reservation is already confirmed.')
-
+            messages.error(request, 'Invalid form submission. Please check the form data.')
     return render(request, 'book.html', {'form': form, 'tables': tables, 'operating_hours': operating_hours})
 
 
@@ -109,18 +66,18 @@ def contact(request):
 
 
 def menu_view(request):
-    dietary_preference_id = request.GET.get('dietary_preference_id')
+    dietary_preference_id = request.GET.get('dietary_preference_id', None)
 
+    menu_items = MenuItem.objects.all()
     if dietary_preference_id:
-        try:
-            selected_preference = DietaryPreference.objects.get(pk=dietary_preference_id)
-            menu_items = MenuItem.objects.filter(dietary_preference=selected_preference)
-        except DietaryPreference.DoesNotExist:
-            menu_items = MenuItem.objects.all()
-    else:
-        menu_items = MenuItem.objects.all()
+        menu_items = menu_items.filter(dietary_preference_id=dietary_preference_id)
 
     dietary_preferences = DietaryPreference.objects.all()
+    
+    for item in menu_items:
+        ratings = Rating.objects.filter(menu_item=item)  # assumes you have a Rating model
+        average_rating = ratings.aggregate(Avg('rating'))['rating__avg']  # Use 'rating' instead of 'value'
+        item.average_rating = average_rating if average_rating is not None else 0
 
     context = {
         'menu_items': menu_items,
@@ -130,10 +87,6 @@ def menu_view(request):
 
     return render(request, 'menu.html', context)
 
-
-def confirm_reservation(request):
-    # Your code to confirm the reservation and send confirmation email
-    return HttpResponse('Reservation confirmed. Confirmation email sent.')
 
 
 class ReservationUpdateView(UpdateView):
@@ -156,22 +109,14 @@ class ReservationUpdateView(UpdateView):
         from_email = settings.DEFAULT_FROM_EMAIL
         to_email = reservation.email
 
-        async_task(send_email_task, subject, message, from_email, to_email)
+        send_email(subject, message, from_email, to_email)
 
         messages.success(self.request, 'Reservation updated successfully!')
         return response
 
 
-def generate_booking_update_link(booking_id):
-    try:
-        booking = Reservation.objects.get(id=booking_id)
-        return booking.pk
-    except Reservation.DoesNotExist:
-        return None
-
-
-def cancel_reservation(request, token):
-    reservation = get_object_or_404(Reservation, token=token)
+def cancel_reservation(request, pk):
+    reservation = get_object_or_404(Reservation, pk=pk)
 
     if request.method == 'POST':
         reservation.status = Reservation.CANCELLED
@@ -183,7 +128,7 @@ def cancel_reservation(request, token):
         from_email = settings.DEFAULT_FROM_EMAIL
         to_email = reservation.email
 
-        async_task(send_email_task, subject, message, from_email, to_email)
+        send_email(subject, message, from_email, to_email)
 
         messages.success(request, 'Reservation has been cancelled successfully!')
         return redirect('book')
@@ -191,47 +136,33 @@ def cancel_reservation(request, token):
     return render(request, 'cancel_reservation.html', {'reservation': reservation})
 
 
-from django.http import JsonResponse
-from django.db.models import Avg
+def submit_rating(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        menu_item_id = data.get('menu_item_id')
+        rating_value = data.get('rating')
 
-def menu(request):
-    if request.method == 'POST' and request.is_ajax():
-        menu_item_id = request.POST.get('menu_item_id')
-        rating = int(request.POST.get('rating'))
+        try:
+            menu_item = MenuItem.objects.get(pk=menu_item_id)
+            new_rating = Rating.objects.create(menu_item=menu_item, rating=rating_value)
+            new_average_rating = menu_item.ratings.all().aggregate(Avg('rating'))['rating__avg']  # Assuming 'ratings' is the related_name for ratings in the MenuItem model
 
-        # Save the rating to the database (you can use the Rating model)
-        # Replace the following lines with your actual code to save the rating
-        # rating_obj = Rating.objects.create(menu_item_id=menu_item_id, rating=rating)
-        # average_rating = rating_obj.menu_item.ratings.aggregate(models.Avg('rating'))['rating__avg']
+            print(f"New average rating for menu item {menu_item_id}: {new_average_rating}")  # Add this line
 
-        # For demonstration purposes, return the average rating as a JSON response
-        # You should replace this with the actual average_rating value
-        average_rating = 4.2
-        response_data = {
-            'average_rating': average_rating
-        }
+            return JsonResponse({"average_rating": new_average_rating}, status=200)
+        except MenuItem.DoesNotExist:
+            return JsonResponse({"error": "Menu item not found."}, status=404)
 
-        return JsonResponse(response_data)
-
-    # If the request is not a POST or not AJAX, return a 404 error
-    return JsonResponse({'error': 'Invalid request.'}, status=404)
-
-
-
+    return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
 def menu_item_detail(request, menu_item_id):
-    menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
-    ratings = Rating.objects.filter(menu_item=menu_item)
-    average_rating = ratings.aggregate(Avg('rating'))['rating__avg']
+    try:
+        menu_item = MenuItem.objects.get(pk=menu_item_id)
+    except MenuItem.DoesNotExist:
+        return HttpResponse("Menu item not found.", status=404)
 
-    if request.method == 'POST':
-        form = RatingForm(request.POST)
-        if form.is_valid():
-            rating = form.cleaned_data['rating']
-            Rating.objects.create(menu_item=menu_item, rating=rating)
-            return redirect('menu_item_detail', menu_item_id=menu_item_id)
-    else:
-        form = RatingForm()
-
-    return render(request, 'menu_item_detail.html', {'menu_item': menu_item, 'form': form, 'ratings': ratings, 'average_rating': average_rating})
+    context = {
+        'menu_item': menu_item,
+    }
+    return render(request, 'menu_item_detail.html', context)

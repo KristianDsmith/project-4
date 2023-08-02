@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Table, OperatingHours, Reservation, MenuItem, DietaryPreference
+from .models import Rating
 
 
 
@@ -34,9 +35,13 @@ class ReservationAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     search_fields = ('name', 'email', 'phone', 'table__table_number')
 
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ['user', 'menu_item', 'rating'] 
+
 
 admin.site.register(DietaryPreference, DietaryPreferenceAdmin)
 admin.site.register(MenuItem, MenuItemAdmin)
 admin.site.register(OperatingHours, OperatingHoursAdmin)
 admin.site.register(Table, TableAdmin)
 admin.site.register(Reservation, ReservationAdmin)
+admin.site.register(Rating, RatingAdmin)

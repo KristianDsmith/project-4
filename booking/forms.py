@@ -37,3 +37,7 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
         fields = ['rating']
+
+
+class ConfirmBookingForm(forms.Form):
+    confirm = forms.BooleanField(label='Confirm Booking')

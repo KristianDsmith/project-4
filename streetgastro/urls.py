@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from booking import views
+from booking import views as booking_views
+from booking.views import task_list, task_detail
+from booking.views import staff_tasks
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,11 +36,18 @@ urlpatterns = [
     path('menu_item_detail/<int:menu_item_id>/', views.menu_item_detail, name='menu_item_detail'),
     path('submit_rating/', views.submit_rating, name='submit_rating'),
     path('table_status/', views.table_status, name='table_status'),
-    path('tasks/new/<int:reservation_id>', views.create_task, name='create_task'),
-    path('tasks/', views.list_tasks, name='list_tasks'),
-    path('tasks/<int:task_id>', views.task_detail, name='task_detail'),
-    path('tasks/<int:task_id>/update', views.update_task, name='update_task'),
+    path('tasks/', views.task_list, name='task_list'),
+    path('tasks/<int:pk>/', views.task_detail, name='task_detail'),
+    path('tasks/<int:pk>/update/', views.task_update, name='task_update'),
+    path('staff_tasks/', views.staff_tasks, name='staff_tasks'),
+    path('reservation_detail/<int:pk>/', views.ReservationDetailView.as_view(), name='reservation_detail'),
+    path('staff_login/', views.staff_login_view, name='staff_login'),
+    path('tasks/<int:pk>/', views.task_detail, name='task_detail'),
+    path('tasks/<int:pk>/update/', views.task_update, name='task_update'),
 ]
+
+
+    
 
 
 

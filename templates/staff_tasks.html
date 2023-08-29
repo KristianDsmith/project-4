@@ -1,0 +1,44 @@
+<!-- templates/staff_tasks.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Tasks</title>
+</head>
+<body>
+    <h1>Your Assigned Tasks</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Reservation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>
+                        {% if task.reservation %}
+                            {{ task.reservation.id }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'task_detail' task.id %}">View</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if not tasks %}
+        <p>No tasks assigned yet.</p>
+    {% endif %}
+</body>
+</html>

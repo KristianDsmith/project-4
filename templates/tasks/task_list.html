@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Tasks</h1>
+    
+    <!-- Optional: Search or Filter functionality -->
+    <!-- <form method="get">
+        <input type="text" name="search" placeholder="Search tasks...">
+        <input type="submit" value="Search">
+    </form> -->
+    
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a>
+                <!-- Assuming task has a foreign key to Reservation named 'reservation' -->
+                {% if task.reservation %}
+                    | <a href="{% url 'reservation_detail' task.reservation.pk %}">View associated Reservation</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+

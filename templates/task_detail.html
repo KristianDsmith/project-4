@@ -1,0 +1,26 @@
+<!-- templates/tasks/task_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Detail</title>
+</head>
+<body>
+    <h1>Task Detail</h1>
+<p>Task ID: {{ task.id }}</p>
+<p>Title: {{ task.title }}</p>
+<p>Description: {{ task.description }}</p>
+<p>Reservation: {% if task.reservation %}{{ task.reservation.id }}{% else %}N/A{% endif %}</p>
+
+<form action="{% url 'task_update' task.id %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="confirm_booking">
+<button type="submit">Confirm Booking</button>
+</form>
+    {% else %}
+        <p>No reservation associated with this task.</p>
+    {% endif %}
+    
+    <p><a href="{% url 'staff_tasks' %}">Back to Assigned Tasks</a></p>
+</body>
+</html>

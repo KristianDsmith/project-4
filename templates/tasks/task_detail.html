@@ -1,0 +1,22 @@
+<h2>Task Detail</h2>
+<p><strong>Title:</strong> {{ task.title }}</p>
+<p><strong>Description:</strong> {{ task.description }}</p>
+
+<h3>Associated Reservation</h3>
+{% if task.reservation %}
+  <p>Due Date: {{ task.reservation.due_date }}</p>
+  <p>Time: {{ task.reservation.time }}</p>
+  <p>Table Number: {{ task.reservation.table.table_number }}</p>
+  <p>Date: {{ task.reservation.date }}</p>
+  <p>Number of Guests: {{ task.reservation.number_of_guests }}</p>
+  <p>Status: {{ task.reservation.get_status_display }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="confirm_booking">
+    <button type="submit">Confirm Booking</button>
+  </form>
+{% else %}
+  <p>No associated reservation</p>
+{% endif %}
+

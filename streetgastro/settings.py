@@ -194,3 +194,5 @@ Q_CLUSTER = {
 
 CELERY_BROKER_URL = 'django-db://'  # Use Django ORM + database as broker
 CELERY_RESULT_BACKEND = 'django-db'  # Use Django ORM + database for results
+
+

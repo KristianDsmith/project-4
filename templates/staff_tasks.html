@@ -1,44 +1,43 @@
-<!-- templates/staff_tasks.html -->
+<!-- templates/tasks/task_detail.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Staff Tasks</title>
+    <title>Task Detail</title>
 </head>
 <body>
-    <h1>Your Assigned Tasks</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Task ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Reservation</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-                <tr>
-                    <td>{{ task.id }}</td>
-                    <td>{{ task.title }}</td>
-                    <td>{{ task.description }}</td>
-                    <td>
-                        {% if task.reservation %}
-                            {{ task.reservation.id }}
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{% url 'task_detail' task.id %}">View</a>
-                    </td>
-                </tr>
+    <h1>Task Detail</h1>
+    <p>Task ID: {{ task.id }}</p>
+    <p>Title: {{ task.title }}</p>
+    <p>Description: {{ task.description }}</p>
+    <p>Reservation: {% if task.reservation %}{{ task.reservation.id }}{% else %}N/A{% endif %}</p>
+    
+    {% if task.reservation %}
+        <p>Reservation Status: {{ task.reservation.get_status_display }}</p>
+        
+        {% if task.reservation.status == 'PD' %}  <!-- Display the form only for pending reservations -->
+            <form action="{% url 'task_update' task.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="confirm_booking">
+                <button type="submit">Confirm Booking</button>
+            </form>
+        {% else %}
+            <p>Booking already {{ task.reservation.get_status_display }}</p>
+        {% endif %}
+    {% else %}
+        <p>No reservation associated with this task.</p>
+    {% endif %}
+    
+    <p><a href="{% url 'staff_tasks' %}">Back to Assigned Tasks</a></p>
+
+    <!-- Display success message if it exists -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
             {% endfor %}
-        </tbody>
-    </table>
-    {% if not tasks %}
-        <p>No tasks assigned yet.</p>
+        </ul>
     {% endif %}
 </body>
 </html>
+

@@ -33,7 +33,15 @@ class Rating(models.Model):
         return f"{self.menu_item.name} - {self.rating} stars"
 
 
+class Booking(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    date = models.DateField()
+    time = models.TimeField()
+    number_of_guests = models.IntegerField()
 
+    def __str__(self):
+        return f'{self.name} - {self.date} - {self.time}'
 
 
 

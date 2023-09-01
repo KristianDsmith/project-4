@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 from django_q.tasks import async_task
@@ -6,6 +6,9 @@ from .models import MenuItem, DietaryPreference, Rating
 from django.views.generic import UpdateView
 from django.db.models import Avg
 import json
+from .models import Booking
+from .forms import BookingForm
+from django.contrib import messages
 
 
 
@@ -79,3 +82,23 @@ def menu_item_detail(request, menu_item_id):
     }
     return render(request, 'menu_item_detail.html', context)
 
+
+def book(request):
+    if request.method == 'POST':
+        print(request.POST)  # Print the submitted data to the console for debugging
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        date = request.POST.get('date')
+        time = request.POST.get('time')
+        number_of_guests = request.POST.get('number_of_guests')
+        
+        booking = Booking.objects.create(
+            name=name,
+            email=email,
+            date=date,
+            time=time,
+            number_of_guests=number_of_guests
+        )
+        return render(request, 'thank_you.html')
+    
+    return render(request, 'index.html')

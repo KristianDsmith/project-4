@@ -176,8 +176,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = ('krissdarangz@gmail.com')
-EMAIL_HOST_PASSWORD = ('The2ofus')
+EMAIL_HOST_USER = 'krissdarangz@gmail.com'
+EMAIL_HOST_PASSWORD = 'The2ofus'
 
 
 Q_CLUSTER = {
@@ -196,5 +196,10 @@ Q_CLUSTER = {
 
 CELERY_BROKER_URL = 'django-db://'  # Use Django ORM + database as broker
 CELERY_RESULT_BACKEND = 'django-db'  # Use Django ORM + database for results
+
+
+
+
+
 
 

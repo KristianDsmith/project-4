@@ -1,20 +1,28 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from django.conf import settings
-from django_q.tasks import async_task
-from .models import MenuItem, DietaryPreference, Rating
-from django.views.generic import UpdateView
-from django.db.models import Avg
-import json
-from .models import Booking
-from .forms import BookingForm
+from django.urls import reverse_lazy
 from django.contrib import messages
+from django_q.tasks import async_task
+from django.db.models import Avg
+from .models import MenuItem, DietaryPreference, Rating, Booking
+from django.views.generic.edit import CreateView
+import json
+from booking.models import Booking
+
+
+
 
 
 
 
 def homepage(request):
-    return render(request, 'index.html')
+    # Fetch bookings or create a new booking as needed
+    bookings = Booking.objects.all()  # Fetch all bookings or apply appropriate filters
+    
+    context = {
+        'bookings': bookings,  # Pass the bookings to the template
+    }
+    return render(request, 'index.html', context)
 
 
 def about(request):
@@ -102,3 +110,53 @@ def book(request):
         return render(request, 'thank_you.html')
     
     return render(request, 'index.html')
+
+def edit_booking(request, booking_id):
+    booking = Booking.objects.get(pk=booking_id)  # Fetch the booking
+    context = {'booking': booking}
+    return render(request, 'edit_booking.html', context)
+
+
+
+
+
+
+def cancel_booking(request):
+    booking = None
+    error_message = None
+    
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        
+        try:
+            booking = Booking.objects.get(email=email, canceled=False)
+        except Booking.DoesNotExist:
+            error_message = "No active booking found with the provided email."
+            
+    return render(request, 'cancel_booking.html', {
+        'booking': booking,
+        'error_message': error_message,
+    })
+
+def cancel_booking(request, booking_id):
+    try:
+        booking = Booking.objects.get(id=booking_id)
+    except Booking.DoesNotExist:
+        return redirect('some-error-page-or-404')
+
+    if request.method == 'POST':
+        booking.canceled = True
+        booking.save()
+        messages.success(request, 'Your booking has been successfully canceled.')
+        return redirect('home-page-or-wherever-you-want')
+        
+    return render(request, 'confirm_cancel.html', {'booking': booking})
+
+
+
+
+
+
+
+
+

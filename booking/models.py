@@ -1,9 +1,7 @@
 from django.db import models
-import uuid
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.conf import settings 
-
-
+from django.conf import settings
+from django.contrib.auth.models import User
 
 
 class DietaryPreference(models.Model):
@@ -11,6 +9,7 @@ class DietaryPreference(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class MenuItem(models.Model):
     name = models.CharField(max_length=100)
@@ -25,23 +24,26 @@ class MenuItem(models.Model):
 
 
 class Rating(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='ratings', null=True)
-    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE, related_name='ratings')
-    rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='ratings', null=True)
+    menu_item = models.ForeignKey(
+        MenuItem, on_delete=models.CASCADE, related_name='ratings')
+    rating = models.PositiveIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     def __str__(self):
         return f"{self.menu_item.name} - {self.rating} stars"
 
 
 class Booking(models.Model):
+    user = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     date = models.DateField()
     time = models.TimeField()
     number_of_guests = models.IntegerField()
+    canceled = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.name} - {self.date} - {self.time}'
-
-
-

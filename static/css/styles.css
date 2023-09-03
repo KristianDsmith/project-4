@@ -243,6 +243,12 @@ nav ul.custom-nav-links li a:hover::after {
     margin-bottom: 0;
 }
 
+.button-container {
+    display: flex;
+    gap: 10px;
+}
+
+
 
 
 /* Add custom styles for the carousel */

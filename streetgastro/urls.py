@@ -16,11 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from booking import views 
-from django.urls import include, path
-
-
-
-
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,10 +27,17 @@ urlpatterns = [
     path('menu/', views.menu_view, name='menu'),
     path('menu_item_detail/<int:menu_item_id>/', views.menu_item_detail, name='menu_item_detail'),
     path('submit_rating/', views.submit_rating, name='submit_rating'),
+    path('edit_booking/<int:booking_id>/', views.edit_booking, name='edit_booking'),
+    path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),        
+
+   
+
 ]
 
 
-    
+
+
+
 
 
 

@@ -8,6 +8,7 @@ from .models import MenuItem, DietaryPreference, Rating, Booking
 from django.views.generic.edit import CreateView
 import json
 from booking.models import Booking
+from .forms import BookingForm 
 
 
 
@@ -111,10 +112,57 @@ def book(request):
     
     return render(request, 'index.html')
 
-def edit_booking(request, booking_id):
-    booking = Booking.objects.get(pk=booking_id)  # Fetch the booking
-    context = {'booking': booking}
-    return render(request, 'edit_booking.html', context)
+from django.contrib import messages
+from django.shortcuts import render
+from .models import Booking
+
+def edit_booking(request, booking_id=None):
+    bookings = None
+    selected_booking = None
+
+    if request.method == 'POST':
+        if 'search_email' in request.POST:
+            email = request.POST.get('email')
+            bookings = Booking.objects.filter(email=email)
+            
+            if not bookings.exists():
+                messages.error(request, "No bookings found for this email")
+                return render(request, 'edit_booking.html', {'bookings': None})
+        
+        elif 'select_booking' in request.POST:
+            selected_booking_id = request.POST.get('selected_booking_id')
+            selected_booking = Booking.objects.get(id=selected_booking_id)
+        
+        elif 'edit_booking' in request.POST:
+            selected_booking_id = request.POST.get('booking_id')
+            selected_booking = Booking.objects.get(id=selected_booking_id)
+            
+            # Getting and validating the updated data
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            date = request.POST.get('date')
+            time = request.POST.get('time')
+            
+            # Placeholder for validation; implement your own logic
+            if not name or not email or not date or not time:
+                messages.error(request, 'All fields are required.')
+                return render(request, 'edit_booking.html', {'selected_booking': selected_booking})
+            
+            # Updating and saving the object
+            selected_booking.name = name
+            selected_booking.email = email
+            selected_booking.date = date
+            selected_booking.time = time
+            selected_booking.save()
+            
+            # Confirm and redirect
+            messages.success(request, 'Booking updated successfully.')
+            return redirect('edit_confirmation', booking_id=selected_booking_id)
+
+    return render(request, 'edit_booking.html', {'bookings': bookings, 'selected_booking': selected_booking})
+
+
+
 
 
 
@@ -161,6 +209,10 @@ def confirm_cancel(request, booking_id):
 
 def cancellation_confirmation(request):
     return render(request, 'cancellation_confirmation.html')
+
+def edit_confirmation(request, booking_id):
+    return render(request, 'edit_confirmation.html', {'booking_id': booking_id})
+
 
 
 

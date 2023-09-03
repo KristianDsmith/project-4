@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Search Booking</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="search_email" value="true">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <button type="submit">Search</button>
+</form>
+
+{% if bookings %}
+<h2>Select Booking to Edit</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="select_booking" value="true">
+    <select name="selected_booking_id">
+        {% for booking in bookings %}
+        <option value="{{ booking.id }}">{{ booking.name }} - {{ booking.date }} - {{ booking.time }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Select</button>
+</form>
+{% endif %}
+
+{% if selected_booking %}
+<h2>Edit Booking</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="edit_booking" value="true">
+    <input type="hidden" name="booking_id" value="{{ selected_booking.id }}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{ selected_booking.name }}">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{ selected_booking.email }}">
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" value="{{ selected_booking.date }}">
+    <label for="time">Time:</label>
+    <input type="time" id="time" name="time" value="{{ selected_booking.time }}">
+    <!-- Add more form fields for other booking details -->
+    <button type="submit">Update Booking</button>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,32 +1,53 @@
-{% extends 'base.html' %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
-{% block content %}
+{% if bookings %}
+    <h2>Select Booking to Cancel</h2>
+    <ul>
+    {% for booking in bookings %}
+        <li>
+            Booking ID: {{ booking.id }}<br>
+            Name: {{ booking.name }}<br>
+            Email: {{ booking.email }}<br>
+            Date: {{ booking.date }}<br>
+            Time: {{ booking.time }}<br>
+            <!-- other details you may want to include -->
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="confirm_cancel" value="true">
+                <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                <button type="submit">Cancel Booking</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+{% elif booking %}
+    <h2>Booking Details</h2>
+    <p>Booking ID: {{ booking.id }}</p>
+    <p>Name: {{ booking.name }}</p>
+    <p>Email: {{ booking.email }}</p>
+    <p>Date: {{ booking.date }}</p>
+    <p>Time: {{ booking.time }}</p>
+    <!-- other details you may want to include -->
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="confirm_cancel" value="true">
+        <input type="hidden" name="booking_id" value="{{ booking.id }}">
+        <button type="submit">Cancel Booking</button>
+    </form>
+{% else %}
     <h1>Cancel Booking</h1>
     <form method="post">
         {% csrf_token %}
-        <div class="mb-3">
-            <label for="email">Enter your email:</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Search Booking</button>
+        <input type="hidden" name="search_email" value="true">
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Search Booking</button>
     </form>
-    
-    {% if booking %}
-        <h2>Booking Details</h2>
-        <p>Booking ID: {{ booking.id }}</p>
-        <p>Date: {{ booking.date }}</p>
-        <p>Name: {{ booking.name }}</p>
-        <p>Time: {{ booking.time }}</p>
-        <p>Number of Guests: {{ booking.number_of_guests }}</p>
-        
-        <form method="post" action="{% url 'confirm_cancel' booking.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Cancel Booking</button>
-        </form>
-        
-    {% endif %}
-    
-    {% if error_message %}
-        <p>{{ error_message }}</p>
-    {% endif %}
-{% endblock %}
+{% endif %}
+

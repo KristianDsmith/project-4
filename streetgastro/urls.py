@@ -28,11 +28,14 @@ urlpatterns = [
     path('menu_item_detail/<int:menu_item_id>/', views.menu_item_detail, name='menu_item_detail'),
     path('submit_rating/', views.submit_rating, name='submit_rating'),
     path('edit_booking/<int:booking_id>/', views.edit_booking, name='edit_booking'),
-    path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),        
+    path('confirm_cancel/<int:booking_id>/', views.confirm_cancel, name='confirm_cancel'),
+    path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
+    path('cancellation_confirmation/', views.cancellation_confirmation, name='cancellation_confirmation'),
 
-   
+
 
 ]
+
 
 
 

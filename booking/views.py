@@ -118,27 +118,33 @@ def edit_booking(request, booking_id):
 
 
 
-
-
-
-def cancel_booking(request):
+def cancel_booking(request, booking_id=None):
+    email = None
+    bookings = None
     booking = None
-    error_message = None
-    
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        
-        try:
-            booking = Booking.objects.get(email=email, canceled=False)
-        except Booking.DoesNotExist:
-            error_message = "No active booking found with the provided email."
-            
-    return render(request, 'cancel_booking.html', {
-        'booking': booking,
-        'error_message': error_message,
-    })
 
-def cancel_booking(request, booking_id):
+    if 'search_email' in request.POST:
+        email = request.POST.get('email', '')
+        bookings = Booking.objects.filter(email=email)
+        
+        if not bookings.exists():
+            messages.error(request, 'No bookings found for this email.')
+        elif bookings.count() == 1:
+            booking = bookings.first()
+
+    elif 'confirm_cancel' in request.POST:
+        booking_id = request.POST.get('booking_id', '')
+        booking = Booking.objects.get(id=booking_id)
+        booking.delete()  # Assuming you want to delete the booking, change if needed
+        
+        messages.success(request, 'Your booking has been successfully canceled.')
+        
+        return redirect('cancellation_confirmation')  # Redirecting to the new confirmation page
+
+    return render(request, 'cancel_booking.html', {'bookings': bookings, 'booking': booking})
+
+
+def confirm_cancel(request, booking_id):
     try:
         booking = Booking.objects.get(id=booking_id)
     except Booking.DoesNotExist:
@@ -148,9 +154,34 @@ def cancel_booking(request, booking_id):
         booking.canceled = True
         booking.save()
         messages.success(request, 'Your booking has been successfully canceled.')
-        return redirect('home-page-or-wherever-you-want')
+        return redirect('homepage')
         
     return render(request, 'confirm_cancel.html', {'booking': booking})
+
+
+def cancellation_confirmation(request):
+    return render(request, 'cancellation_confirmation.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

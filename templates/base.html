@@ -75,7 +75,7 @@
         <div class="container">
             <div class="row">
                 <!-- Column 1: Contact -->
-                <div class="col-md-4 mb-3 text-start">
+                <div class="col-12 col-md-4 mb-3 text-start">
                     <h5>Contact</h5>
                     <p>Email: info@example.com</p>
                     <p>Phone: +1 234 567 890</p>
@@ -83,7 +83,7 @@
                     <p>Country, Postal Code</p>
                 </div>
                 <!-- Column 2: Follow Us -->
-                <div class="col-md-4 text-center">
+                <div class="col-12 col-md-4 text-center">
                     <h5>Follow Us</h5>
                     <ul class="list-inline social-icons">
                         <li class="list-inline-item">
@@ -101,28 +101,27 @@
                                 <i class="fab fa-instagram"></i>
                             </a>
                         </li>
-                        
                     </ul>
                 </div>
                 <!-- Column 3: Navigation and Book Button -->
-                <div class="col-md-4 text-end">
+                <div class="col-12 col-md-4 text-end">
                     <h5>Navigation</h5>
                     <ul class="list-unstyled footer-nav">
                         <li><a href="{% url 'homepage' %}" class="footer-link" style="color: white; text-decoration: none;">Home</a></li>
                         <li><a href="{% url 'menu' %}" class="footer-link" style="color: white; text-decoration: none;">Menu</a></li>
                         <li><a href="#booking-section" class="footer-link" style="color: white; text-decoration: none;">Book</a></li>
-                        <li><a href="{% url 'contact' %}" class="footer-link" style="color: white; text-decoration: none;">Contact</a></li>                       
+                        <li><a href="{% url 'contact' %}" class="footer-link" style="color: white; text-decoration: none;">Contact</a></li>
                     </ul>
                 </div>
             </div>
             <div class="row mt-3">
-                <!-- Copyright -->
-                <div class="col-md-12 text-center">
+                <div class="col-12 text-center">
                     <p class="footer-text" style="color: white;">&copy; {% now "Y" %} Street Gastro. All rights reserved.</p>
                 </div>
             </div>
         </div>
     </footer>
+    
     
     
 

@@ -3,13 +3,10 @@
 
 {% block content %}
 <div class="container">
-    <!-- Image with h2 and p -->
     <div class="row">
-        <!-- Left Column: Image -->
         <div class="col-md-6 d-flex justify-content-center align-items-center">
             <img src="{% static 'images/homepage-image-r.jpg' %}" alt="Restaurant Image" class="img-fluid" style="width: 100%;">
         </div>
-        <!-- Right Column: h2 and p -->
         <div class="col-md-6 d-flex align-items-center">
             <div>
                 <h2>Welcome to Our Restaurant</h2>
@@ -22,64 +19,55 @@
 <div class="divider"></div>
 <div class="container text-center">
     <h2>Sample Menu</h2>
-    <p>A delicious curated by Head Chef Daniel Smith</p>
-    <!-- Add your menu items here -->
+    <p>A delicious menu curated by Head Chef Daniel Smith</p>
     <div class="menu-list">
         <div class="menu-item">
             <img src="{% static 'images/fish-tea.jpg' %}" alt="Fish Tea" class="img-fluid">
             <h3>Fish Tea</h3>
             <p>Fish broth infused with ginger, scotch bonnet pepper. Fermented spring onion and carrots. Served with festival fried dumplings.</p>
         </div>
-        <div class="menu-item">   
-            <img src="{% static 'images/fried-chicken.jpg' %}" alt="Item 2" class="img-fluid">
+        <div class="menu-item">
+            <img src="{% static 'images/fried-chicken.jpg' %}" alt="Southern Fried Chicken" class="img-fluid">
             <h3>Southern Fried Chicken</h3>
             <p>Southern fried chicken wings, marinated in a spice buttermilk, and served with a fermented homemade spicy bbq sauce.</p>
         </div>
-        <!-- Add more menu items as needed -->
     </div>
 </div>
 <div id="booking-section" class="hero-section-next position-relative d-flex justify-content-between align-items-center">
-    <!-- Booking Form Overlay -->
-    <div class="booking-form-overlay position-absolute bg-light p-4 rounded opacity-75">
-        <h3 class="mb-3">Book a Table</h3>
-        <form id="booking-form" method="post" action="{% url 'book' %}">
-            {% csrf_token %}
-            <div class="mb-3">
-                <input type="text" class="form-control" name="name" placeholder="Name">
-            </div>
-            <div class="mb-3">
-                <input type="email" class="form-control" name="email" placeholder="Email">
-            </div>
-            <div class="mb-3">
-                <input type="number" class="form-control" name="number_of_guests" placeholder="Number of Guests">
-            </div>
-            <div class="mb-3">
-                <input type="text" id="datePicker" class="form-control" name="date" placeholder="Choose Date">
-            </div>
-            <div class="mb-3">
-                <input type="time" id="timePicker" class="form-control" name="time" placeholder="Choose Time">
-            </div>
-
-            <!-- Moved the submit button here -->
-            <button type="submit" class="btn btn-primary mr-2">Book</button>
-            
-            {% if bookings %}
-            <a href="{% url 'edit_booking' bookings.0.id %}" class="btn btn-primary mr-2">Edit</a>
-            <a href="{% url 'cancel_booking' bookings.0.id %}" class="btn btn-danger mr-2">Cancel</a>
-            {% endif %}
-        </form>
-    </div>
-
-    <!-- Text Content -->
-    <div class="hero-content-book text-right">
-        <h2>Skip the Line</h2>
-        <div class="hero-subtitle">
+    <div class="booking-container">
+        <div class="hero-content-book">
+            <h2>Skip the Line</h2>
             <p>Book your table in advance and enjoy the Street Gastro experience.</p>
+        </div>
+        <div class="booking-form-overlay bg-light p-4 rounded opacity-75">
+
+            <h3 class="mb-3">Book a Table</h3>
+            <form id="booking-form" method="post" action="{% url 'book' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="name" placeholder="Name">
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" name="email" placeholder="Email">
+                </div>
+                <div class="mb-3">
+                    <input type="number" class="form-control" name="number_of_guests" placeholder="Number of Guests">
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="datePicker" class="form-control" name="date" placeholder="Choose Date">
+                </div>
+                <div class="mb-3">
+                    <input type="time" id="timePicker" class="form-control" name="time" placeholder="Choose Time">
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Book</button>
+                {% if bookings %}
+                <a href="{% url 'edit_booking' bookings.0.id %}" class="btn btn-primary mr-2">Edit</a>
+                <a href="{% url 'cancel_booking' bookings.0.id %}" class="btn btn-danger mr-2">Cancel</a>
+                {% endif %}
+            </form>
         </div>
     </div>
 </div>
-
-
 
 
 <script>
@@ -90,11 +78,6 @@
     });
 </script>
 
-
-
-
-
-<!-- New Section with Carousel Gallery -->
 <div class="container-fluid gallery-section">
     <h2 class="section-title">LOCAL FARMED</h2>
     <p class="section-paragraph">At Street Gastro, we take great pride in using locally farmed fresh ingredients in all our dishes. Our commitment to supporting local farmers and producers ensures that our culinary creations are of the highest quality and reflect the unique flavors of the region. By sourcing locally, we not only offer delicious and nutritious meals but also contribute to the sustainability of the local community and reduce our environmental impact. With each bite, you can taste the richness of our region's agriculture and the dedication of those who bring these exceptional ingredients to our kitchen.</p>
@@ -119,7 +102,7 @@
                         <img src="{% static 'images/red-snapper-r.jpg' %}" alt="Image 4" class="img-fluid">
                     </div>
                     <div class="col-md-4">
-                        <img src="{% static 'images/fruit-r.jpg' %}" alt="Image 6" class="img-fluid">
+                        <img src="{% static 'images/fruit-r.jpg' %}" alt="Image 5" class="img-fluid">
                     </div>
                     <div class="col-md-4">
                         <img src="{% static 'images/spices-r.jpg' %}" alt="Image 6" class="img-fluid">
@@ -135,58 +118,6 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div>
-</div>
-
-<div class="divider"></div>
-<!-- Testimonial Section -->
-<div class="testimonial-section">
-    <div class="container">
-        <h2 class="text-center">Testimonials</h2>
-        <div class="row mt-3">
-            <div class="col-md-4">
-                <div class="testimonial">
-                    <img src="{% static 'images/sarah-jaine.jpg' %}" alt="Person 1" class="img-thumbnail rounded-circle">
-                    <h3>Sarah Jaine</h3>
-                    <p>Street Gastro is amazing! The food is delicious and the service is top-notch. I highly recommend it!</p>
-                    <div class="rating">
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial">
-                    <img src="{% static 'images/jane-smith.jpg' %}" alt="Person 2" class="img-thumbnail rounded-circle">
-                    <h3>Jane Smith</h3>
-                    <p>Street Gastro! The flavors are out of this world, and the staff is friendly and attentive.</p>
-                    <div class="rating">
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial">
-                    <img src="{% static 'images/mike-johnson.jpg' %}" alt="Person 3" class="img-thumbnail rounded-circle">
-                    <h3>Mike Johnson</h3>
-                    <p>I had an amazing experience at Street Gastro. The food was fresh and flavorful, and perfect ambiance.</p>
-                    <div class="rating">
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9734;</span>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 

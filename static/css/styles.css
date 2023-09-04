@@ -84,32 +84,38 @@ p {
 }
 
 /* Custom styles for the buttons */
-
 .btn {
     font-size: 16px;
     height: auto;
     padding: 10px 20px;
     border-radius: 8px;
-    border: 1px solid #9ddbad;
-    background-color: transparent;
-    transition: background-color 0.3s; 
+    background-color: #9ddbad; /* Set the default background color to green */
+    color: #fff; /* Set the default text color to white */
+    transition: background-color 0.3s, color 0.3s; 
     margin: 10px;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-primary {
-    border-color: #9ddbad;
-    color: #fff;
+    background-color: #9ddbad; /* Set the background color for .btn-primary to green */
+    color: #fff; /* Set the text color for .btn-primary to white */
+    border: 1px solid #9ddbad;
 }
 
-#book-table-btn {
-    border-color: #040403;
-    color: #040403;
+#book-table-btn, .btn-primary, .btn-secondary {
+    background-color: #9ddbad; /* Set the background color for #book-table-btn, .btn-primary, and .btn-secondary to green */
+    color: #fff; /* Set the text color for these buttons to white */
+    border: 1px solid #9ddbad;
 }
 
-.btn:hover {
-    background-color: #9ddbad;
-    border-color: transparent;
+.btn-primary:hover, #book-table-btn:hover, .btn-secondary:hover {
+    background-color: #040403; /* Set the hover background color to grey */
+    color: #9ddbad; /* Set the hover text color to green */
+    border-color: #040403; /* Set the hover border color to grey */
 }
+
+
 
 
 /* Custom styles for the nav bar */
@@ -199,8 +205,46 @@ nav ul.custom-nav-links li a:hover::after {
     color: #fff;
     text-align: center;
     padding: 0;
+    position: relative;
 }
 
+/* Add absolute positioning to the hero content */
+.hero-content-book {
+    position: absolute;
+    top: 0;
+    left: 320px;
+    width: 50%; /* Adjust the width as needed */
+    padding: 20px;
+    color: #fff;
+    z-index: 1;
+    text-align: left; /* Align text to the left */
+}
+
+/* Custom styles for h2 in hero content */
+.hero-content-book h2 {
+    font-size: 36px;
+    color: #fff;
+    font-family: 'Gruppo', sans-serif;
+    margin: 0;
+}
+
+/* Custom styles for p in hero content */
+.hero-content-book p {
+    font-size: 18px;
+    font-weight: 300;
+    color: #fff;
+    margin: 0;
+}
+
+/* Rest of your existing styles... */
+
+
+/* Adjust alignment for the form */
+.hero-section-next .booking-form-overlay {
+    margin-left: 1175px;
+}
+
+/* Rest of your existing styles... */
 .booking-form-overlay {
     z-index: 2;
     width: 400px;
@@ -211,41 +255,44 @@ nav ul.custom-nav-links li a:hover::after {
 }
 
 .opacity-75 {
-    opacity: 0.75;
-}
-
-/* Adjust alignment for the form */
-.hero-section-next .booking-form-overlay {
-    margin-left: 1200px;
-}
-
-/* Adjust text content alignment */
-.hero-content {
-    text-align: left;
-    margin-left: 300px;
-    margin-bottom: 375px;
-    flex: 1;
-}
-
-/* Custom styles for h2 in hero content */
-.hero-content h2 {
-    font-size: 36px;
-    color: #fff;
-    font-family: 'Gruppo', sans-serif;
-    margin-bottom: 10px;
-}
-
-/* Custom styles for p in hero content */
-.hero-content p {
-    font-size: 18px;
-    font-weight: 300;
-    color: #fff;
-    margin-bottom: 0;
+    opacity: 0.95;
 }
 
 .button-container {
     display: flex;
     gap: 10px;
+}
+
+/* Custom styles for the buttons */
+.btn {
+    font-size: 16px;
+    height: auto;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #9ddbad; /* Set the background color to green */
+    color: #fff; /* Set the text color to white */
+    border: none; /* Remove border */
+    transition: background-color 0.3s;
+    margin: 10px;
+}
+
+.btn-primary {
+    background-color: #040403; /* Set the background color to dark grey */
+    color: #9ddbad; /* Set the text color to green */
+}
+
+.btn:hover {
+    background-color: #555; /* Set the background color to grey on hover */
+}
+
+/* Add a class to style the button container */
+.btn-container {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    top: 50%; /* Align vertically in the middle */
+    right: 60px; /* Adjust the right distance from the screen edge */
+    transform: translateY(-50%); /* Center vertically */
 }
 
 

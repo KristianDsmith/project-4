@@ -38,8 +38,7 @@
         <!-- Add more menu items as needed -->
     </div>
 </div>
-<!-- Hero Section with Booking Form -->
-<div class="hero-section-next position-relative d-flex justify-content-between align-items-center">
+<div id="booking-section" class="hero-section-next position-relative d-flex justify-content-between align-items-center">
     <!-- Booking Form Overlay -->
     <div class="booking-form-overlay position-absolute bg-light p-4 rounded opacity-75">
         <h3 class="mb-3">Book a Table</h3>
@@ -62,35 +61,35 @@
             </div>
 
             <!-- Moved the submit button here -->
-            <button type="submit" class="btn btn-primary">Book</button>
-
-        </form>
-
-        {% if bookings %}
-        <div class="mb-3 d-flex" role="group">
+            <button type="submit" class="btn btn-primary mr-2">Book</button>
+            
+            {% if bookings %}
             <a href="{% url 'edit_booking' bookings.0.id %}" class="btn btn-primary mr-2">Edit</a>
             <a href="{% url 'cancel_booking' bookings.0.id %}" class="btn btn-danger mr-2">Cancel</a>
-        </div>
-        {% endif %}
+            {% endif %}
+        </form>
     </div>
 
-        <script>
-            $(document).ready(function() {
-                $("#datePicker").datepicker({
-                    dateFormat: 'yy-mm-dd'
-                });
-            });
-        </script>
-    </div>
-    
     <!-- Text Content -->
-    <div class="hero-content text-right">
+    <div class="hero-content-book text-right">
         <h2>Skip the Line</h2>
         <div class="hero-subtitle">
             <p>Book your table in advance and enjoy the Street Gastro experience.</p>
         </div>
     </div>
 </div>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $("#datePicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
+
 
 
 

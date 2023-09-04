@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Today's Tasks</h1>
-<p>Total Guests: {{ total_guests }}</p>
-<p>Total Tables Booked: {{ total_tables_booked }}</p>
+<h1>Select a Day</h1>
+<ul>
+{% for weekday in weekdays %}
+    <a href="?selected_date={{ weekday|date:"Y-m-d" }}">{{ weekday }}</a><br>
+    
+{% endfor %}
+</ul>
 {% endblock %}

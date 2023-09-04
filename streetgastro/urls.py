@@ -34,6 +34,7 @@ urlpatterns = [
     path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
     path('cancellation_confirmation/', views.cancellation_confirmation, name='cancellation_confirmation'),
     path('task_manager/tasks/', view_tasks, name='task_manager_tasks'),
+    
 
  
 

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Tasks for {{ selected_date }}</h1>
+<p>Total Guests: {{ total_guests }}</p>
+<p>Total Tables Booked: {{ total_tables_booked }}</p>
+{% for table in tables %}
+    {{ table }}
+{% endfor %}
+<a href="{% url 'task_manager_tasks' %}">Back to Task Manager</a>
+{% endblock %}

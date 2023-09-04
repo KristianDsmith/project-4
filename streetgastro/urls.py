@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homepage, name='homepage'),
     path('about/', views.about, name='about'),
-    path('book/', views.book, name='book'),  # Keep the name 'book'
+    path('book/', views.book, name='book'),
     path('contact/', views.contact, name='contact'),
     path('menu/', views.menu_view, name='menu'),
     path('menu_item_detail/<int:menu_item_id>/', views.menu_item_detail, name='menu_item_detail'),
@@ -32,6 +32,7 @@ urlpatterns = [
     path('confirm_cancel/<int:booking_id>/', views.confirm_cancel, name='confirm_cancel'),
     path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
     path('cancellation_confirmation/', views.cancellation_confirmation, name='cancellation_confirmation'),
+    path('view_tasks/', views.view_tasks, name='view_tasks'),
 
 
     

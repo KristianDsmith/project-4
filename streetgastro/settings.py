@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'qcluster',
     'django_q',
     'booking',
+    'task_manager',
 ]
 
 MIDDLEWARE = [

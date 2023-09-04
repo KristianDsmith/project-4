@@ -9,6 +9,8 @@ from django.views.generic.edit import CreateView
 import json
 from booking.models import Booking
 from .forms import BookingForm 
+from task_manager.models import Table
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 
@@ -17,11 +19,11 @@ from .forms import BookingForm
 
 
 def homepage(request):
-    # Fetch bookings or create a new booking as needed
-    bookings = Booking.objects.all()  # Fetch all bookings or apply appropriate filters
+    
+    bookings = Booking.objects.all()  
     
     context = {
-        'bookings': bookings,  # Pass the bookings to the template
+        'bookings': bookings,  
     }
     return render(request, 'index.html', context)
 
@@ -47,8 +49,8 @@ def menu_view(request):
     dietary_preferences = DietaryPreference.objects.all()
     
     for item in menu_items:
-        ratings = Rating.objects.filter(menu_item=item)  # assumes you have a Rating model
-        average_rating = ratings.aggregate(Avg('rating'))['rating__avg']  # Use 'rating' instead of 'value'
+        ratings = Rating.objects.filter(menu_item=item)  
+        average_rating = ratings.aggregate(Avg('rating'))['rating__avg']  
         item.average_rating = average_rating if average_rating is not None else 0
 
     context = {
@@ -69,9 +71,9 @@ def submit_rating(request):
         try:
             menu_item = MenuItem.objects.get(pk=menu_item_id)
             new_rating = Rating.objects.create(menu_item=menu_item, rating=rating_value)
-            new_average_rating = menu_item.ratings.all().aggregate(Avg('rating'))['rating__avg']  # Assuming 'ratings' is the related_name for ratings in the MenuItem model
+            new_average_rating = menu_item.ratings.all().aggregate(Avg('rating'))['rating__avg'] 
 
-            print(f"New average rating for menu item {menu_item_id}: {new_average_rating}")  # Add this line
+            print(f"New average rating for menu item {menu_item_id}: {new_average_rating}")  
 
             return JsonResponse({"average_rating": new_average_rating}, status=200)
         except MenuItem.DoesNotExist:
@@ -94,7 +96,7 @@ def menu_item_detail(request, menu_item_id):
 
 def book(request):
     if request.method == 'POST':
-        print(request.POST)  # Print the submitted data to the console for debugging
+        print(request.POST)  
         name = request.POST.get('name')
         email = request.POST.get('email')
         date = request.POST.get('date')
@@ -212,6 +214,18 @@ def cancellation_confirmation(request):
 
 def edit_confirmation(request, booking_id):
     return render(request, 'edit_confirmation.html', {'booking_id': booking_id})
+
+
+def view_tasks(request):
+    today = timezone.now().date()
+    today_bookings = Booking.objects.filter(date=today)
+    total_guests = today_bookings.count()
+    available_tables = Table.objects.filter(is_available=True).count()
+    
+    return render(request, 'view_tasks.html', {
+        'total_guests': total_guests,
+        'available_tables': available_tables,
+    })
 
 
 

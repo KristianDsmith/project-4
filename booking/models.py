@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
 from django.contrib.auth.models import User
+from task_manager.models import Table 
 
 
 class DietaryPreference(models.Model):
@@ -36,6 +37,7 @@ class Rating(models.Model):
 
 
 class Booking(models.Model):
+    table = models.ForeignKey(Table, null=True, blank=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -47,3 +49,6 @@ class Booking(models.Model):
 
     def __str__(self):
         return f'{self.name} - {self.date} - {self.time}'
+
+
+

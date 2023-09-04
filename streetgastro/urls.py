@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from booking import views 
 from django.contrib.auth.views import LoginView, LogoutView
+from task_manager.views import view_tasks 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +33,9 @@ urlpatterns = [
     path('confirm_cancel/<int:booking_id>/', views.confirm_cancel, name='confirm_cancel'),
     path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
     path('cancellation_confirmation/', views.cancellation_confirmation, name='cancellation_confirmation'),
-    path('view_tasks/', views.view_tasks, name='view_tasks'),
+    path('task_manager/tasks/', view_tasks, name='task_manager_tasks'),
+
+ 
 
 
     
@@ -43,6 +46,9 @@ urlpatterns = [
 
 
 
+
+
+    
 
 
 

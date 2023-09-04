@@ -9,8 +9,8 @@ from django.views.generic.edit import CreateView
 import json
 from booking.models import Booking
 from .forms import BookingForm 
-from task_manager.models import Table
-from django.contrib.admin.views.decorators import staff_member_required
+
+
 
 
 
@@ -215,17 +215,6 @@ def cancellation_confirmation(request):
 def edit_confirmation(request, booking_id):
     return render(request, 'edit_confirmation.html', {'booking_id': booking_id})
 
-
-def view_tasks(request):
-    today = timezone.now().date()
-    today_bookings = Booking.objects.filter(date=today)
-    total_guests = today_bookings.count()
-    available_tables = Table.objects.filter(is_available=True).count()
-    
-    return render(request, 'view_tasks.html', {
-        'total_guests': total_guests,
-        'available_tables': available_tables,
-    })
 
 
 

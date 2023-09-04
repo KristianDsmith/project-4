@@ -190,7 +190,9 @@ nav ul.custom-nav-links li a:hover::after {
     width: 100%; /* Increase the width to 100% on hover */
 }
 
-
+.navbar-toggler-icon {
+    background-color: #9ddbad;
+}
 
 
 
@@ -598,7 +600,8 @@ input[type="checkbox"] {
     margin-right: 5px;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 992px) and (max-width: 1024px) 
+  {
     .container {
         width: 100%;
         padding-right: 15px;
@@ -611,6 +614,47 @@ input[type="checkbox"] {
         max-width: 100%;
     }
 
-    /* Add more custom styles here */
+    .booking-form-overlay {
+        margin-right: 20px;  /* add margin to the right */
+    }
 }
 
+@media (min-width: 769px) and (max-width: 991px) {
+    .booking-form-overlay {
+        margin-right: 20px;  /* add margin to the right */
+    }
+
+    .card-title {
+        font-size: 16px; /* Change the font size to whatever you like */
+    }
+    
+    .card-text {
+        font-size: 14px; /* Change the font size to whatever you like */
+    }
+    
+    .card-price {
+        font-size: 12px; /* Change the font size to whatever you like */
+    }
+}
+
+@media screen and (max-width: 810px) {
+    .booking-form-overlay {
+        margin-right: 30px;  /* add margin to the right */
+    }
+
+}
+    
+@media (min-width: 577px) and (max-width: 768px) {
+    .hero-section {
+        max-height: 400px; 
+    }
+}
+
+@media (min-width: 416px) and (max-width: 576px) {
+    .custom-col {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+    }
+}
+
+@media (min-width: 355px) and (max-width: 415px) 

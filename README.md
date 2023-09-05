@@ -1,5 +1,7 @@
 # Street Gastro Restaraunt Booking App
 
+![homepage](static/images/street-gastro-homepage.png)
+
 ## About
 
 The website Street Gastro a comprehensive restaurant and table booking platform that aims to provide a seamless and enjoyable experience for both customers and restaurant staff. It will serve as an online hub for the restaurant, offering various functionalities to enhance the dining process and facilitate table reservations.

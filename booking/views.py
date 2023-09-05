@@ -9,8 +9,8 @@ from django.views.generic.edit import CreateView
 import json
 from booking.models import Booking
 from .forms import BookingForm 
-
-
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 
@@ -110,13 +110,15 @@ def book(request):
             time=time,
             number_of_guests=number_of_guests
         )
+        
+        # Send confirmation email
+        send_confirmation_email(email, name)
+        
         return render(request, 'thank_you.html')
     
     return render(request, 'index.html')
 
-from django.contrib import messages
-from django.shortcuts import render
-from .models import Booking
+
 
 def edit_booking(request, booking_id=None):
     bookings = None
@@ -217,6 +219,12 @@ def edit_confirmation(request, booking_id):
 
 
 
+def send_confirmation_email(to_email, username):
+    subject = 'Thank you for registering'
+    message = f'Hi {username}, thank you for registering.'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [to_email]
+    send_mail(subject, message, email_from, recipient_list)
 
 
 

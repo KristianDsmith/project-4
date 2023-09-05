@@ -53,6 +53,16 @@ The target audience for the restaurant and table booking website includes both p
   
 ## Features
 
+![hero section](static/images/home-hero-section.png)
+
+**Hero Section**
+- The user is welcomed by the ambieance of the restaraunt in the hero image. With clear call to action buttons to book a table or browse the menu dish images and see the star ratings for each dish.
+  
+![welcome section](static/images/welcome-section.png)
+**Welcome Section**
+- When scrolling down there is a nice and invitin welsome section. Withe a nice presentation about the restarant and elegant image of a dish.
+  
+  
 **Interactive Menu**
 - The website will showcase an interactive and visually appealing menu, displaying dishes with high-quality images and detailed descriptions. 
 - Customers can easily browse through the menu to explore various food options.

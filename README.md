@@ -4,42 +4,53 @@
 
 ## About
 
+The live website can be accessed by visiting this [link](#).
+
 The website Street Gastro a comprehensive restaurant and table booking platform that aims to provide a seamless and enjoyable experience for both customers and restaurant staff. It will serve as an online hub for the restaurant, offering various functionalities to enhance the dining process and facilitate table reservations.
 
 ## User Experience Design
 
 ### Strategy
 
-Build a user-friendly restaurant and table booking website using Django Allauth and Python. The website allows customers to browse the menu, make table reservations, and leave reviews. Utilize Django's models and database relationships to ensure efficient data management.
+Build a user-friendly restaurant and table booking website using Django Allauth and Python. The website allows customers to browse the menu, make table reservations, and leave star ratins on indivudual dishes. Utilize Django's models and database relationships to ensure efficient data management.
 
 ### Target Audience
 
-The target audience for the restaurant and table booking website includes both potential customers looking for a dining experience and restaurant staff or management responsible for handling table reservations and reviews. The website aims to cater to diners seeking convenient online table bookings and menu exploration while providing restaurant personnel with efficient table management tools and customer feedback.
+The target audience for the restaurant and table booking website includes both potential customers looking for a dining experience and restaurant staff or management responsible for handling table reservations. The website aims to cater to diners seeking convenient online table bookings and menu exploration while providing restaurant personnel with with a simple task manger for guest and tables booked.
 
 ### User Stories
 
 #### Customer Goals
 
-- As a customer I can browse the restaurant's menu online so that I decide on my food choices before visiting.
 - As a customer I can see clear and attractive images of the dishes on the menu so that I can make better dining choices.
 - As a customer I can filter the menu by dietary preferences so that I can find suitable options.
-- As a customer I can view the restaurant's operating hours and days so that I can plan my visit accordingly.
-- As a customer I can see the availability of tables on a specific date and time so that I can make a reservation.
 - As a customer I can reserve a table online with a simple and user-friendly booking system.
-- As a customer I can receive an email or SMS confirmation so that my reservation is confirmed.
-- As a customer I can modify or cancel my table reservation online so that can make changes if I need to.
-- As a customer I can see reviews and ratings from other diners so that I gauge the restaurant's quality and ambiance.
+- As a customer I can receive an email confirmation so that my reservation is confirmed.
+- As a customer I can edit or cancel my table reservation online so that can make changes if I need to.
+- As a customer I can see star ratings from other diners so that I gauge the restaurant's quality.
 - As a customer, I want the website to be mobile-responsive so that I book a table easily on my smartphone or tablet.
 
 #### Manager and Staff Goals
 
-- As a restaurant manager I can receive notifications for new table reservations so that i can manage them easily.
-- As a restaurant manager I can track and manage table availability so that prevent overbooking and manage waiting lists efficiently.
-- As a restaurant manager I can respond to customer reviews and feedback so that I can address any concerns and provide a positive dining experience.
-- As a staff member I can have access to the table reservation system so that I can check and confirm bookings upon customer arrival.
-- As a staff member I can mark a table as occupied or vacant so that I can keep track of the restaurant's current status.
+- As a staff/manager member I can have access to the table reservation task manager so that I can check how many guests and tables are booked for that day
 
 
+## Technologies used
+- ### Languages:
+    + [Python](https://www.python.org/downloads/release/python-385/): the primary language used to develop the server-side of the website.
+    + [JS](https://www.javascript.com/): the primary language used to develop interactive components of the website.
+    + [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML): the markup language used to create the website.
+    + [CSS](https://developer.mozilla.org/en-US/docs/Web/css): the styling language used to style the website.
+- ### Frameworks and libraries:
+    + [Django](https://www.djangoproject.com/): python framework used to create all the backend logic of the website.
+    + [jQuery](https://jquery.com/): was used to control click events and sending AJAX requests.
+    + [jQuery User Interface](https://jqueryui.com/) was used to create interactive elements and animations.
+    + [Django Channels](https://channels.readthedocs.io/en/latest/): was used to create real-time communication between users.
+- ### Databases:
+    + [Elephantsql](https://www.elephantsql.com/): the database used to store all data.
+
+
+  
 ## Features
 
 **Interactive Menu**

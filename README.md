@@ -81,34 +81,18 @@ The target audience for the restaurant and table booking website includes both p
 **Gallery Section**
 - Scroll further and the user is presented with a roatating gallery. also a prenetation on the ethos of Street gastro and localy sourced produce.
 
-
+![menu](static/images/menu.png)
 
 **Interactive Menu**
 - The website will showcase an interactive and visually appealing menu, displaying dishes with high-quality images and detailed descriptions. 
-- Customers can easily browse through the menu to explore various food options.
-
-**Table Booking System**
-- The core functionality of the website will be a user-friendly table booking system. 
-- Customers can select their desired date and time, see available tables, and make reservations for a specific number of guests.
-
-**Real-time Availability**
-- The website will have real-time updates on table availability, ensuring that customers can view up-to-date information and make informed decisions while booking.
-
-
-**Special Requests and Preferences**
-- During the reservation process, customers can include any special requests or preferences, such as dietary restrictions or special occasions, so the restaurant can accommodate their needs accordingly.
-
-**User Reviews and Ratings**
-- The website will feature customer reviews and ratings, providing valuable feedback for potential diners and showcasing the restaurant's reputation.
-
-**Operating Hours and Location**
-- Customers can easily find information about the restaurant's operating hours, address, and contact details on the website.
+- Customers can easily filter through the menu to explore various food options.
+- The customer can also rate dishes with a 1 - 5 star rating. view the average rating for each dish.
 
 **Mobile Responsiveness**
 - The website will be fully responsive to different devices, including smartphones and tablets, allowing customers to access it on the go.
 
 **Reservation Confirmation and Reminders**
-- After booking a table, customers will receive instant confirmation via email or SMS. Additionally, the website can send automated reminders closer to the reservation time.
+- After booking a table, customers will receive instant confirmation via email. Additionally.
 
 **Staff Management Interface**
 - The website will provide a backend interface for restaurant staff to manage table reservations, check-in guests, and update table status (occupied or vacant).

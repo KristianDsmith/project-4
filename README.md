@@ -137,6 +137,17 @@ The target audience for the restaurant and table booking website includes both p
 
 - The decision to use this color palette was made to give it a natural warm restaurant feel.
 
+### Typography
+
+The main font used in the website is Gruppo. The use of this font is consistent with style and elegance of the restaraunt. Needless to say, the Gruppo font was chosen due to its readability, which increases user experience.
+
+  ![Typography](static/images/gruppo-font.png)
+
+
+### Imagery
+
+- The main background image waswas found at pexels.com [BGJar](https://www.pexels.com). All other images was found on pexels or my own personal images.
+
 ### Wireframes ###
 
 **Home**

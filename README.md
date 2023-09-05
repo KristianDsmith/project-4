@@ -59,10 +59,30 @@ The target audience for the restaurant and table booking website includes both p
 - The user is welcomed by the ambieance of the restaraunt in the hero image. With clear call to action buttons to book a table or browse the menu dish images and see the star ratings for each dish.
   
 ![welcome section](static/images/welcome-section.png)
+
 **Welcome Section**
 - When scrolling down there is a nice and invitin welsome section. Withe a nice presentation about the restarant and elegant image of a dish.
   
+![sample menu section](static/images/sample-menu-section.png)
+
+**Sample Menu Section**
+- When scrolling further the user is presented with to sample dishes and description from the menu.
   
+![booking section](static/images/sample-menu-section.png)
+
+**Booking Section**
+- when scrolling the user is preneted with a beautifull booking section.
+- Clear call to action to book a table.
+- Booking form with name, email, geusts, date. 
+- Book button, edit button and cancel button. 
+
+![gallery section](static/images/rotating-gallery.png)
+
+**Gallery Section**
+- Scroll further and the user is presented with a roatating gallery. also a prenetation on the ethos of Street gastro and localy sourced produce.
+
+
+
 **Interactive Menu**
 - The website will showcase an interactive and visually appealing menu, displaying dishes with high-quality images and detailed descriptions. 
 - Customers can easily browse through the menu to explore various food options.

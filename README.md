@@ -95,16 +95,7 @@ The target audience for the restaurant and table booking website includes both p
 - After booking a table, customers will receive instant confirmation via email. Additionally.
 
 **Staff Management Interface**
-- The website will provide a backend interface for restaurant staff to manage table reservations, check-in guests, and update table status (occupied or vacant).
-
-**Customer Support**
-- The website will offer customer support options, such as a contact form, allowing customers to get assistance with their inquiries or issues.
-
-**Security and Privacy**
-- The website will prioritize data security and ensure that customer information is protected throughout the booking process.
-
-**Social Media Integration**
-- The website can be linked to the restaurant's social media accounts, making it easy for customers to share their dining experiences and reviews.
+- The website will provide atask manager for restaurant staff to see how many guests and tables are booked for that day.
 
 **Overall**
 - The website will serve as an efficient and user-friendly platform, streamlining the table booking process for customers and providing restaurant staff with tools to manage reservations effectively. 

@@ -68,7 +68,7 @@ The target audience for the restaurant and table booking website includes both p
 **Sample Menu Section**
 - When scrolling further the user is presented with to sample dishes and description from the menu.
   
-![booking section](static/images/sample-menu-section.png)
+![booking section](static/images/booking-section.png)
 
 **Booking Section**
 - when scrolling the user is preneted with a beautifull booking section.

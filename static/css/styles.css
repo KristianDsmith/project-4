@@ -15,8 +15,8 @@ body {
 }
 
 .container {
-    max-width: 1200px; /* You can set this to your preferred width */
-    margin: 20px auto; /* 20px vertical margin and auto left/right for centering */
+    max-width: 1200px; 
+    margin: 20px auto; 
     padding: 20px;
   }
   
@@ -101,8 +101,8 @@ p {
     height: auto;
     padding: 10px 20px;
     border-radius: 8px;
-    background-color: #9ddbad; /* Set the default background color to green */
-    color: #fff; /* Set the default text color to white */
+    background-color: #9ddbad; 
+    color: #fff; 
     transition: background-color 0.3s, color 0.3s; 
     margin: 10px;
     border: none;
@@ -110,21 +110,21 @@ p {
 }
 
 .btn-primary {
-    background-color: #9ddbad; /* Set the background color for .btn-primary to green */
-    color: #fff; /* Set the text color for .btn-primary to white */
+    background-color: #9ddbad; 
+    color: #fff; 
     border: 1px solid #9ddbad;
 }
 
 #book-table-btn, .btn-primary, .btn-secondary {
-    background-color: #9ddbad; /* Set the background color for #book-table-btn, .btn-primary, and .btn-secondary to green */
-    color: #fff; /* Set the text color for these buttons to white */
+    background-color: #9ddbad; 
+    color: #fff; 
     border: 1px solid #9ddbad;
 }
 
 .btn-primary:hover, #book-table-btn:hover, .btn-secondary:hover {
-    background-color: #040403; /* Set the hover background color to grey */
-    color: #9ddbad; /* Set the hover text color to green */
-    border-color: #040403; /* Set the hover border color to grey */
+    background-color: #040403; 
+    color: #9ddbad; 
+    border-color: #040403; 
 }
 
 
@@ -133,10 +133,10 @@ p {
 /* Custom styles for the nav bar */
 
 .navbar {
-  background-color: #555; /* Setting the background to black */
+  background-color: #555; 
   color: white;
   padding: 14px 20px;
-  width: 100%;  /* Full width */
+  width: 100%;  
 }
   
 
@@ -146,7 +146,7 @@ p {
 
 .navbar-light .navbar-nav .nav-link {
     color: #fff;
-    font-size: 18px;
+    font-size: 22px;
     text-decoration: none;
     position: relative;
     padding-bottom: 10px;
@@ -160,7 +160,7 @@ p {
     color: #9ddbad;
 }
 
-/* Adjust padding and margin for navigation links */
+
 nav ul.custom-nav-links li {
     display: inline-block;
     list-style: none;
@@ -173,7 +173,7 @@ nav ul.custom-nav-links li a {
     font-size: 18px;
 }
 
-/* Animated line transition */
+
 nav ul.custom-nav-links li a::after {
     content: '';
     width: 0;
@@ -183,11 +183,11 @@ nav ul.custom-nav-links li a::after {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    transition: width 0.3s ease-out; /* Add the transition */
+    transition: width 0.3s ease-out; 
 }
 
 nav ul.custom-nav-links li a:hover::after {
-    width: 100%; /* Increase the width to 100% on hover */
+    width: 100%; 
 }
 
 .navbar-toggler-icon {
@@ -206,13 +206,13 @@ nav ul.custom-nav-links li a:hover::after {
 .divider {
     height: 1px;
     width: 100%;
-    background-color: #9ddbad; /* Set the color of the line */
-    margin-top: 20px; /* Set the spacing between the sections */
-    margin-bottom: 30px; /* Set the spacing between the sections and the Sample Menu */
+    background-color: #9ddbad; 
+    margin-top: 20px;
+    margin-bottom: 30px; 
 }
 
 
-/* Updated CSS for Hero Section */
+
 .hero-section-next {
     background-image: linear-gradient(rgba(0, 0, 0, 0.287), rgba(0, 0, 0, 0.269)), url('../images/ingredients-hero.jpg');
     background-size: cover;
@@ -234,23 +234,23 @@ nav ul.custom-nav-links li a:hover::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;  /* you can set this to whatever you want */
-    max-width: 1200px;  /* or whatever max width you prefer */
-    margin: 0 auto;  /* center the container */
+    width: 100%;  
+    max-width: 1200px;  
+    margin: 0 auto;  
 }
 
-/* Add absolute positioning to the hero content */
+
 .hero-content-book {
     left: 320px;
-    width: 50%; /* Adjust the width as needed */
+    width: 50%; 
     padding: 20px;
     color: #fff;
     z-index: 1;
-    text-align: left; /* Align text to the left */
+    text-align: left; 
     margin-bottom: 400px; 
 }
 
-/* Custom styles for h2 in hero content */
+
 .hero-content-book h2 {
     font-size: 36px;
     color: #fff;
@@ -258,7 +258,7 @@ nav ul.custom-nav-links li a:hover::after {
     margin: 0;
 }
 
-/* Custom styles for p in hero content */
+
 .hero-content-book p {
     font-size: 18px;
     font-weight: 300;
@@ -266,15 +266,15 @@ nav ul.custom-nav-links li a:hover::after {
     margin: 0;
 }
 
-/* Rest of your existing styles... */
 
 
-/* Adjust alignment for the form */
+
+
 .hero-section-next .booking-form-overlay {
     margin-left: 0;
 }
 
-/* Rest of your existing styles... */
+
 .booking-form-overlay {
     z-index: 2;
     width: 400px;
@@ -282,7 +282,7 @@ nav ul.custom-nav-links li a:hover::after {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    margin-left: auto;  /* Aligns the form to the right within its parent container */
+    margin-left: auto;  
 }
 
 .opacity-75 {
@@ -300,30 +300,30 @@ nav ul.custom-nav-links li a:hover::after {
     height: auto;
     padding: 10px 20px;
     border-radius: 8px;
-    background-color: #9ddbad; /* Set the background color to green */
-    color: #fff; /* Set the text color to white */
-    border: none; /* Remove border */
+    background-color: #9ddbad; 
+    color: #fff;
+    border: none; 
     transition: background-color 0.3s;
     margin: 10px;
 }
 
 .btn-primary {
-    background-color: #040403; /* Set the background color to dark grey */
-    color: #9ddbad; /* Set the text color to green */
+    background-color: #040403; 
+    color: #9ddbad; 
 }
 
 .btn:hover {
-    background-color: #555; /* Set the background color to grey on hover */
+    background-color: #555; 
 }
 
-/* Add a class to style the button container */
+
 .btn-container {
     display: flex;
     gap: 10px;
     position: absolute;
-    top: 50%; /* Align vertically in the middle */
-    right: 60px; /* Adjust the right distance from the screen edge */
-    transform: translateY(-50%); /* Center vertically */
+    top: 50%; 
+    right: 60px; 
+    transform: translateY(-50%); 
 }
 
 
@@ -332,19 +332,19 @@ nav ul.custom-nav-links li a:hover::after {
 /* Add custom styles for the carousel */
 
 .section-title {
-    padding-top: 30px; /* Set the top padding for the section title */
+    padding-top: 30px; 
 }
 
 .section-paragraph {
-    padding-bottom: 30px; /* Set the bottom padding for the section paragraph */
+    padding-bottom: 30px; 
 }
 
 
 .carousel-inner img {
-    max-height: 300px; /* Adjust the height as needed */
+    max-height: 300px; 
 }
 
-/* Hide carousel controls on non-index pages */
+
 body:not(.home-page) .carousel-control-prev,
 body:not(.home-page) .carousel-control-next {
     display: none;
@@ -362,8 +362,8 @@ body:not(.home-page) .carousel-control-next {
   }
   
   .container .testimonial img {
-    width: 100px; /* Adjust the width as needed */
-    height: 100px; /* Adjust the height as needed */
+    width: 100px; 
+    height: 100px; 
   }
   
   .container .testimonial h3 {
@@ -378,18 +378,17 @@ body:not(.home-page) .carousel-control-next {
     font-size: 24px;
   }
   
-  /* Additional styling for the stars */
   .container .testimonial .rating .star {
     color: gold;
   }
 
-/* Custom CSS for Testimonial Section */
+
 .testimonial-section {
     padding-top: 30px;
     padding-bottom: 30px;
 }
 
-/* Make the testimonial section full width */
+
 .testimonial-section .container {
     padding-right: 0;
     padding-left: 0;
@@ -422,7 +421,7 @@ body:not(.home-page) .carousel-control-next {
     color: #777;
 }
 
-/* Custom styles for the filter form and button */
+
 .filter-form {
     display: flex;
     align-items: center;
@@ -451,11 +450,9 @@ body:not(.home-page) .carousel-control-next {
 .filter-form select {
     appearance: none;
     background-image: url('path-to-your-dropdown-icon.png');
-    /* Replace with the path to your dropdown icon */
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 30px;
-    /* Add space for the dropdown icon */
 }
 
 /* Rating form styles */
@@ -505,7 +502,7 @@ body:not(.home-page) .carousel-control-next {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
-    margin-top: 35px; /* Add margin to push the grid down */
+    margin-top: 35px; 
 }
 
 .custom-card {
@@ -543,24 +540,24 @@ footer {
     color: #fff;
 }
 
-/* Change the text color for all paragraphs inside the footer */
+
 footer p {
     color: #fff;
 }
 
-/* Custom styles for the social media icons */
+
 .social-icons .fab {
-    font-size: 30px; /* Adjust the size as per your preference */
-    color: #9ddbad; /* Set the default color for the icons */
-    margin-right: 20px; /* Add spacing between icons */
+    font-size: 30px; 
+    color: #9ddbad; 
+    margin-right: 20px; 
 }
 
-/* Customize the color of the icons using custom CSS classes */
+
 .footer-icon {
-    color: #9ddbad; /* Set the desired color for the icons */
+    color: #9ddbad; 
 }
 
-/* Add padding below the "Follow Us" heading */
+
 .follow-us-heading {
     padding-bottom: 20px;
     padding-bottom: 20px;
@@ -589,13 +586,13 @@ footer p {
     width: 100%;
 }
 
-/* Style the label for the checkbox */
+
 label {
     display: block;
     margin-bottom: 5px;
 }
 
-/* Style the checkbox itself */
+
 input[type="checkbox"] {
     margin-right: 5px;
 }
@@ -615,46 +612,36 @@ input[type="checkbox"] {
     }
 
     .booking-form-overlay {
-        margin-right: 20px;  /* add margin to the right */
+        margin-right: 20px;  
+    }
+
+    h5 .card-title {
+        font-size: 18px;
     }
 }
 
 @media (min-width: 769px) and (max-width: 991px) {
     .booking-form-overlay {
-        margin-right: 20px;  /* add margin to the right */
-    }
-
-    .card-title {
-        font-size: 16px; /* Change the font size to whatever you like */
-    }
-    
-    .card-text {
-        font-size: 14px; /* Change the font size to whatever you like */
-    }
-    
-    .card-price {
-        font-size: 12px; /* Change the font size to whatever you like */
+        margin-right: 20px; 
     }
 }
 
 @media screen and (max-width: 810px) {
     .booking-form-overlay {
-        margin-right: 30px;  /* add margin to the right */
+        margin-right: 30px;
     }
 
 }
     
 @media (min-width: 577px) and (max-width: 768px) {
-    .hero-section {
-        max-height: 400px; 
-    }
+
 }
+    
 
 @media (min-width: 416px) and (max-width: 576px) {
-    .custom-col {
-        flex: 0 0 50% !important;
-        max-width: 50% !important;
-    }
+    
 }
 
-@media (min-width: 355px) and (max-width: 415px) 
+@media (min-width: 355px) and (max-width: 415px) {
+
+}

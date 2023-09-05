@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import DietaryPreference, MenuItem, Rating
 from .models import Booking
 
-# Make sure all these models exist in your models.py
+
 
 class DietaryPreferenceAdmin(admin.ModelAdmin):
     list_display = ['name']

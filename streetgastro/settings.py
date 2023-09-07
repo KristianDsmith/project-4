@@ -35,7 +35,9 @@ load_dotenv(env_file)
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = ['8000-kristiandsmith-project-4-jxs5td264h.us2.codeanyapp.com',
                  'street-gastro-13c2e136005c.herokuapp.com', 'localhost']

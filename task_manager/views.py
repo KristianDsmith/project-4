@@ -9,6 +9,7 @@ from .models import ConfirmedDate
 from django.http import HttpResponse  
 
 
+
 @staff_member_required
 def view_tasks(request):
     today = timezone.now().date()

@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import sys
 
 from pathlib import Path
 import os
@@ -107,6 +108,10 @@ DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
+if 'test' in sys.argv or 'test_coverage' in sys.argv:  # Covers regular testing and django-coverage
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -171,7 +171,7 @@ The main font used in the website is Gruppo. The use of this font is consistent 
 
 ---
 ## Testing
-Please refer to the [#](#) file for all test-related documentation.
+Please refer to the [TESTING:MD](https://github.com/KristianDsmith/project-4/blob/main/TESTING.md) file for all test-related documentation.
 ---
 ## Deployment
 

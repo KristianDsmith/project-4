@@ -2,14 +2,23 @@
 
 ## Manual Testing
 
-Testing was done throughout site development, for each feature before it was merged into the master file.
+- Testing was done throughout site development, for each feature before it was merged into the master file.
 
-Usability was tested with the below user acceptance testing, sent to new users to ensure testing from different users, on different devices and browsers to ensure issues were caught and where possible fixed during development.
+- Usability was tested with the below user acceptance testing, sent to new users to ensure testing from different users, on different devices and browsers to ensure issues - were caught and where possible fixed during development.
 
 ![manual test](static/images/manuel-testing.png)
 
+- Book, Edit, Cancel bookings from booking form.
 
+![manual test](static/images/book-table.png)
 
+- Booking confirmed.
+  
+![manual test](static/images/booking-confirmed.png)
+
+- Search booking with email.
+  
+![manual test](static/images/search-booking.png)
 
 ## Automated testing
 

@@ -59,7 +59,7 @@ p {
 
 /* Hero section */
 .hero-section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.287), rgba(0, 0, 0, 0.269)), url('../images/restaraunt-imgae.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.287), rgba(0, 0, 0, 0.269)), url('https://res.cloudinary.com/dqe39dixt/image/upload/v1694423387/static/images/restaraunt-imgae.f6658590da58.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

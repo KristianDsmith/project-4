@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -7,3 +9,5 @@
 {% else %}
     <p>No messages to display.</p>
 {% endif %}
+
+{% endblock %}

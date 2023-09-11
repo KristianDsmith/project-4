@@ -214,7 +214,7 @@ nav ul.custom-nav-links li a:hover::after {
 
 
 .hero-section-next {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.287), rgba(0, 0, 0, 0.269)), url('../images/ingredients-hero.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.287), rgba(0, 0, 0, 0.269)), url('https://res.cloudinary.com/dqe39dixt/image/upload/v1694423370/static/images/ingredients-hero.2c845fefb4af.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

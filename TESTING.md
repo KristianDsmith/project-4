@@ -6,6 +6,7 @@ Testing was done throughout site development, for each feature before it was mer
 
 Usability was tested with the below user acceptance testing, sent to new users to ensure testing from different users, on different devices and browsers to ensure issues were caught and where possible fixed during development.
 
+![manual test](static/images/manuel-testing.png)
 
 
 

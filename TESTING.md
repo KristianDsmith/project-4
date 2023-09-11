@@ -20,6 +20,19 @@
   
 ![manual test](static/images/search-booking.png)
 
+- Select booking.
+  
+![manual test](static/images/select-booking.png)
+
+- Edit booking.
+  
+![manual test](static/images/edit-booking.png)
+
+- Edit booking confirmed.
+  
+![manual test](static/images/edit-booking-confirmed.png)
+
+
 ## Automated testing
 
 ### Django unit testing

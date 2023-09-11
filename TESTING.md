@@ -44,6 +44,18 @@
   
 ![manual test](static/images/booking-canceled.png)
 
+- Staff/manager task manger login.
+  
+![manual test](static/images/staff-login-task-manager.png)
+
+- Staff/manager select date.
+  
+![manual test](static/images/staff-select-date.png)
+
+- Staff/manager guests and tables booked for the day.
+  
+![manual test](static/images/guest-tables-booked.png)
+
 
 ## Automated testing
 

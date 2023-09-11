@@ -32,6 +32,18 @@
   
 ![manual test](static/images/edit-booking-confirmed.png)
 
+- Search booking to cancel.
+  
+![manual test](static/images/search-booking-cancel.png)
+
+- Select booking to cancel.
+  
+![manual test](static/images/select-booking-cancel.png)
+
+- Booking canceled.
+  
+![manual test](static/images/booking-canceled.png)
+
 
 ## Automated testing
 

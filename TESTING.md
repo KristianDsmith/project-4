@@ -73,9 +73,9 @@ Django unit testing is a framework that allows you to write tests for your Djang
 
 - HTML validation was done by using the official [W3C](https://validator.w3.org/) validator. This checking was done manually by copying the view page source code (Ctrl+U) and pasting it into the validator.
 
-- [Full HTML Validation Report](documentation/validation/html_validation.pdf)
+- [HTML Validation Report](static/images/w3-html-validation.png)
 
-- There were errors and warnings about duplicated IDs on pages, where there's a posting and commenting functionality. That occurred because of the fact that multiple comment forms were on the same page, under each post. However, this does not affect the functionality of the app, because each comment form is processed separately.
+- there was no eras or warnings shown.
 
 ### CSS Validation:
 

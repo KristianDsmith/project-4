@@ -4,7 +4,9 @@
 
 ## About
 
-The live website can be accessed by visiting this [link](#).
+The live website can be accessed by visiting this [link](https://street-gastro-13c2e136005c.herokuapp.com/). 
+
+The live task manager website can be accessed by visiting this [link](https://street-gastro-13c2e136005c.herokuapp.com/task_manager/tasks/).
 
 The website Street Gastro a comprehensive restaurant and table booking platform that aims to provide a seamless and enjoyable experience for both customers and restaurant staff. It will serve as an online hub for the restaurant, offering various functionalities to enhance the dining process and facilitate table reservations.
 

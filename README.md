@@ -208,13 +208,12 @@ The process for deploying the website to Heroku is as follows:
     2. ```CLOUDINARY_CLOUD_NAME``` = the cloud name you used when creating your cloudinary account.
     3. ```CLOUDINARY_API_KEY``` = the api key you got when created your cloudinary account.
     4. ```CLOUDINARY_API_SECRET``` = the api secret you got when created your cloudinary account.
-    5. ```DATABASE_URL``` = the url of your heroku postgres database.
-    6. ```REDIS_URL``` = the url of your heroku redis database.
-    7. ```SECRET_KEY``` = a secret key for your app.
-    8. ```EMAIL_HOST_USER``` = the email address you going to use to send emails.
-    9. ```EMAIL_HOST_PASSWORD``` = the password for the email address you are using.
-    10. ```DEBUG``` = True during development, False during production.
-    11. ```DISABLE_COLLECTSTATIC``` = 1 during development. Remove this when deploying to production.
+    5. ```DATABASE_URL``` = the url of your myelaphant sql postgres database.
+    6. ```SECRET_KEY``` = a secret key for your app.
+    7. ```EMAIL_HOST_USER``` = the email address you going to use to send emails.
+    8. ```EMAIL_HOST_PASS``` = the password for the email address you are using.
+    9.  ```DEBUG``` = True during development, False during production.
+    10. ```DISABLE_COLLECTSTATIC``` = 1 during development. Remove this when deploying to production.
 
 5. In your app go to the "Deploy" tab.
 
@@ -232,13 +231,10 @@ The process for deploying the website to Heroku is as follows:
 
 8. Create Procfile.
 
-    For this project I used Daphne server for its ability to run asynchronous applications, so in my case I had the following Procfile:
+    - Create a procfile in the IDE 
+    - Add web: gunicorn streetgastro.wsgi
 
-    - ```release: python manage.py migrate``` - this command will apply all migrations every time you re-deploy the app.
-    - ```web: daphne social_network.asgi:application --port $PORT --bind 0.0.0.0 -v2``` - this command will run the app.
-    - ```worker: python manage.py runworker -v2 channel_layer``` - this command will run the worker for the channel layer to run the async tasks.
-
-9. Create ```requirements.txt```. This can be done by running the following command:
+9.  Create ```requirements.txt```. This can be done by running the following command:
 
     - ```pip freeze > requirements.txt```
     or
@@ -254,7 +250,7 @@ The process for deploying the website to Heroku is as follows:
 
 12. Check the logs of your app in heroku dashboard and make sure everything is working.
 
-13. After the development is done, you can change the ```DEBUG``` config var to ```False``` and remove the ```DISABLE_COLLECTSTATIC``` config var from the config vars on heroku.
+5.  After the development is done, you can change the ```DEBUG``` config var to ```False``` and remove the ```DISABLE_COLLECTSTATIC``` config var from the config vars on heroku.
 
 To get cloudinary cloud name, api key, and api secret:
 
@@ -270,3 +266,36 @@ To get cloudinary cloud name, api key, and api secret:
 
 6. Copy these values and paste them into the config vars on heroku and into your `env.py` file.
 
+
+#### Create Database on ElephantSQL
+
+1. Go to [ElephantSQL](https://www.elephantsql.com/) and create a new account.
+
+2. Create a new instance of the database.
+
+3. Select a name for your database and select the free plan.
+
+4. Click "Select Region"
+
+5. Select a region close to you.
+
+6. Click "Review"
+
+7. Click "Create Instance"
+
+8. Click on the name of your database to open the dashboard.
+
+9. You will see the dashboard of your database. You will need the URL of your database to connect it to your Django project.
+
+
+## Credits
+- [Django](https://www.djangoproject.com/) for the framework.
+- [Django-allauth](https://django-allauth.readthedocs.io/) for the authentication library.
+- [Font awesome](https://fontawesome.com/): for the free access to icons.
+- [ElephantSQL](https://www.elephantsql.com/): for the free access to the database hosting service.
+- [Cloudinary](https://cloudinary.com/): for the free access to the image hosting service.
+- [jQuery](https://jquery.com/): for providing varieties of tools to make standard HTML code look appealing.
+- [jQuery UI](https://jqueryui.com/): for providing various tools to make interactive HTML code look appealing.
+- [Coolors](https://coolors.co/): for providing a free platform to generate your own palette.
+- [Google Fonts](https://fonts.google.com/): for providing a free platform to use Google Fonts.
+---

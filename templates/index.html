@@ -16,23 +16,30 @@
         </div>
     </div>
 </div>
-<div class="divider"></div>
-<div class="container text-center">
-    <h2>Sample Menu</h2>
-    <p>A delicious menu curated by Head Chef Daniel Smith</p>
-    <div class="menu-list">
-        <div class="menu-item">
-            <img src="{% static 'images/fish-tea.jpg' %}" alt="Fish Tea" class="img-fluid">
-            <h3>Fish Tea</h3>
-            <p>Fish broth infused with ginger, scotch bonnet pepper. Fermented spring onion and carrots. Served with festival fried dumplings.</p>
-        </div>
-        <div class="menu-item">
-            <img src="{% static 'images/fried-chicken.jpg' %}" alt="Southern Fried Chicken" class="img-fluid">
-            <h3>Southern Fried Chicken</h3>
-            <p>Southern fried chicken wings, marinated in a spice buttermilk, and served with a fermented homemade spicy bbq sauce.</p>
+<section>
+    <div class="divider"></div>
+    <div class="container text-center">
+        <h2>Sample Menu</h2>
+        <p>A delicious menu curated by Head Chef Daniel Smith</p>
+        <div class="menu-list">
+            <figure class="menu-item">
+                <img src="{% static 'images/fish-tea.jpg' %}" alt="Fish Tea" class="img-fluid">
+                <figcaption>
+                    <h3>Fish Tea</h3>
+                    <p>Fish broth infused with ginger, scotch bonnet pepper. Fermented spring onion and carrots. Served with festival fried dumplings.</p>
+                </figcaption>
+            </figure>
+            <figure class="menu-item">
+                <img src="{% static 'images/fried-chicken.jpg' %}" alt="Southern Fried Chicken" class="img-fluid">
+                <figcaption>
+                    <h3>Southern Fried Chicken</h3>
+                    <p>Southern fried chicken wings, marinated in a spice buttermilk, and served with a fermented homemade spicy bbq sauce.</p>
+                </figcaption>
+            </figure>
         </div>
     </div>
-</div>
+</section>
+
 <div id="booking-section" class="hero-section-next position-relative d-flex justify-content-between align-items-center">
     <div class="booking-container">
         <div class="hero-content-book">
@@ -44,23 +51,32 @@
             <h3 class="mb-3">Book a Table</h3>
             <form id="booking-form" method="post" action="{% url 'book' %}">
                 {% csrf_token %}
+                
                 <div class="mb-3">
-                    <input type="text" class="form-control" name="name" placeholder="Name">
+                    <label for="nameInput" class="visually-hidden">Name</label>
+                    <input type="text" id="nameInput" class="form-control" name="name" placeholder="Name" required>
                 </div>
                 <div class="mb-3">
-                    <input type="email" class="form-control" name="email" placeholder="Email">
+                    <label for="emailInput" class="visually-hidden">Email</label>
+                    <input type="email" id="emailInput" class="form-control" name="email" placeholder="Email" required>
                 </div>
                 <div class="mb-3">
-                    <input type="number" class="form-control" name="number_of_guests" placeholder="Number of Guests">
+                    <label for="guestInput" class="visually-hidden">Number of Guests</label>
+                    <input type="number" id="guestInput" class="form-control" name="number_of_guests" placeholder="Number of Guests" required>
                 </div>
                 <div class="mb-3">
-                    <input type="text" id="datePicker" class="form-control" name="date" placeholder="Choose Date">
+                    <label for="datePicker" class="visually-hidden">Choose Date</label>
+                    <input type="text" id="datePicker" class="form-control" name="date" placeholder="Choose a date (MM/DD/YYYY)" aria-label="Choose a date for booking" required>
                 </div>
                 <div class="mb-3">
-                    <input type="time" id="timePicker" class="form-control" name="time">
+                    <label for="timePicker" class="visually-hidden">Choose Time</label>
+                    <input type="time" id="timePicker" class="form-control" name="time" aria-label="Choose a time for booking" required>
                 </div>
+                
                 <button type="submit" class="btn btn-primary mr-2">Book</button>
+                
                 {% if bookings %}
+                <!-- Ensure that these buttons are appropriately described to the user -->
                 <a href="{% url 'edit_booking' bookings.0.id %}" class="btn btn-primary mr-2">Edit</a>
                 <a href="{% url 'cancel_booking' bookings.0.id %}" class="btn btn-danger mr-2">Cancel</a>
                 {% endif %}
@@ -80,58 +96,67 @@
 
 <div class="container-fluid gallery-section">
     <h2 class="section-title">LOCAL FARMED</h2>
-    <p class="section-paragraph">At Street Gastro, we take great pride in using locally farmed fresh ingredients in all our dishes. Our commitment to supporting local farmers and producers ensures that our culinary creations are of the highest quality and reflect the unique flavors of the region. By sourcing locally, we not only offer delicious and nutritious meals but also contribute to the sustainability of the local community and reduce our environmental impact. With each bite, you can taste the richness of our region's agriculture and the dedication of those who bring these exceptional ingredients to our kitchen.</p>
+    <p class="section-paragraph">
+        At Street Gastro, we take great pride in using locally farmed fresh ingredients in all our dishes. 
+        Our commitment to supporting local farmers and producers ensures that our culinary creations are of the highest quality and reflect the unique flavors of the region.
+        By sourcing locally, we not only offer delicious and nutritious meals but also contribute to the sustainability of the local community and reduce our environmental impact.
+        With each bite, you can taste the richness of our region's agriculture and the dedication of those who bring these exceptional ingredients to our kitchen.
+    </p>
+    
     <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="{% static 'images/lime-r.jpg' %}" alt="Image 1" class="img-fluid">
+                        <img src="{% static 'images/lime-r.jpg' %}" alt="Freshly harvested lime" class="img-fluid">
                     </div>
                     <div class="col-md-4">
-                        <img src="{% static 'images/chicken.jpg' %}" alt="Image 2" class="img-fluid">
+                        <img src="{% static 'images/chicken.jpg' %}" alt="Grilled chicken dish" class="img-fluid">
                     </div>
                     <div class="col-md-4">
-                        <img src="{% static 'images/habanero.jpg' %}" alt="Image 3" class="img-fluid">
+                        <img src="{% static 'images/habanero.jpg' %}" alt="Spicy habanero peppers" class="img-fluid">
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="{% static 'images/red-snapper-r.jpg' %}" alt="Image 4" class="img-fluid">
+                        <img src="{% static 'images/red-snapper-r.jpg' %}" alt="Fresh red snapper fish" class="img-fluid">
                     </div>
                     <div class="col-md-4">
-                        <img src="{% static 'images/fruit-r.jpg' %}" alt="Image 5" class="img-fluid">
+                        <img src="{% static 'images/fruit-r.jpg' %}" alt="Variety of tropical fruits" class="img-fluid">
                     </div>
                     <div class="col-md-4">
-                        <img src="{% static 'images/spices-r.jpg' %}" alt="Image 6" class="img-fluid">
+                        <img src="{% static 'images/spices-r.jpg' %}" alt="Assorted spices in bowls" class="img-fluid">
                     </div>
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev" aria-label="Previous slide">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next" aria-label="Next slide">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
 </div>
+
 <div class="divider"></div>
 <!-- Testimonial Section -->
-<div class="testimonial-section">
+<div class="testimonial-section" aria-label="Testimonials">
     <div class="container">
         <h2 class="text-center">Testimonials</h2>
         <div class="row mt-3">
             <div class="col-md-4">
                 <div class="testimonial">
-                    <img src="{% static 'images/sarah-jaine.jpg' %}" alt="Person 1" class="img-thumbnail rounded-circle">
-                    <h3>Sarah Jaine</h3>
+                    <figure>
+                        <img src="{% static 'images/sarah-jaine.jpg' %}" alt="Sarah Jaine's portrait" class="img-thumbnail rounded-circle">
+                        <figcaption><h3>Sarah Jaine</h3></figcaption>
+                    </figure>
                     <p>Street Gastro is amazing! The food is delicious and the service is top-notch. I highly recommend it!</p>
-                    <div class="rating">
+                    <div class="rating" aria-label="5 out of 5 stars">
                         <span class="star">&#9733;</span>
                         <span class="star">&#9733;</span>
                         <span class="star">&#9733;</span>
@@ -142,10 +167,12 @@
             </div>
             <div class="col-md-4">
                 <div class="testimonial">
-                    <img src="{% static 'images/jane-smith.jpg' %}" alt="Person 2" class="img-thumbnail rounded-circle">
-                    <h3>Jane Smith</h3>
+                    <figure>
+                        <img src="{% static 'images/jane-smith.jpg' %}" alt="Jane Smith's portrait" class="img-thumbnail rounded-circle">
+                        <figcaption><h3>Jane Smith</h3></figcaption>
+                    </figure>
                     <p>Street Gastro! The flavors are out of this world, and the staff is friendly and attentive.</p>
-                    <div class="rating">
+                    <div class="rating" aria-label="5 out of 5 stars">
                         <span class="star">&#9733;</span>
                         <span class="star">&#9733;</span>
                         <span class="star">&#9733;</span>
@@ -156,10 +183,12 @@
             </div>
             <div class="col-md-4">
                 <div class="testimonial">
-                    <img src="{% static 'images/mike-johnson.jpg' %}" alt="Person 3" class="img-thumbnail rounded-circle">
-                    <h3>Mike Johnson</h3>
-                    <p>I had an amazing experience at Street Gastro. The food was fresh and flavorful, and perfect ambiance.</p>
-                    <div class="rating">
+                    <figure>
+                        <img src="{% static 'images/mike-johnson.jpg' %}" alt="Mike Johnson's portrait" class="img-thumbnail rounded-circle">
+                        <figcaption><h3>Mike Johnson</h3></figcaption>
+                    </figure>
+                    <p>I had an amazing experience at Street Gastro. The food was fresh and flavorful, and the perfect ambiance.</p>
+                    <div class="rating" aria-label="4 out of 5 stars">
                         <span class="star">&#9733;</span>
                         <span class="star">&#9733;</span>
                         <span class="star">&#9733;</span>
@@ -171,6 +200,7 @@
         </div>
     </div>
 </div>
+
 
 
 {% endblock %}

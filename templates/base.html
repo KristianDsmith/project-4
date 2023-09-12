@@ -55,23 +55,24 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="hero-content">
-            <h1>Street Gastro</h1>
-            <div class="hero-subtitle">
-                <p>Street Food curated from locally sourced ingredients</p>
-            </div>
-            <div class="hero-buttons">
-                <a href="#" class="btn btn-primary btn-lg">Book a Table</a>
-                <a href="{% url 'menu' %}" class="btn btn-secondary btn-lg">Browse Menu</a>
-            </div>
+<section class="hero-section" role="banner" aria-label="Hero Banner">
+    <div class="hero-content">
+        <h1>Street Gastro</h1>
+        <div class="hero-subtitle">
+            <p>Street Food curated from locally sourced ingredients</p>
+        </div>
+        <div class="hero-buttons">
+            <a href="#" role="button" class="btn btn-primary btn-lg" aria-label="Book a table at Street Gastro">Book a Table</a>
+            <a href="{% url 'menu' %}" role="button" class="btn btn-secondary btn-lg" aria-label="Browse the menu of Street Gastro">Browse Menu</a>
         </div>
     </div>
-    <!-- Content block, which will be overridden in child templates -->
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
+</section>
+
+<!-- Content block, which will be overridden in child templates -->
+<main id="main-content" class="container">
+    {% block content %}
+    {% endblock %}
+</main>
 
 
 
@@ -91,22 +92,23 @@
                     <h5>Follow Us</h5>
                     <ul class="list-inline social-icons">
                         <li class="list-inline-item">
-                            <a href="#" target="_blank" class="footer-icon" style="color: white;">
+                            <a href="#" target="_blank" class="footer-icon" aria-label="Follow us on Facebook" style="color: white;">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#" target="_blank" class="footer-icon" style="color: white;">
+                            <a href="#" target="_blank" class="footer-icon" aria-label="Follow us on Twitter" style="color: white;">
                                 <i class="fab fa-twitter"></i>
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#" target="_blank" class="footer-icon" style="color: white;">
+                            <a href="#" target="_blank" class="footer-icon" aria-label="Follow us on Instagram" style="color: white;">
                                 <i class="fab fa-instagram"></i>
                             </a>
                         </li>
                     </ul>
                 </div>
+                
                 <!-- Column 3: Navigation and Book Button -->
                 <div class="col-12 col-md-4 text-end">
                     <h5>Navigation</h5>

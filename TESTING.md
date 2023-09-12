@@ -84,48 +84,11 @@ Django unit testing is a framework that allows you to write tests for your Djang
 - No errors or warnings were found when passing through the official [W3C (Jigsaw)](https://jigsaw.w3.org/css-validator/#validate_by_uri) validator except for the warnings about the use of css root variables and webkit css rules for the box-shadow. However, css code works perfectly on various devices.
 
 
-### JS Validation:
-
-- [JS Validation Report. base.js](documentation/validation/js_validation_base_js.png)
-- [JS Validation Report. chatRoom.js](documentation/validation/js_validation_chatroom.png)
-- [JS Validation Report. notifications.js](documentation/validation/js_validation_notifications.png)
-
-- No errors or warning messages were found when passing through the official [JSHint](https://www.jshint.com/) validator. However, the validator complained about undefined variables that come from JS libraries.
-
-### Python Validation:
-- [Full Python Validation Report](documentation/validation/python_validation.pdf)
-
-- No errors were found when the code was passed through Valentin Bryukhanov's [online validation tool](http://pep8online.com/). According to the reports, the code is [Pep 8-compliant](https://legacy.python.org/dev/peps/pep-0008/). This checking was done manually by copying python code from all the files and pasting it into the validator.
-
 ---
 ## Lighthouse Report
 
-- [Full Lighthouse Report](documentation/validation/lighthouse_report.pdf)
+- [Full Lighthouse Report](static/images/lighthouse.png)
 
 - Lighthouse report was generated for every pages, using Chrome Dev Tools.
 
---- 
-
-## Compatibility
-
-Testing was conducted on the following browsers;
-
-- Brave;
-
-[Compatibility Report](documentation/compatibility/compatibility_brave.png)
-
-- Chrome;
-
-[Compatibility Report](documentation/compatibility/compatibility_chrome.png)
-
-- Firefox;
-
-[Compatibility Report](documentation/compatibility/compatibility_firefox.png)
-
 ---
-
-# Responsiveness
-
-The responsiveness was checked manually by using devtools (Chrome) throughout the whole development. It was also checked with [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en) Chrome extension.
-
-[Responsiveness Report](documentation/responsiveness/responsiveness.pdf)

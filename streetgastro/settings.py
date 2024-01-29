@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 if os.path.isfile('env.py'):
     import env
 import cloudinary
-import cloudinary_storage
+# import cloudinary_storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +39,7 @@ DEBUG = True
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-ALLOWED_HOSTS = ['8000-kristiandsmith-project-4-jxs5td264h.us2.codeanyapp.com',
+ALLOWED_HOSTS = ['8000-kristiandsmith-project-4-i5bbuitjy6.us2.codeanyapp.com',
                  'street-gastro-13c2e136005c.herokuapp.com', 'localhost']
 
 
@@ -207,12 +207,5 @@ Q_CLUSTER = {
     'orm': 'default',  # Use Django ORM + database for task queue
 }
 
-CELERY_BROKER_URL = 'django-db://'  
-CELERY_RESULT_BACKEND = 'django-db'  
-
-
-
-
-
-
-
+CELERY_BROKER_URL = 'django-db://'
+CELERY_RESULT_BACKEND = 'django-db'

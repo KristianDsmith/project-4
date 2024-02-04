@@ -209,3 +209,5 @@ Q_CLUSTER = {
 
 CELERY_BROKER_URL = 'django-db://'
 CELERY_RESULT_BACKEND = 'django-db'
+
+LOGIN_REDIRECT_URL = '/admin/'

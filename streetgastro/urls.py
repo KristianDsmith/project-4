@@ -14,37 +14,34 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from booking import views 
-from django.contrib.auth.views import LoginView, LogoutView
-from task_manager.views import view_tasks 
+from django.urls import path, include
+from booking import views
+from django.contrib.auth import views as auth_views
+from booking.views import book_table
+from booking.views import thank_you_view
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', views.homepage, name='homepage'),
     path('about/', views.about, name='about'),
-    path('book/', views.book, name='book'),
+    path('book/', book_table, name='book'),
     path('contact/', views.contact, name='contact'),
     path('menu/', views.menu_view, name='menu'),
-    path('menu_item_detail/<int:menu_item_id>/', views.menu_item_detail, name='menu_item_detail'),
+    path('menu_item_detail/<int:menu_item_id>/',
+         views.menu_item_detail, name='menu_item_detail'),
     path('submit_rating/', views.submit_rating, name='submit_rating'),
-    path('edit_booking/<int:booking_id>/', views.edit_booking, name='edit_booking'),
-    path('edit_confirmation/<int:booking_id>/', views.edit_confirmation, name='edit_confirmation'),
-    path('confirm_cancel/<int:booking_id>/', views.confirm_cancel, name='confirm_cancel'),
-    path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
-    path('cancellation_confirmation/', views.cancellation_confirmation, name='cancellation_confirmation'),
-    path('task_manager/tasks/', view_tasks, name='task_manager_tasks'),
-
+    path('edit_booking/<int:booking_id>/',
+         views.edit_booking, name='edit_booking'),
+    path('edit_confirmation/<int:booking_id>/',
+         views.edit_confirmation, name='edit_confirmation'),
+    path('confirm_cancel/<int:booking_id>/',
+         views.confirm_cancel, name='confirm_cancel'),
+    path('cancel_booking/<int:booking_id>/',
+         views.cancel_booking, name='cancel_booking'),
+    path('cancellation_confirmation/', views.cancellation_confirmation,
+         name='cancellation_confirmation'),
+    path('admin-login/', auth_views.LoginView.as_view(), name='admin-login'),
+    path('thank-you/', thank_you_view, name='thank_you_url'),
 ]
-
-
-
-
-
-    
-
-
-
-
-
-

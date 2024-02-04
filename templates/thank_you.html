@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="thank-you-container">
-        <h1 class="thank-you-heading">Thank You for Booking</h1>
-        <p class="thank-you-message">Your reservation has been successfully submitted. We look forward to serving you!</p>
-        <p>A confirmation email has been sent to your email address.</p>
-        <p>Your reservation details:</p>
-        <ul>
-            <li>Date: {{ booking.date }}</li>
-            <li>Time: {{ booking.time }}</li>
-            <li>Number of guests: {{ booking.number_of_guests }}</li>
-        </ul>
-        <a href="{% url 'homepage' %}" class="btn btn-primary">Go to Homepage</a>
-    </div>
+<div class="thank-you-container">
+    <h1 class="thank-you-heading">Thank You for Booking</h1>
+    <p class="thank-you-message">Your reservation has been successfully submitted. We look forward to serving you!</p>
+    <p>A confirmation email has been sent to your email address.</p>
+    <p>Your reservation details:</p>
+    <ul>
+        <li>Date: {{ date }}</li>
+        <li>Time: {{ time }}</li>
+        <li>Number of guests: {{ number_of_guests }}</li>
+    </ul>
+    <a href="{% url 'homepage' %}" class="btn btn-primary">Go to Homepage</a>
+</div>
 {% endblock %}

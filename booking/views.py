@@ -1,35 +1,27 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from django.urls import reverse_lazy
 from django.contrib import messages
-from django_q.tasks import async_task
-from django.db.models import Avg
 from .models import MenuItem, DietaryPreference, Rating, Booking
-from django.views.generic.edit import CreateView
-import json
-from booking.models import Booking
-from .forms import BookingForm 
-from django.conf import settings
 from django.core.mail import send_mail
+from django.conf import settings
+import json
 
-
-
-
-
+# Other imports...
 
 
 def homepage(request):
-    
-    bookings = Booking.objects.all()  
-    
+
+    bookings = Booking.objects.all()
+
     context = {
-        'bookings': bookings,  
+        'bookings': bookings,
     }
     return render(request, 'index.html', context)
 
 
 def about(request):
     return render(request, 'about.html')
+
 
 def book(request):
     return render(request, 'book.html')
@@ -44,13 +36,14 @@ def menu_view(request):
 
     menu_items = MenuItem.objects.all()
     if dietary_preference_id:
-        menu_items = menu_items.filter(dietary_preference_id=dietary_preference_id)
+        menu_items = menu_items.filter(
+            dietary_preference_id=dietary_preference_id)
 
     dietary_preferences = DietaryPreference.objects.all()
-    
+
     for item in menu_items:
-        ratings = Rating.objects.filter(menu_item=item)  
-        average_rating = ratings.aggregate(Avg('rating'))['rating__avg']  
+        ratings = Rating.objects.filter(menu_item=item)
+        average_rating = ratings.aggregate(Avg('rating'))['rating__avg']
         item.average_rating = average_rating if average_rating is not None else 0
 
     context = {
@@ -70,10 +63,13 @@ def submit_rating(request):
 
         try:
             menu_item = MenuItem.objects.get(pk=menu_item_id)
-            new_rating = Rating.objects.create(menu_item=menu_item, rating=rating_value)
-            new_average_rating = menu_item.ratings.all().aggregate(Avg('rating'))['rating__avg'] 
+            new_rating = Rating.objects.create(
+                menu_item=menu_item, rating=rating_value)
+            new_average_rating = menu_item.ratings.all().aggregate(Avg('rating'))[
+                'rating__avg']
 
-            print(f"New average rating for menu item {menu_item_id}: {new_average_rating}")  
+            print(
+                f"New average rating for menu item {menu_item_id}: {new_average_rating}")
 
             return JsonResponse({"average_rating": new_average_rating}, status=200)
         except MenuItem.DoesNotExist:
@@ -94,30 +90,40 @@ def menu_item_detail(request, menu_item_id):
     return render(request, 'menu_item_detail.html', context)
 
 
-def book(request):
+def book_table(request):
     if request.method == 'POST':
-        print(request.POST)  
+        # Extracting form data
         name = request.POST.get('name')
         email = request.POST.get('email')
         date = request.POST.get('date')
         time = request.POST.get('time')
         number_of_guests = request.POST.get('number_of_guests')
-        
+
+        # Creating the booking
         booking = Booking.objects.create(
             name=name,
             email=email,
             date=date,
             time=time,
-            number_of_guests=number_of_guests
+            number_of_guests=number_of_guests,
+            user=request.user if request.user.is_authenticated else None
         )
-        
-        # Send confirmation email
-        send_confirmation_email(email, name)
-        
-        return render(request, 'thank_you.html')
-    
-    return render(request, 'index.html')
 
+        # Prepare the context with booking details
+        context = {
+            'name': name,
+            'email': email,
+            'date': date,
+            'time': time,
+            'number_of_guests': number_of_guests
+        }
+
+        # Render the 'Thank You' page with the booking details
+        return render(request, 'thank_you.html', context)
+
+    # If not a POST request, or if any data is missing, redirect back or handle as needed
+    # Redirect to the booking form or an appropriate URL
+    return redirect('book')
 
 
 def edit_booking(request, booking_id=None):
@@ -128,46 +134,38 @@ def edit_booking(request, booking_id=None):
         if 'search_email' in request.POST:
             email = request.POST.get('email')
             bookings = Booking.objects.filter(email=email)
-            
+
             if not bookings.exists():
                 messages.error(request, "No bookings found for this email")
                 return render(request, 'edit_booking.html', {'bookings': None})
-        
+
         elif 'select_booking' in request.POST:
             selected_booking_id = request.POST.get('selected_booking_id')
             selected_booking = Booking.objects.get(id=selected_booking_id)
-        
+
         elif 'edit_booking' in request.POST:
             selected_booking_id = request.POST.get('booking_id')
             selected_booking = Booking.objects.get(id=selected_booking_id)
-            
-            
+
             name = request.POST.get('name')
             email = request.POST.get('email')
             date = request.POST.get('date')
             time = request.POST.get('time')
-            
-            
+
             if not name or not email or not date or not time:
                 messages.error(request, 'All fields are required.')
                 return render(request, 'edit_booking.html', {'selected_booking': selected_booking})
-            
-            
+
             selected_booking.name = name
             selected_booking.email = email
             selected_booking.date = date
             selected_booking.time = time
             selected_booking.save()
-            
-            
+
             messages.success(request, 'Booking updated successfully.')
             return redirect('edit_confirmation', booking_id=selected_booking_id)
 
     return render(request, 'edit_booking.html', {'bookings': bookings, 'selected_booking': selected_booking})
-
-
-
-
 
 
 def cancel_booking(request, booking_id=None):
@@ -178,7 +176,7 @@ def cancel_booking(request, booking_id=None):
     if 'search_email' in request.POST:
         email = request.POST.get('email', '')
         bookings = Booking.objects.filter(email=email)
-        
+
         if not bookings.exists():
             messages.error(request, 'No bookings found for this email.')
         elif bookings.count() == 1:
@@ -187,11 +185,12 @@ def cancel_booking(request, booking_id=None):
     elif 'confirm_cancel' in request.POST:
         booking_id = request.POST.get('booking_id', '')
         booking = Booking.objects.get(id=booking_id)
-        booking.delete()  
-        
-        messages.success(request, 'Your booking has been successfully canceled.')
-        
-        return redirect('cancellation_confirmation')  
+        booking.delete()
+
+        messages.success(
+            request, 'Your booking has been successfully canceled.')
+
+        return redirect('cancellation_confirmation')
 
     return render(request, 'cancel_booking.html', {'bookings': bookings, 'booking': booking})
 
@@ -205,18 +204,19 @@ def confirm_cancel(request, booking_id):
     if request.method == 'POST':
         booking.canceled = True
         booking.save()
-        messages.success(request, 'Your booking has been successfully canceled.')
+        messages.success(
+            request, 'Your booking has been successfully canceled.')
         return redirect('homepage')
-        
+
     return render(request, 'confirm_cancel.html', {'booking': booking})
 
 
 def cancellation_confirmation(request):
     return render(request, 'cancellation_confirmation.html')
 
+
 def edit_confirmation(request, booking_id):
     return render(request, 'edit_confirmation.html', {'booking_id': booking_id})
-
 
 
 def send_confirmation_email(to_email, username):
@@ -227,30 +227,5 @@ def send_confirmation_email(to_email, username):
     send_mail(subject, message, email_from, recipient_list)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def thank_you_view(request):
+    return render(request, 'thank_you.html')

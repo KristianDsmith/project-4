@@ -14,7 +14,6 @@ import sys
 from pathlib import Path
 import os
 import dj_database_url
-from dotenv import load_dotenv
 
 if os.path.isfile('env.py'):
     import env
@@ -25,7 +24,6 @@ import cloudinary
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 env_file = os.path.join(BASE_DIR, '.env')
-load_dotenv(env_file)
 
 
 # Quick-start development settings - unsuitable for production

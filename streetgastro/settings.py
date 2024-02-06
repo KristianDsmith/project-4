@@ -38,7 +38,7 @@ DEBUG = True
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = ['8000-kristiandsmith-project-4-i5bbuitjy6.us2.codeanyapp.com',
-                 'street-gastro-13c2e136005c.herokuapp.com', 'localhost']
+                 'street-gastro-13c2e136005c.herokuapp.com', 'localhost', '8000-kristiandsmith-project4-q9z2wyb70xg.ws-eu108.gitpod.io']
 
 
 # Application definition
